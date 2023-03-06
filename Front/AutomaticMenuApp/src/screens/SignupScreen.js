@@ -1,9 +1,12 @@
+import React, { useState } from 'react'
+import { View, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
-import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image, ScrollView, FlatList } from 'react-native'
+
 import { auth } from '../../firebase'
+
 import { Formik, useField } from 'formik'
 import { loginValidationSchema } from '../validationSchemas/loginValidation'
+
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
 import StyledIcon  from '../styles/StyledIcon'
@@ -37,30 +40,30 @@ const SignUpScreen = () => {
   const [select, setSelect] = useState(userData)
   
   const handleOnPress = (item) => {
-    console.log('item: '+item)
-    const newItem = select.map((pan) => {
-      console.log('newItem1: '+newItem)
-      pan.arg.map((val) => {
-        console.log('item name '+item.name+' val name '+val.name)
-        console.log('category '+pan.categoryName)
-        console.log('selected ' +val.selected)
+    // console.log('item: '+item)
+    const newItem = select.map((dad) => {
+      // console.log('newItem1: '+newItem)
+      dad.arg.map((val) => {
+        // console.log('item name '+item.name+' val name '+val.name)
+        // console.log('category '+dad.categoryName)
+        // console.log('selected ' +val.selected)
         if(val.selected) {
           val.selected = !val.selected
         }
         if(val.id===item.id) {
-          console.log('is the same id')
+          // console.log('is the same id')
           return {...val, selected : !val.selected}
         }
         else {
-          console.log('is nothing')
+          // console.log('is nothing')
           return val
         }
       })
       console.log('')
     })
-    console.log('select: '+select)
-    //console.log('newItem2: '+[{newItem}, {newItem}, {newItem}])
-    //setSelect([...select, [{newItem}, {newItem}, {newItem}]])
+    // console.log('select: '+select)
+    //console.log('newItem2: '+{newItem})
+    //setSelect([...select, {newItem})
   }
 
   const FormikInputValue = ({name, ...props}) => {

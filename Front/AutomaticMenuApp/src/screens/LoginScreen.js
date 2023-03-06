@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image, ScrollView } from 'react-native'
+import React, { useState } from 'react'
+import { View, ScrollView } from 'react-native'
 import { auth } from '../../firebase'
 import { Formik, useField } from 'formik'
 import { loginValidationSchema } from '../validationSchemas/loginValidation'
