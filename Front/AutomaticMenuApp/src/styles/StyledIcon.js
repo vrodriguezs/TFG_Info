@@ -3,21 +3,22 @@ import { StyleSheet, Image } from 'react-native'
 
 const styles = StyleSheet.create({
     logo: {
-      width: 200,
-      height: 200,
-      alignSelf: 'center',
-      marginTop: 40
+      width: 777/3,
+      height: 713/3,
+      marginVertical: 25,
+      alignSelf: 'center'
     },
-    back: {
-      width: 30,
-      height: 30
-    },
+    logoWelcome: {
+      width: 777/3,
+      height: 713/3,
+      alignSelf: 'center'
+    }
 })
   
-const StyledIcon = ({style={}, logo, back, ...props}) => {
+const StyledIcon = ({style={}, logo, logoWelcome,...props}) => {
   const icon = [
     logo && styles.logo,
-    back && styles.back,
+    logoWelcome && styles.logoWelcome,
     style
   ]
   return <Image style={icon} {...props}/>

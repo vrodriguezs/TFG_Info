@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.text
     },
+    button: {
+        fontSize: 20,
+        color: colors.primary
+    },
     bold: {
         fontWeight: 'bold'
     },
@@ -16,33 +20,35 @@ const styles = StyleSheet.create({
     color: {
         color: colors.action
     },
-    error: {
-        color: colors.error,
-        fontSize: 14,
-        marginTop: -19
+    colorlight: {
+        color: colors.actionLight
     },
-    appName: {
-        fontSize: 40,
-        color: colors.action,
-        alignSelf: 'center',
-        marginBottom: 20
+    error: {
+        fontSize: 18,
+        marginTop: -10,
+        color: colors.error
     },
     label: {
         textAlign: 'left',
         paddingBottom: 10
     },
+    welcome: {
+        textAlign: 'right',
+        paddingBottom: 10
+    }
 })
   
-export default function StyledTextInput ({children, bold, small, color, error, appName, 
-    label}) {
+export default function StyledTextInput ({children, button, bold, small, color, colorlight, error, label, welcome}) {
   const textStyles = [
     styles.text,
+    button && styles.button,
     bold && styles.bold,
     small && styles.small,
     color && styles.color,
+    colorlight && styles.colorlight,
     error && styles.error,
-    appName && styles.appName,
     label && styles.label,
+    welcome && styles.welcome,
   ]
   return (
     <Text style={textStyles}>

@@ -16,7 +16,7 @@ export const userData = [
       ]
     },
     {
-      id: 1002,
+      id: "1002",
       categoryName: "Exercise Routine",
       arg: [
         {
@@ -63,3 +63,28 @@ export const userData = [
       ]
     }
   ]
+
+export const ageDropdownData = [
+  { label: '10 - 14', value: '1' },
+  { label: '15 - 19', value: '2' },
+  { label: '20 - 24', value: '3' },
+  { label: '25 - 29', value: '4' },
+  { label: '30 - 39', value: '5' },
+  { label: '40 - 49', value: '6' },
+  { label: '50 - 59', value: '7' },
+  { label: '60 - 69', value: '8' },
+  { label: '> 69', value: '9' },
+];
+
+export const weightDropdownData = [
+  { label: '< 20kg', value: '1' },
+  { label: '20 - 29kg', value: '2' },
+  { label: '30 - 39kg', value: '3' },
+  { label: '40 - 49kg', value: '4' },
+  { label: '50 - 59kg', value: '5' },
+  { label: '60 - 69kg', value: '6' },
+  { label: '70 - 79kg', value: '7' },
+  { label: '80 - 89kg', value: '8' },
+  { label: '90 - 99kg', value: '9' },
+  { label: '> 99kg', value: '10' },
+];

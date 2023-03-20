@@ -13,18 +13,36 @@ const styles = StyleSheet.create({
     },
     textInputBox: {
       backgroundColor: colors.secondary,
-      borderWidth: 0.5,
-      borderRadius: 15,
-      borderColor: colors.secondary
+      color: colors.text,
+      padding: 15,
+      paddingHorizontal: 55,
+      borderRadius: 5,
+      fontSize: 20,
+      height: 60,
+      marginVertical: 3,
+      marginBottom: 10
+    },
+    textInputBoxSignUp: {
+      backgroundColor: colors.secondary,
+      color: colors.text,
+      padding: 15,
+      paddingHorizontal: 55,
+      borderRadius: 5,
+      fontSize: 20,
+      height: 60,
+      marginVertical: 3,
+      marginBottom: 5
     },
     textInputLine: {
       paddingHorizontal: -50,
-      borderBottomWidth: 4,
-      borderBottomColor: colors.secondary
-    }
+      borderBottomWidth: 3,
+      borderBottomColor: colors.secondary,
+      color: colors.text
+    },
 })
   
-const StyledTextInput = ({style={}, textInput, errorContainer, textInputBox, textInputLine, ...props}) => {
+const StyledTextInput = ({style={}, textInput, errorContainer, textInputBox, 
+  textInputLine, ...props}) => {
   const textInputStyles = [
     styles.textInput,
     errorContainer && styles.errorContainer,
