@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, FlatList, StyleSheet, Text } from 'react-native'
+import { View, FlatList, StyleSheet, Text, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -19,7 +19,7 @@ import { userData, ageDropdownData, weightDropdownData } from '../../FormsData'
 
 import { colors } from '../../Colors'
 
-import { Octicons } from '@expo/vector-icons'
+import { Octicons, AntDesign } from '@expo/vector-icons'
 
 const SignUpScreen = () => {
   const navigation = useNavigation()
@@ -76,6 +76,18 @@ const SignUpScreen = () => {
 
     //actualitzo tota la taula
     setUserDataSelect(userStateCopy)
+  }
+
+  const showText = (item) => {
+    return(!item.selected)
+  }
+
+  const showGenreIcon = (item) => {
+    return(item.name === "Woman" || item.name === "Man") && item.selected
+  }
+
+  const showOthersIcon = (item) => {
+    return(item.name != "Woman" && item.name != "Man") && item.selected
   }
 
   const FormikInputValue = ({name, labelTitle, icon, isPassword, hidePassword, setHidePassword, ...props}) => {
@@ -156,8 +168,10 @@ const SignUpScreen = () => {
                       <View>
                         <StyledButton userStats widthBig style={{borderColor: item.selected ? colors.actionLight : colors.secondary}} 
                         onPress = {() => handleOnPress(item)}>
-                          <StyledText>{item.name}</StyledText>
+                          {showText(item) ? <StyledText>{item.name}</StyledText> : <StyledText></StyledText>}
                         </StyledButton>
+                        {showGenreIcon(item) ? <AntDesign name={item.image} size={40} color={colors.actionLight} style={{bottom: 60, left: 60}}/> : ""}
+                        {showOthersIcon(item) ? <StyledIcon buttonIcon source={item.image}/> : <StyledIcon/>}
                       </View>
                     )}
                     keyExtractor={(item) => item.id}
@@ -189,6 +203,9 @@ const SignUpScreen = () => {
                         setAge(item.value);
                         setAgeIsFocus(false);
                       }}
+                      showsVerticalScrollIndicator={false}
+                      activeColor={colors.primary}
+                      containerStyle={{backgroundColor: colors.secondary, borderRadius: 15}}
                       renderItem = {item => (<Text style={styledDropdownStyles.textStyle}>{item.label}</Text>)}
                     />
                   </StyledContainer>
@@ -212,7 +229,9 @@ const SignUpScreen = () => {
                         setWeight(item.value);
                         setWeightIsFocus(false);
                       }}
-                      o
+                      showsVerticalScrollIndicator={false}
+                      activeColor={colors.primary}
+                      containerStyle={{backgroundColor: colors.secondary, borderRadius: 15}}
                       renderItem = {item => (<Text style={styledDropdownStyles.textStyle}>{item.label}</Text>)}
                     />
                   </StyledContainer>

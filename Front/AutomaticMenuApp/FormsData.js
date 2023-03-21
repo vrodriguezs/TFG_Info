@@ -1,64 +1,73 @@
 export const userData = [
     {
-      id: "1001",
+      id: "10",
       categoryName: "Genre",
       arg: [
         {
-            id: "2001",
+            id: "11",
             selected: true,
-            name: "Female",
+            name: "Woman",
+            image: "woman"
         },
         {
-            id: "2002",
+            id: "12",
             selected: false,
-            name: "Male",
+            name: "Man",
+            image: "man"
         }
       ]
     },
     {
-      id: "1002",
+      id: "20",
       categoryName: "Exercise Routine",
       arg: [
         {
-            id: "2005",
+            id: "21",
             selected: false,
             name: "Never",
+            image: require('./src/assets/icons/exerciseRoutineNever.png')
         },
         {
-            id: "2006",
+            id: "22",
             selected: true,
             name: "Sometimes",
+            image: require('./src/assets/icons/exerciseRoutineSometimes.png')
         },
         {
-            id: "2007",
+            id: "23",
             selected: false,
             name: "Often",
+            image: require('./src/assets/icons/exerciseRoutineOften.png')
         },
         {
-            id: "2008",
+            id: "24",
             selected: false,
             name: "Daily",
+            image: require('./src/assets/icons/exerciseRoutineDaily.png')
         }
       ]
     },
     {
-      id: "1002",
+      id: "30",
       categoryName: "Exercise Intensity",
       arg: [
         {
-            id: "2009",
+            id: "31",
             selected: false,
             name: "Low",
+            image: require('./src/assets/icons/exerciseRoutineNever.png')
         },
         {
-            id: "2010",
+            id: "32",
             selected: true,
             name: "Mid",
+            image: require('./src/assets/icons/exerciseRoutineNever.png')
         },
         {
-            id: "2011",
+            id: "33",
             selected: false,
             name: "High",
+            image: require('./src/assets/icons/exerciseRoutineNever.png')
         }
       ]
     }
