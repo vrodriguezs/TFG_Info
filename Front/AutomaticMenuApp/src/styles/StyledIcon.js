@@ -20,14 +20,20 @@ const styles = StyleSheet.create({
       bottom: 60,
       left: 60,
       marginBottom: -40
+    },
+    buttonIconPreferences: {
+      width: 40,
+      height: 40,
+      marginTop: 10
     }
 })
   
-const StyledIcon = ({style={}, logo, logoWelcome, buttonIcon, ...props}) => {
+const StyledIcon = ({style={}, logo, logoWelcome, buttonIcon, buttonIconPreferences, ...props}) => {
   const icon = [
     logo && styles.logo,
     logoWelcome && styles.logoWelcome,
     buttonIcon && styles.buttonIcon,
+    buttonIconPreferences && styles.buttonIconPreferences,
     style
   ]
   return <Image style={icon} {...props}/>

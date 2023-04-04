@@ -18,6 +18,7 @@ const Tab = createBottomTabNavigator()
 function HomeTabScreen() {
     return (
         <Tab.Navigator
+            initialRouteName='Menu'
             screenOptions = {{
                 headerShown: false,
                 tabBarShowLabel: false,

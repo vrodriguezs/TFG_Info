@@ -43,13 +43,15 @@ const SignUpScreen = () => {
   const [hidePassword, setHidePassword] = useState(true)
 
   const handleSignUp = (email, password) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Signed up with:', user.email);
-      })
-      .catch(error => alert(error.message))
+    navigation.navigate('Preferences')
+    // auth
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(userCredentials => {
+    //     const user = userCredentials.user;
+    //     console.log('Signed up with:', user.email);
+    //     navigation.navigate('Preferences')
+    //   })
+    //   .catch(error => alert(error.message))
   }
   
   const handleOnPress = (item) => {
