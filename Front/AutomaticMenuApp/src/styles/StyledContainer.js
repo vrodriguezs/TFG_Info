@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { colors } from '../../Colors'
 
 const styles = StyleSheet.create({
@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
     screenContainer: {
       flex: 1,
       padding: 35,
-      backgroundColor: colors.primary
+      backgroundColor: colors.primary,
     },
-    screenAppContainer: {
+    screenMenuContainer: {
       flex: 1,
       padding: 35,
-      justifyContent: 'center',
+      paddingBottom: 110,
       backgroundColor: colors.primary
     },
     innerContainer: {
@@ -34,7 +34,11 @@ const styles = StyleSheet.create({
       paddingBottom: 30
     },
     userStats: {
-      paddingTop: 30
+      paddingTop: 30,
+      paddingBottom: 15
+    },
+    userStatsProfile: {
+      paddingVertical: 10
     },
     flexRow: {
       flexDirection: 'row',
@@ -58,24 +62,80 @@ const styles = StyleSheet.create({
     },
     row: {
       flexDirection: 'row',
-    }
-})
-
-const StyledContainer = ({style={}, flex, screenContainer, screenAppContainer, innerContainer, 
-  newAccount, userStatsLogin, userStats, flexRow, width50, leftIcon, welcome, row, ...props}) => {
+      alignItems: 'center'
+    },
+    spaceBetween: {
+      justifyContent: 'space-between',
+      flexWrap: 'wrap'
+    },
+    flexStart: {
+      justifyContent: 'flex-start',
+      flexWrap: 'wrap'
+    },
+    underline: {
+      borderWidth: 0,
+        borderBottomWidth: 2,
+        borderBottomColor: colors.divider,
+        paddingTop: 5
+      },
+      page: {
+        flexDirection: 'row',
+        width: Dimensions.get('screen').width
+      },
+      meal: {
+        paddingTop: 20
+      },
+      center: {
+        alignItems: 'center'
+      },
+      modalReceipsBack: {
+        flex: 1,
+        backgroundColor: colors.text,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      modalReceipsCont: {
+        width: '90%',
+        backgroundColor: colors.primary,
+        borderRadius: 15,
+        padding: 10
+      },
+      modalReceips: {
+        paddingTop: 15
+      },
+      tab: {
+        paddingLeft: 15
+      },
+    })
+    
+    const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer, 
+      newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, leftIcon, welcome, 
+  row, spaceBetween, flexStart, underline, page, meal, center, modalReceipsBack, modalReceipsCont, modalReceips, 
+  tab, ...props}) => {
   const containerStyles = [
     flex && styles.flex,
     screenContainer && styles.screenContainer,
-    screenAppContainer && styles.screenAppContainer,
+    screenMenuContainer && styles.screenMenuContainer,
     innerContainer && styles.innerContainer,
     newAccount && styles.newAccount,
     userStatsLogin && styles.userStatsLogin,
     userStats && styles.userStats,
+    userStatsProfile && styles.userStatsProfile,
     flexRow && styles.flexRow,
     width50 && styles.width50,
     leftIcon && styles.leftIcon,
     welcome && styles.welcome,
     row && styles.row,
+    spaceBetween && styles.spaceBetween,
+    flexStart && styles.flexStart,
+    underline && styles.underline,
+    page && styles.page,
+    meal && styles.meal,
+    center && styles.center,
+    modalReceipsBack && styles.modalReceipsBack,
+    modalReceipsCont && styles.modalReceipsCont,
+    modalReceips && styles.modalReceips,
+    tab && styles.tab,
     style
   ]
   return <View style={containerStyles} {...props}/>

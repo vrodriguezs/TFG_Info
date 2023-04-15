@@ -4,7 +4,7 @@ import { colors } from '../../Colors'
 
 const styles = StyleSheet.create({
     textInput: {
-      fontSize: 20,
+      fontSize: 16,
       paddingHorizontal: 50,
       paddingVertical: 15,
     },
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
       padding: 15,
       paddingHorizontal: 55,
       borderRadius: 5,
-      fontSize: 20,
+      fontSize: 16,
       height: 60,
       marginVertical: 3,
       marginBottom: 10
@@ -28,13 +28,14 @@ const styles = StyleSheet.create({
       padding: 15,
       paddingHorizontal: 55,
       borderRadius: 5,
-      fontSize: 20,
+      fontSize: 16,
       height: 60,
       marginVertical: 3,
       marginBottom: 5
     },
     textInputLine: {
       paddingHorizontal: -50,
+      paddingBottom: 0,
       borderBottomWidth: 3,
       borderBottomColor: colors.secondary,
       color: colors.text

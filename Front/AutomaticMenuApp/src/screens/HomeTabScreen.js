@@ -27,7 +27,7 @@ function HomeTabScreen() {
                     bottom: 20,
                     left: 20,
                     right: 20,
-                    backgroundColor: colors.primary,
+                    backgroundColor: colors.secondary,
                     borderRadius: 15,
                     height: 70,
                     ...StyledShadow.shadow
@@ -41,7 +41,7 @@ function HomeTabScreen() {
                     tabBarIcon: ({focused}) => (
                         <Octicons name="person" size={focused ? 30 : 24}
                             style={{
-                                color: focused ? colors.action : colors.text
+                                color: focused ? colors.actionLight : colors.text
                             }}
                         />
                     )
@@ -54,7 +54,7 @@ function HomeTabScreen() {
                     tabBarIcon: ({focused}) => (
                         <Octicons name="calendar" size={focused ? 30 : 24}
                             style={{
-                                color: focused ? colors.action : colors.text
+                                color: focused ? colors.actionLight : colors.text
                             }}
                         />
                     )
@@ -67,7 +67,7 @@ function HomeTabScreen() {
                     tabBarIcon: ({focused}) => (
                         <Octicons name= "book" size={focused ? 30 : 24}
                             style={{
-                                color: focused ? colors.action : colors.text
+                                color: focused ? colors.actionLight : colors.text
                             }}
                         />
                     )

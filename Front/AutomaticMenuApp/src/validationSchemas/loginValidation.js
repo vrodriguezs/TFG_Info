@@ -9,5 +9,11 @@ export const loginValidationSchema = yup.object().shape({
         .string()
         .min(5, 'Ok, write a bit more')
         .max(20, 'Calm down, too many characters')
+        .required('Password is required'),
+    passwordConfirmation: yup
+        .string()
+        .min(5, 'Ok, write a bit more')
+        .max(20, 'Calm down, too many characters')
         .required('Password is required')
+        .oneOf([yup.ref('password')], 'Passwords must match')
 })

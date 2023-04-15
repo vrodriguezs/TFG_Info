@@ -40,15 +40,21 @@ const styles = StyleSheet.create({
       padding: 15,
       margin: 10
     },
+    userPreferences: {
+      borderWidth: 3,
+      backgroundColor: colors.secondary,
+      borderRadius: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 1,
+      margin: 10
+    },
     widthBig: {
       width: 140
     },
-    widthMid: {
-      width: 110
-    },
-    widthLittle: {
-      width: 80
-    },
+    widthSmall: {
+      width: 88
+    }, //no s'usa
     rightIcon: {
       right: 15,
       top: 60,
@@ -64,23 +70,40 @@ const styles = StyleSheet.create({
     link: {
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    padding: {
+      paddingLeft: 20
+    },
+    alignRight: {
+      alignItems: 'flex-end'
+    },
+    prevDay: {
+      paddingLeft: 40
+    },
+    nextDay: {
+      paddingRight: 40
     }
   })
   
-const StyledButton = ({style={}, standard, login, signup, back, widthBig, widthMid, 
-  widthLittle, userStats, rightIcon, welcome, link, ...props}) => {
+const StyledButton = ({style={}, standard, login, signup, back, widthBig, 
+  widthSmall, userStats, userPreferences, rightIcon, welcome, link, padding, alignRight, prevDay,
+  nextDay, ...props}) => {
   const buttonStyles = [
     standard && styles.standard,
     login && styles.login,
     signup && styles.signup,
     back && styles.back,
-    widthLittle && styles.widthLittle,
-    widthMid && styles.widthMid,
     widthBig && styles.widthBig,
+    widthSmall && styles.widthSmall,
     userStats && styles.userStats,
+    userPreferences && styles.userPreferences,
     rightIcon && styles.rightIcon,
     welcome && styles.welcome,
     link && styles.link,
+    padding && styles.padding,
+    alignRight && styles.alignRight,
+    prevDay && styles.prevDay,
+    nextDay && styles.nextDay,
     style
   ]
   return <TouchableOpacity style={buttonStyles} {...props}/>

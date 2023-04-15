@@ -1,19 +1,19 @@
 export const userData = [
     {
       id: "10",
-      categoryName: "Genre",
+      categoryName: "Gender",
       arg: [
         {
             id: "11",
             selected: true,
             name: "Woman",
-            image: "woman"
+            image: require('./src/assets/icons/female.png')
         },
         {
             id: "12",
             selected: false,
             name: "Man",
-            image: "man"
+            image: require('./src/assets/icons/male.png')
         }
       ]
     },
@@ -29,13 +29,13 @@ export const userData = [
         },
         {
             id: "22",
-            selected: true,
+            selected: false,
             name: "Sometimes",
             image: require('./src/assets/icons/exerciseRoutineSometimes.png')
         },
         {
             id: "23",
-            selected: false,
+            selected: true,
             name: "Often",
             image: require('./src/assets/icons/exerciseRoutineOften.png')
         },
@@ -55,23 +55,142 @@ export const userData = [
             id: "31",
             selected: false,
             name: "Low",
-            image: require('./src/assets/icons/exerciseRoutineNever.png')
+            image: require('./src/assets/icons/exerciseIntensityLow.png')
         },
         {
             id: "32",
             selected: true,
             name: "Mid",
-            image: require('./src/assets/icons/exerciseRoutineNever.png')
+            image: require('./src/assets/icons/exerciseIntensityMid.png')
         },
         {
             id: "33",
             selected: false,
             name: "High",
-            image: require('./src/assets/icons/exerciseRoutineNever.png')
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        }
+      ]
+    },
+    {
+      id: "40",
+      categoryName: "Meals",
+      arg: [
+        {
+            id: "41",
+            selected: true,
+            name: "Breakfast",
+            image: require('./src/assets/icons/exerciseIntensityLow.png')
+        },
+        {
+            id: "42",
+            selected: false,
+            name: "Elevenses",
+            image: require('./src/assets/icons/exerciseIntensityMid.png')
+        },
+        {
+            id: "43",
+            selected: true,
+            name: "Lunch",
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        },
+        {
+            id: "44",
+            selected: true,
+            name: "Snack",
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        },
+        {
+            id: "45",
+            selected: true,
+            name: "Dinner",
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        }
+      ]
+    },
+    {
+      id: "50",
+      categoryName: "Allergies and Intolerances",
+      arg: [
+        {
+            id: "51",
+            selected: true,
+            name: "Lactose",
+            image: require('./src/assets/icons/exerciseIntensityLow.png')
+        },
+        {
+            id: "52",
+            selected: false,
+            name: "Fructose",
+            image: require('./src/assets/icons/exerciseIntensityMid.png')
+        },
+        {
+            id: "53",
+            selected: false,
+            name: "Gluten",
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        },
+        {
+            id: "54",
+            selected: false,
+            name: "Eggs",
+            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        }
+      ]
+    },
+    {
+      id: "60",
+      categoryName: "Are you vegan or vegetarian?",
+      arg: [
+        {
+            id: "61",
+            selected: false,
+            name: "Yes",
+            image: require('./src/assets/icons/exerciseIntensityLow.png')
+        },
+        {
+            id: "62",
+            selected: true,
+            name: "No",
+            image: require('./src/assets/icons/exerciseIntensityMid.png')
         }
       ]
     }
   ]
+
+export const userDataSimple = [
+{
+    id: "10",
+    categoryName: "Name",
+},
+{
+    id: "20",
+    categoryName: "Genre",
+},
+{
+    id: "30",
+    categoryName: "Exercise Routine",
+},
+{
+    id: "40",
+    categoryName: "Exercise Intensity",
+},
+{
+    id: "50",
+    categoryName: "Age",
+},
+{
+    id: "60",
+    categoryName: "Weight",
+},
+{
+    id: "80",
+    categoryName: "Email",
+},
+{
+    id: "90",
+    categoryName: "Password",
+}
+];
 
 export const ageDropdownData = [
   { label: '10 - 14', value: '1' },
@@ -107,49 +226,49 @@ export const preferencesData = [
           id: "11",
           selected: true,
           name: "Meat",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/meat.png')
       },
       {
           id: "12",
           selected: false,
           name: "Chicken",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/chicken.png')
       },
       {
           id: "13",
           selected: false,
           name: "Turkey",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/turkey.png')
       },
       {
           id: "14",
           selected: false,
           name: "Pork",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/pork.png')
       },
       {
           id: "15",
           selected: false,
           name: "Fish",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/fish.png')
       },
       {
           id: "16",
           selected: false,
           name: "Tuna",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/tuna.png')
       },
       {
           id: "17",
           selected: false,
           name: "Egg",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/egg.png')
       },
       {
           id: "18",
           selected: false,
           name: "Nuts",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
       }
     ]
   },
@@ -161,31 +280,31 @@ export const preferencesData = [
           id: "21",
           selected: false,
           name: "Bread",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Grains/bread.png')
       },
       {
           id: "22",
           selected: true,
           name: "Rice",
-          image: require('./src/assets/icons/exerciseRoutineSometimes.png')
+          image: require('./src/assets/icons/Preferences/Grains/rice.png')
       },
       {
           id: "23",
           selected: false,
           name: "Cereal",
-          image: require('./src/assets/icons/exerciseRoutineOften.png')
+          image: require('./src/assets/icons/Preferences/Grains/cereal.png')
       },
       {
           id: "24",
           selected: false,
           name: "Pasta",
-          image: require('./src/assets/icons/exerciseRoutineDaily.png')
+          image: require('./src/assets/icons/Preferences/Grains/pasta.png')
       },
       {
           id: "25",
           selected: false,
-          name: "Oats",
-          image: require('./src/assets/icons/exerciseRoutineDaily.png')
+          name: "Oat",
+          image: require('./src/assets/icons/Preferences/Grains/oat.png')
       }
     ]
   },
@@ -196,68 +315,68 @@ export const preferencesData = [
       {
           id: "31",
           selected: false,
-          name: "Fruits (tomate, berenjena, pimiento)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Fruits",
+          image: require('./src/assets/icons/Preferences/Vegetables/fruits.png')
       },
       {
           id: "32",
           selected: true,
-          name: "Bulbs (cebolla, ajo, puerro)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Bulbs",
+          image: require('./src/assets/icons/Preferences/Vegetables/bulbs.png')
       },
       {
           id: "33",
           selected: false,
-          name: "Cabbages (brocoli, repollo, lombarda, coliflor)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Cabbages",
+          image: require('./src/assets/icons/Preferences/Vegetables/cabbages.png')
       },
       {
           id: "34",
           selected: false,
-          name: "Pepo (calabacin, calabaza, pepino)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Pepo",
+          image: require('./src/assets/icons/Preferences/Vegetables/pepo.png')
       },
       {
           id: "35",
           selected: true,
-          name: "Roots (rábano, nabo, zanahoria, remolacha)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Roots",
+          image: require('./src/assets/icons/Preferences/Vegetables/roots.png')
       },
       {
           id: "36",
           selected: false,
-          name: "Leaves and stems (espinaca, acelga, lechuga, canónigos, rúcula)",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Leaves",
+          image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png')
       },
       {
           id: "37",
           selected: false,
           name: "Asparagus",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Vegetables/asparagus.png')
       },
       {
           id: "38",
           selected: true,
-          name: "Mushrooms",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Mushroom",
+          image: require('./src/assets/icons/Preferences/Vegetables/mushrooms.png')
       },
       {
           id: "39",
           selected: false,
           name: "Artichoke",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Vegetables/artichoke.png')
       },
       {
           id: "391",
           selected: false,
           name: "Corn",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Vegetables/corn.png')
       },
       {
           id: "392",
           selected: false,
-          name: "Potatoe",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Potatoes",
+          image: require('./src/assets/icons/Preferences/Vegetables/potatoes.png')
       },
     ]
   },
@@ -268,116 +387,74 @@ export const preferencesData = [
       {
           id: "41",
           selected: false,
-          name: "Apple",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Pomes",
+          image: require('./src/assets/icons/Preferences/Fruits/pomes.png')
       },
       {
           id: "42",
           selected: true,
-          name: "Pear",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Citrus",
+          image: require('./src/assets/icons/Preferences/Fruits/citrus.png')
       },
       {
           id: "43",
           selected: false,
-          name: "Banana",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Drupes",
+          image: require('./src/assets/icons/Preferences/Fruits/drupes.png')
       },
       {
           id: "44",
           selected: false,
-          name: "Orange",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Berries",
+          image: require('./src/assets/icons/Preferences/Fruits/berries.png')
       },
       {
           id: "45",
           selected: true,
-          name: "Lemon and lime",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          name: "Melons",
+          image: require('./src/assets/icons/Preferences/Fruits/melons.png')
       },
       {
           id: "46",
           selected: false,
-          name: "Peach",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "47",
-          selected: false,
-          name: "Strawberry",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "48",
-          selected: true,
-          name: "Cherry",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "49",
-          selected: false,
-          name: "Melon",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "491",
-          selected: false,
-          name: "Watermelon",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "492",
-          selected: true,
-          name: "Kiwi",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "493",
-          selected: false,
-          name: "Avocado",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
-      {
-          id: "494",
-          selected: false,
-          name: "Coconut",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
-      },
+          name: "Tropical",
+          image: require('./src/assets/icons/Preferences/Fruits/tropical.png')
+      }
     ]
   },
   {
     id: "50",
-    categoryName: "Milk and derivates",
+    categoryName: "Milk and derivatives",
     arg: [
       {
           id: "51",
           selected: false,
           name: "Milk",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/MilkAndDerivatives/milk.png')
       },
       {
           id: "52",
           selected: true,
           name: "Yogurt",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/MilkAndDerivatives/yogurt.png')
       },
       {
           id: "53",
           selected: false,
           name: "Cheese",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/MilkAndDerivatives/cheese.png')
       },
       {
           id: "54",
           selected: false,
           name: "Butter",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/MilkAndDerivatives/butter.png')
       },
       {
           id: "55",
           selected: false,
           name: "Chocolate",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/MilkAndDerivatives/chocolate.png')
       }
     ]
   },
@@ -389,31 +466,31 @@ export const preferencesData = [
           id: "61",
           selected: false,
           name: "Chickpeas",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Legumes/chickpeas.png')
       },
       {
           id: "62",
           selected: true,
           name: "Lentils",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Legumes/lentils.png')
       },
       {
           id: "63",
           selected: false,
           name: "Beans",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Legumes/beans.png')
       },
       {
           id: "64",
           selected: false,
           name: "Soybeans",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Legumes/soybeans.png')
       },
       {
           id: "65",
           selected: false,
           name: "Peas",
-          image: require('./src/assets/icons/exerciseRoutineNever.png')
+          image: require('./src/assets/icons/Preferences/Legumes/peas.png')
       }
     ]
   }

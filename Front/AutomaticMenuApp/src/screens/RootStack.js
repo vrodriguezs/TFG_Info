@@ -3,11 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './LoginScreen';
-import WelcomeScreen from './WelcomeScreen';
-import PreferencesScreen from './PreferencesScreen';
-
-import HomeTabScreen from './HomeTabScreen';
 import SignUpScreen from './SignupScreen';
+import WelcomeScreen from './WelcomeScreen';
+import PersonalDataScreen from './PersonalDataScreen';
+import PreferencesScreen from './PreferencesScreen';
+import HomeTabScreen from './HomeTabScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -21,9 +21,10 @@ function RootStack () {
                     navigationBarHidden: true,
                 }}
             >
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="LogIn" component={LoginScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
+                <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
                 <Stack.Screen name="Preferences" component={PreferencesScreen} />
                 <Stack.Screen name="Home" component={HomeTabScreen} />
             </Stack.Navigator>

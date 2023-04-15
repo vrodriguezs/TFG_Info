@@ -22,23 +22,18 @@ import { Octicons } from '@expo/vector-icons'
 const PreferencesScreen = () => {
   const navigation = useNavigation()
 
-  const initialValues = {
-    email: '',
-    password: ''
-  }
-
-  const [userName, setUserName] = useState("")
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
-  const handlePreferences = (email, password) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Done preferences with:', user.email);
-        navigation.navigate('Home')
-      })
-      .catch(error => alert(error.message))
+  const handlePreferences = () => {
+      navigation.navigate('Home')
+    // auth
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(userCredentials => {
+    //     const user = userCredentials.user;
+    //     console.log('Done preferences with:', user.email);
+    //     navigation.navigate('Home')
+    //   })
+    //   .catch(error => alert(error.message))
   }
   
   const handleOnPress = (item) => {
@@ -58,7 +53,7 @@ const PreferencesScreen = () => {
     //recorrent tot l'array, mira si el nom d l'objecte és el mateix al del botó q es clica i retorna un true o un false
     //sobrescriu l'objecte selected, x tant independentment del número d'objectes q hi hagi, sempre funcionarà, pq
     //setejarà a true si el nom coincideix i a false si no
-    newItemCat = {...newItemCat, arg: newItemCat.arg.map((i) => ({...i, selected: i.name === item.name}))}
+    newItemCat = {...newItemCat, arg: newItemCat.arg.map((i) => ({...i, selected: !((i.selected === false && i.name != item.name) || (i.name === item.name && i.selected === true))}))}
 
     //actualitzo el contingut d newItemCat sobre userStateCopy amb el q hi ha a l'índex foundIndexItemCat
     userStateCopy[foundIndexItemCat] = newItemCat
@@ -68,72 +63,63 @@ const PreferencesScreen = () => {
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={loginValidationSchema}
-      onSubmit={ (values) => handlePreferences(values.email, values.password)
-      }
-      behavior="padding"
-    >
-      {({handleSubmit, values}) => {
-        return (
-          <StyledContainer screenContainer>
-            <StyledButton back onPress={() => navigation.navigate('SignUp')}>
-              <Octicons name="chevron-left" 
-                        size={50} 
-                        style={{
-                            color: colors.text
-                        }}
-                />
-            </StyledButton>
+    <StyledContainer screenContainer>
+      <StyledButton back onPress={() => navigation.navigate('PersonalData')}>
+        <Octicons name="chevron-left" 
+                  size={50} 
+                  style={{
+                      color: colors.text
+                  }}
+          />
+      </StyledButton>
+      <FlatList
+        ListHeaderComponent={
+          <>
+          <StyledText tittle bold center>Preferences</StyledText>
+          </>
+          }
+        data={preferencesDataSelect}
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
+        showsVerticalScrollIndicator = {false}
+        renderItem = {({item}) => (
+          <StyledContainer userStats>
+            {/* flatLists categories buttons */}
             <FlatList
               ListHeaderComponent={
-                <>
-                </>
-                }
-              data={preferencesDataSelect}
-              contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-              showsVerticalScrollIndicator = {false}
-              renderItem = {({item}) => (
-                <StyledContainer userStats>
-                  {/* flatLists categories buttons */}
-                  <FlatList
-                  ListHeaderComponent={
-                    <StyledText label bold>{item.categoryName}</StyledText>
-                  }
-                    data={item.arg}
-                    numColumns={3}
-                    renderItem= {({item}) => (
-                      <View>
-                        <StyledButton userStats widthBig style={{borderColor: item.selected ? colors.actionLight : colors.secondary}} 
-                        onPress = {() => handleOnPress(item)}>
-                          <StyledText>{item.name}</StyledText>
-                          <StyledIcon buttonIconPreferences source={item.image}/>
-                        </StyledButton>
-                      </View>
-                    )}
-                    keyExtractor={(item) => item.id}
-                    />
-                </StyledContainer>
-                  
-              )}
-              keyExtractor={(item, index) => index}
-
-              ListFooterComponent={
-                <>
-                <StyledButton 
-                  standard 
-                  signup 
-                  onPress={ () => handleSubmit()}>
-                  <StyledText button bold >Start</StyledText>
-                </StyledButton>
-                </>
+                <StyledText label bold>{item.categoryName}</StyledText>
               }
+                data={item.arg}
+                key={'_'}
+                numColumns={3}
+                renderItem= {({item}) => (
+                  <StyledContainer>
+                    <StyledButton userPreferences widthSmall style={{borderColor: item.selected ? colors.actionLight : colors.secondary}} 
+                    onPress = {() => handleOnPress(item)}>
+                      <StyledText>{item.name}</StyledText>
+                      <StyledIcon buttonIconPreferences source={item.image}/>
+                    </StyledButton>
+                  </StyledContainer>
+                )}
+                keyExtractor={(item) => item.id}
             />
+            <StyledContainer underline/>
           </StyledContainer>
-        )
-      }}
-    </Formik>
+            
+        )}
+        keyExtractor={(item, index) => index}
+
+        ListFooterComponent={
+          <>
+          <StyledButton 
+            standard 
+            signup 
+            onPress={ () => handlePreferences()}>
+            <StyledText button bold >Start</StyledText>
+          </StyledButton>
+          </>
+        }
+      />
+    </StyledContainer>
   )
 }
 

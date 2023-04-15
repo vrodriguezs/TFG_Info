@@ -60,6 +60,7 @@ const LoginScreen = () => {
           </StyledButton>
         )}
         {meta.error ? <StyledText error>{meta.error}</StyledText> : <StyledText error></StyledText>}
+      <StyledContainer underline/>
       </StyledContainer>
       </>
     )
@@ -111,7 +112,7 @@ const LoginScreen = () => {
                 </StyledButton>
                 <StyledContainer newAccount>
                   <StyledText small>Don't have an account yet? </StyledText>
-                    <StyledButton link onPress={() => navigation.navigate('Welcome')}>
+                    <StyledButton link onPress={() => navigation.navigate('PersonalData')}>
                       <StyledText small color bold>Sign Up!</StyledText>
                     </StyledButton>
                 </StyledContainer>

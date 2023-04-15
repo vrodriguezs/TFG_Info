@@ -17,15 +17,15 @@ export const styledDropdownStyles = StyleSheet.create({
       width: 150,
     },
     placeholderStyle: {
-      fontSize: 20,
+      fontSize: 16,
       color: colors.text
     },
     selectedTextStyle: {
-      fontSize: 20,
+      fontSize: 16,
       color: colors.text
     },
     textStyle: {
-      fontSize: 20,
+      fontSize: 16,
       color: colors.text,
       padding: 5,
       paddingLeft: 15

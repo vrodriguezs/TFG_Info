@@ -5,7 +5,7 @@ import StyledContainer from '../styles/StyledContainer'
 
 const RecipesScreen = () => {
   return (
-    <StyledContainer screenAppContainer>
+    <StyledContainer>
       <Text>RecipesScreen</Text>
     </StyledContainer>
   )

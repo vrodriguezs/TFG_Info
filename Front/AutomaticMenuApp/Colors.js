@@ -5,5 +5,6 @@ export const colors = {
     actionLight: '#a8a168',
     text: '#555555',
     textPlaceholder: '#999999',
+    divider: '#dddddd',
     error: '#dd4444',
 }

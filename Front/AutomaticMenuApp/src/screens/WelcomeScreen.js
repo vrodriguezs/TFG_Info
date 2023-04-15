@@ -17,7 +17,7 @@ const WelcomeScreen = () => {
   return (
     <StyledContainer flex>
       <StyledContainer screenContainer>
-        <StyledButton back onPress={() => navigation.navigate('Login')}>
+        <StyledButton back onPress={() => navigation.navigate('SignUp')}>
           <Octicons name="chevron-left"
                     size={50} 
                     style={{
@@ -28,12 +28,12 @@ const WelcomeScreen = () => {
         <StyledContainer innerContainer>
           <StyledIcon logoWelcome source={require('../assets/icons/logo_02.png')}/>
           <StyledContainer welcome>
-            <StyledContainer row>
+            <StyledContainer flexRow>
               <StyledText welcome colorlight bold>Welcome </StyledText>
               <StyledText welcome text>to </StyledText>
               <StyledText welcome colorlight bold>Wellfood,</StyledText>
             </StyledContainer>
-            <StyledContainer row>
+            <StyledContainer flexRow>
               <StyledText welcome text>where your </StyledText>
               <StyledText welcome colorlight bold>Wellness</StyledText>
             </StyledContainer>
@@ -42,8 +42,8 @@ const WelcomeScreen = () => {
           <StyledButton 
             standard 
             welcome
-            onPress={() => navigation.navigate('SignUp')}>
-            <StyledText color bold >Let's get started</StyledText>
+            onPress={() => navigation.navigate(/*'Home'*/'PersonalData')}>
+            <StyledText getStarted color bold >Let's get started</StyledText>
           </StyledButton>
         </StyledContainer>
         
