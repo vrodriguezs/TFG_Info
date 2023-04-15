@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
       },
       modalReceipsBack: {
         flex: 1,
-        backgroundColor: colors.text,
+        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
       },

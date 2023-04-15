@@ -73,82 +73,16 @@ export const userData = [
     },
     {
       id: "40",
-      categoryName: "Meals",
-      arg: [
-        {
-            id: "41",
-            selected: true,
-            name: "Breakfast",
-            image: require('./src/assets/icons/exerciseIntensityLow.png')
-        },
-        {
-            id: "42",
-            selected: false,
-            name: "Elevenses",
-            image: require('./src/assets/icons/exerciseIntensityMid.png')
-        },
-        {
-            id: "43",
-            selected: true,
-            name: "Lunch",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
-        },
-        {
-            id: "44",
-            selected: true,
-            name: "Snack",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
-        },
-        {
-            id: "45",
-            selected: true,
-            name: "Dinner",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
-        }
-      ]
-    },
-    {
-      id: "50",
-      categoryName: "Allergies and Intolerances",
-      arg: [
-        {
-            id: "51",
-            selected: true,
-            name: "Lactose",
-            image: require('./src/assets/icons/exerciseIntensityLow.png')
-        },
-        {
-            id: "52",
-            selected: false,
-            name: "Fructose",
-            image: require('./src/assets/icons/exerciseIntensityMid.png')
-        },
-        {
-            id: "53",
-            selected: false,
-            name: "Gluten",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
-        },
-        {
-            id: "54",
-            selected: false,
-            name: "Eggs",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
-        }
-      ]
-    },
-    {
-      id: "60",
       categoryName: "Are you vegan or vegetarian?",
       arg: [
         {
-            id: "61",
+            id: "41",
             selected: false,
             name: "Yes",
             image: require('./src/assets/icons/exerciseIntensityLow.png')
         },
         {
-            id: "62",
+            id: "42",
             selected: true,
             name: "No",
             image: require('./src/assets/icons/exerciseIntensityMid.png')
@@ -218,6 +152,72 @@ export const weightDropdownData = [
 ];
 
 export const preferencesData = [
+  {
+    id: "40",
+    categoryName: "Meals",
+    arg: [
+      {
+          id: "41",
+          selected: true,
+          name: "Breakfast",
+          image: require('./src/assets/icons/exerciseIntensityLow.png')
+      },
+      {
+          id: "42",
+          selected: false,
+          name: "Elevenses",
+          image: require('./src/assets/icons/exerciseIntensityMid.png')
+      },
+      {
+          id: "43",
+          selected: true,
+          name: "Lunch",
+          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        },
+        {
+          id: "44",
+          selected: true,
+          name: "Snack",
+          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+        },
+        {
+          id: "45",
+          selected: true,
+          name: "Dinner",
+          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+      }
+    ]
+  },
+  {
+      id: "50",
+      categoryName: "Allergies and Intolerances",
+      arg: [
+      {
+          id: "51",
+          selected: true,
+          name: "Lactose",
+          image: require('./src/assets/icons/exerciseIntensityLow.png')
+      },
+      {
+          id: "52",
+          selected: false,
+          name: "Fructose",
+          image: require('./src/assets/icons/exerciseIntensityMid.png')
+        },
+      {
+          id: "53",
+          selected: false,
+          name: "Gluten",
+          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+      },
+      {
+          id: "54",
+          selected: false,
+          name: "Eggs",
+          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+      }
+    ]
+  },
   {
     id: "10",
     categoryName: "Proteins",

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     margin: {
-        marginHorizontal: 10
+        marginHorizontal: 5
     },
 })
   

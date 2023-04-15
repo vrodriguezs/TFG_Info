@@ -97,7 +97,7 @@ const MenuScreen = () => {
                         </StyledContainer>
                       </StyledContainer>
                       {/* alternatives */}
-                      <StyledContainer row spaceBetween modalReceips tab>
+                      <StyledContainer row spaceBetween modalReceips>
                         <StyledContainer row>
                           <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
                           <StyledText margin>Apple</StyledText>
@@ -105,7 +105,7 @@ const MenuScreen = () => {
                         </StyledContainer>
                       </StyledContainer>
 
-                      <StyledContainer row spaceBetween modalReceips tab>
+                      <StyledContainer row spaceBetween modalReceips>
                         <StyledContainer row>
                           <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
                           <StyledText margin>Macedonia</StyledText>
@@ -126,7 +126,7 @@ const MenuScreen = () => {
                         </StyledContainer>
                       </StyledContainer>
                       {/* alternatives */}
-                      <StyledContainer row spaceBetween modalReceips tab>
+                      <StyledContainer row spaceBetween modalReceips>
                         <StyledContainer row>
                           <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
                           <StyledText margin>Turkey Sandwich</StyledText>
