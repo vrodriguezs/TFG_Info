@@ -1,12 +1,15 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import StyledContainer from '../styles/StyledContainer'
+import StyledText from '../styles/StyledText'
 
 const RecipesScreen = () => {
   return (
-    <StyledContainer>
-      <Text>RecipesScreen</Text>
+    <StyledContainer screenMenuContainer centerScreen>
+      <StyledText>Recipes Screen</StyledText>
+      <StyledContainer underlineMeal/>
+      <StyledText>When comming from the menu it will show </StyledText>
+      <StyledText>the specific receip</StyledText>
     </StyledContainer>
   )
 

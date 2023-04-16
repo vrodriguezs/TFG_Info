@@ -82,12 +82,23 @@ const styles = StyleSheet.create({
     },
     nextDay: {
       paddingRight: 40
+    },
+    modalX: {
+      width: 40,
+      height: 40,
+      left: 150,
+      bottom: 32,
+      marginBottom: -40
+    },
+    preferences: {
+      width: 50,
+      height: 50,
     }
   })
   
 const StyledButton = ({style={}, standard, login, signup, back, widthBig, 
   widthSmall, userStats, userPreferences, rightIcon, welcome, link, padding, alignRight, prevDay,
-  nextDay, ...props}) => {
+  nextDay, modalX, preferences, ...props}) => {
   const buttonStyles = [
     standard && styles.standard,
     login && styles.login,
@@ -104,6 +115,8 @@ const StyledButton = ({style={}, standard, login, signup, back, widthBig,
     alignRight && styles.alignRight,
     prevDay && styles.prevDay,
     nextDay && styles.nextDay,
+    modalX && styles.modalX,
+    preferences && styles.preferences,
     style
   ]
   return <TouchableOpacity style={buttonStyles} {...props}/>

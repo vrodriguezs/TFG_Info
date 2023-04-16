@@ -1,7 +1,7 @@
 export const userData = [
     {
       id: "10",
-      categoryName: "Gender",
+      categoryName: "Sex",
       arg: [
         {
             id: "11",
@@ -79,13 +79,13 @@ export const userData = [
             id: "41",
             selected: false,
             name: "Yes",
-            image: require('./src/assets/icons/exerciseIntensityLow.png')
+            image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png')
         },
         {
             id: "42",
             selected: true,
             name: "No",
-            image: require('./src/assets/icons/exerciseIntensityMid.png')
+            image: require('./src/assets/icons/Preferences/Proteins/meat.png')
         }
       ]
     }
@@ -94,36 +94,40 @@ export const userData = [
 export const userDataSimple = [
 {
     id: "10",
-    categoryName: "Name",
-},
-{
-    id: "20",
-    categoryName: "Genre",
-},
-{
-    id: "30",
-    categoryName: "Exercise Routine",
-},
-{
-    id: "40",
-    categoryName: "Exercise Intensity",
-},
-{
-    id: "50",
-    categoryName: "Age",
-},
-{
-    id: "60",
-    categoryName: "Weight",
-},
-{
-    id: "80",
     categoryName: "Email",
 },
 {
-    id: "90",
+    id: "20",
     categoryName: "Password",
-}
+},
+{
+    id: "30",
+    categoryName: "Name",
+},
+{
+    id: "40",
+    categoryName: "Age",
+},
+{
+    id: "50",
+    categoryName: "Weight",
+},
+{
+    id: "60",
+    categoryName: "Sex",
+},
+{
+    id: "70",
+    categoryName: "Exercise Routine",
+},
+{
+    id: "80",
+    categoryName: "Exercise Intensity",
+},
+{
+    id: "90",
+    categoryName: "Vegan/Vegetarian",
+},
 ];
 
 export const ageDropdownData = [
@@ -160,31 +164,31 @@ export const preferencesData = [
           id: "41",
           selected: true,
           name: "Breakfast",
-          image: require('./src/assets/icons/exerciseIntensityLow.png')
+          image: require('./src/assets/icons/Preferences/Meals/breakfast.png')
       },
       {
           id: "42",
           selected: false,
-          name: "Elevenses",
-          image: require('./src/assets/icons/exerciseIntensityMid.png')
+          name: "Brunch",
+          image: require('./src/assets/icons/Preferences/Meals/brunch.png')
       },
       {
           id: "43",
           selected: true,
           name: "Lunch",
-          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+          image: require('./src/assets/icons/Preferences/Meals/lunch.png')
         },
         {
           id: "44",
           selected: true,
           name: "Snack",
-          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+          image: require('./src/assets/icons/Preferences/Meals/snack.png')
         },
         {
           id: "45",
           selected: true,
           name: "Dinner",
-          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+          image: require('./src/assets/icons/Preferences/Meals/dinner.png')
       }
     ]
   },
@@ -195,26 +199,38 @@ export const preferencesData = [
       {
           id: "51",
           selected: true,
-          name: "Lactose",
-          image: require('./src/assets/icons/exerciseIntensityLow.png')
+          name: "Gluten",
+          image: require('./src/assets/icons/Preferences/IntoAndAller/gluten.png')
       },
       {
           id: "52",
           selected: false,
           name: "Fructose",
-          image: require('./src/assets/icons/exerciseIntensityMid.png')
-        },
+          image: require('./src/assets/icons/Preferences/IntoAndAller/fructose.png')
+      },
       {
           id: "53",
           selected: false,
-          name: "Gluten",
-          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+          name: "Lactose",
+          image: require('./src/assets/icons/Preferences/IntoAndAller/lactose.png')
       },
       {
           id: "54",
           selected: false,
+          name: "Nuts",
+          image: require('./src/assets/icons/Preferences/IntoAndAller/nuts.png')
+      },
+      {
+          id: "55",
+          selected: false,
+          name: "Seafood",
+          image: require('./src/assets/icons/Preferences/IntoAndAller/seafood.png')
+      },
+      {
+          id: "56",
+          selected: false,
           name: "Eggs",
-          image: require('./src/assets/icons/exerciseIntensityHigh.png')
+          image: require('./src/assets/icons/Preferences/IntoAndAller/egg.png')
       }
     ]
   },
@@ -267,7 +283,7 @@ export const preferencesData = [
       {
           id: "18",
           selected: false,
-          name: "Nuts",
+          name: "Nut",
           image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
       }
     ]

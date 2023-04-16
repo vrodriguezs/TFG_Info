@@ -86,7 +86,10 @@ const PreferencesScreen = () => {
             {/* flatLists categories buttons */}
             <FlatList
               ListHeaderComponent={
+                <>
                 <StyledText label bold>{item.categoryName}</StyledText>
+                <StyledContainer underline/>
+                </>
               }
                 data={item.arg}
                 key={'_'}

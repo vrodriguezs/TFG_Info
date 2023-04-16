@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20
     },
-    tittleDay: {
+    tittleTab: {
         fontSize: 28,
         marginVertical: 20,
         marginTop: 40
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
 })
   
-export default function StyledTextInput ({children, button, bold, small, big, tittle, tittleDay, color, 
+export default function StyledTextInput ({children, button, bold, small, big, tittle, tittleTab, color, 
     colorlight, colorPlaceholder ,error, label, welcome, flex, alignRight, center, margin,
     getStarted}) {
   const textStyles = [
@@ -82,7 +82,7 @@ export default function StyledTextInput ({children, button, bold, small, big, ti
     small && styles.small,
     big && styles.big,
     tittle && styles.tittle,
-    tittleDay && styles.tittleDay,
+    tittleTab && styles.tittleTab,
     color && styles.color,
     colorlight && styles.colorlight,
     colorPlaceholder && styles.colorPlaceholder,

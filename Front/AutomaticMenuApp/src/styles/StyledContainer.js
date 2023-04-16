@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     },
     screenMenuContainer: {
       flex: 1,
-      padding: 35,
-      paddingBottom: 110,
+      padding: 25,
+      paddingBottom: 10,
       backgroundColor: colors.primary
     },
     innerContainer: {
@@ -74,43 +74,57 @@ const styles = StyleSheet.create({
     },
     underline: {
       borderWidth: 0,
-        borderBottomWidth: 2,
-        borderBottomColor: colors.divider,
-        paddingTop: 5
-      },
-      page: {
-        flexDirection: 'row',
-        width: Dimensions.get('screen').width
-      },
-      meal: {
-        paddingTop: 20
-      },
-      center: {
-        alignItems: 'center'
-      },
-      modalReceipsBack: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      modalReceipsCont: {
-        width: '90%',
-        backgroundColor: colors.primary,
-        borderRadius: 15,
-        padding: 10
-      },
-      modalReceips: {
-        paddingTop: 15
-      },
-      tab: {
-        paddingLeft: 15
-      },
-    })
+      borderBottomWidth: 2,
+      borderBottomColor: colors.divider,
+    },
+    underlineMeal: {
+      borderWidth: 0,
+      borderBottomWidth: 2,
+      borderBottomColor: colors.textPlaceholder,
+      paddingBottom: 10,
+      alignSelf: 'center',
+      width: '97%'
+    },
+    page: {
+      flexDirection: 'row',
+      width: Dimensions.get('screen').width
+    },
+    meal: {
+      borderRadius: 15,
+      marginVertical: 5,
+      padding: 10,
+      backgroundColor: colors.secondary
+    },
+    center: {
+      alignItems: 'center'
+    },
+    centerScreen: { /*ara mateix només d'usa x la screen d receptes, s'haurà d borrar*/
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    modalReceipsBack: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalReceipsCont: {
+      width: '90%',
+      backgroundColor: colors.primary,
+      borderRadius: 15,
+      padding: 10
+    },
+    modalReceips: {
+      paddingTop: 15
+    },
+    tab: {
+      paddingLeft: 15
+    },
+  })
     
     const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer, 
       newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, leftIcon, welcome, 
-  row, spaceBetween, flexStart, underline, page, meal, center, modalReceipsBack, modalReceipsCont, modalReceips, 
+  row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, modalReceipsBack, modalReceipsCont, modalReceips, 
   tab, ...props}) => {
   const containerStyles = [
     flex && styles.flex,
@@ -129,9 +143,11 @@ const styles = StyleSheet.create({
     spaceBetween && styles.spaceBetween,
     flexStart && styles.flexStart,
     underline && styles.underline,
+    underlineMeal && styles.underlineMeal,
     page && styles.page,
     meal && styles.meal,
     center && styles.center,
+    centerScreen && styles.centerScreen,
     modalReceipsBack && styles.modalReceipsBack,
     modalReceipsCont && styles.modalReceipsCont,
     modalReceips && styles.modalReceips,
