@@ -1,26 +1,21 @@
 import React, { useState } from 'react'
-import { View, FlatList, StyleSheet, Text, Image, Keyboard } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
-import { Dropdown } from 'react-native-element-dropdown';
+import { ScrollView } from 'react-native'
 
 import { firebase } from '../../firebase'
 
 import { Formik, useField } from 'formik'
-import { loginValidationSchema } from '../validationSchemas/loginValidation'
+import { signUpValidationSchema } from '../validationSchemas/loginValidation'
 
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
-import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
-import { styledDropdownStyles } from '../styles/StyledDropdown'
 
-import { userData, ageDropdownData, weightDropdownData } from '../../FormsData'
-
+import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
-import { Octicons, AntDesign } from '@expo/vector-icons'
-import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
+import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo, utilitza web, potser x això no anava
 
 const SignUpScreen = () => {
   const navigation = useNavigation()
@@ -35,15 +30,14 @@ const SignUpScreen = () => {
   const [hidePasswordConfirmation, setHidePasswordConfirmation] = useState(true)
 
   const handleSignUp = (email, password) => {
-    navigation.navigate('Welcome')
-    // firebase.auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(userCredentials => {
-    //     const user = userCredentials.user;
-    //     console.log('Signed up with:', user.email);
-    //     navigation.navigate('Welcome')
-    //   })
-    //   .catch(error => alert(error.message))
+    firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Signed up with:', user.email);
+        navigation.navigate('Welcome')
+      })
+      .catch(error => alert(error.message))
   }
   
   const FormikInputValue = ({name, labelTitle, icon, isPassword, isPasswordConfirmation, 
@@ -63,6 +57,7 @@ const SignUpScreen = () => {
           errorContainer={meta.error}
           value={field.value}
           onChangeText={value => helpers.setValue(value)}
+          style={{color:meta.error ? colors.error : colors.text}}
           {...props}
         />
         {isPassword && (
@@ -85,59 +80,65 @@ const SignUpScreen = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={loginValidationSchema}
+      validationSchema={signUpValidationSchema}
       onSubmit={ (values) => handleSignUp(values.email, values.password)
       }
       behavior="padding"
     >
       {({handleSubmit, values}) => {
         return (
-          <StyledContainer screenContainer>
-            <StyledButton back onPress={() => navigation.navigate('LogIn')}>
-              <Octicons name="chevron-left" 
-                        size={50} 
-                        style={{color: colors.text}}
-              />
-            </StyledButton>
-            <StyledText tittle bold center>SignUp</StyledText>
-            <StyledContainer userStats>
-              <FormikInputValue
-                name='email'
-                labelTitle="Email"
-                icon="mail"
-                placeholder="example@mail.ext"
-                value={values.email}
-              />
-              <FormikInputValue
-                name='password'
-                labelTitle="Password"
-                icon="lock"
-                placeholder="******"
-                value={values.password}
-                secureTextEntry={hidePassword}
-                isPassword={true}
-                hidePassword={hidePassword}
-                setHidePassword={setHidePassword}
-              />
-              <FormikInputValue
-                name='passwordConfirmation'
-                labelTitle="Confirm password"
-                icon="lock"
-                placeholder="******"
-                value={values.passwordConfirmation}
-                secureTextEntry={hidePasswordConfirmation}
-                isPasswordConfirmation={true}
-                hidePasswordConfirmation={hidePasswordConfirmation}
-                setHidePasswordConfirmation={setHidePasswordConfirmation}
-              />
-            </StyledContainer>
+          <StyledContainer flex>
 
-            <StyledButton 
-              standard 
-              signup 
-              onPress={() => () => handleSubmit()}>
-              <StyledText button bold >Sign Up</StyledText>
-            </StyledButton>
+            <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: 'transparent'}}>
+
+              <StyledContainer screenContainer>
+                <StyledButton back onPress={() => navigation.navigate('LogIn')}>
+                  <Octicons name="chevron-left" 
+                            size={50} 
+                            style={{color: colors.text}}
+                  />
+                </StyledButton>
+                <StyledText tittle bold center>SignUp</StyledText>
+                <FormikInputValue
+                  name='email'
+                  labelTitle="Email"
+                  icon="mail"
+                  placeholder="example@mail.ext"
+                  value={values.email}
+                />
+                <FormikInputValue
+                  name='password'
+                  labelTitle="Password"
+                  icon="lock"
+                  placeholder="******"
+                  value={values.password}
+                  secureTextEntry={hidePassword}
+                  isPassword={true}
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
+                <FormikInputValue
+                  name='passwordConfirmation'
+                  labelTitle="Confirm password"
+                  icon="lock"
+                  placeholder="******"
+                  value={values.passwordConfirmation}
+                  secureTextEntry={hidePasswordConfirmation}
+                  isPasswordConfirmation={true}
+                  hidePasswordConfirmation={hidePasswordConfirmation}
+                  setHidePasswordConfirmation={setHidePasswordConfirmation}
+                />
+
+                <StyledButton 
+                  standard 
+                  signup
+                  onPress={() => handleSubmit()}>
+                  <StyledText button bold >Sign Up</StyledText>
+                </StyledButton>
+
+              </StyledContainer>
+
+            </ScrollView>
           </StyledContainer>
         )
       }}

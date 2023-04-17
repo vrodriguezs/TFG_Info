@@ -137,7 +137,7 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={ageDropdownData[3].label}
+                placeholder={ageDropdownData[4].label}
                 value={age}
                 onFocus={() => setAgeIsFocus(true)}
                 onBlur={() => setAgeIsFocus(false)}
@@ -165,7 +165,7 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={weightDropdownData[5].label}
+                placeholder={weightDropdownData[7].label}
                 value={weight}
                 onFocus={() => setWeightIsFocus(true)}
                 onBlur={() => setWeightIsFocus(false)}

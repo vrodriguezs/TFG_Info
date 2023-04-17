@@ -51,6 +51,7 @@ const ModalPopUp = ({visible, children}) => {
 const MenuScreen = () => {
   const navigation = useNavigation()
   const scrollViewRef = useRef(null);
+  const screenWidth = Dimensions.get('screen').width
 
   const handlePrevButton = () => {
     scrollViewRef.current?.scrollTo({ x: 0, animated: true });
@@ -59,13 +60,22 @@ const MenuScreen = () => {
   const handleNextButton = () => {
     scrollViewRef.current?.scrollTo({ x: Dimensions.get('screen').width, animated: true });
   };
+
+  // mètode que diu a quina pàgina estàs
+  // const handleMomentumScrollEnd = event => {
+  //   const contentOffsetX = event.nativeEvent.contentOffset.x;
+  //   const viewSize = event.nativeEvent.layoutMeasurement.width;
+  //   const pageNum = Math.floor(contentOffsetX / viewSize);
+  //   console.log("Current page: ", pageNum);
+  // };
   
   const [visible, setVisible] = useState(false)
 
   return (
     <StyledContainer flex>
-      <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false} ref={scrollViewRef}>
-        <StyledContainer page>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} ref={scrollViewRef} 
+      /*onMomentumScrollEnd={handleMomentumScrollEnd}*/>
+        <StyledContainer page>{/* Monday */} 
           <StyledContainer screenMenuContainer>
             <StyledContainer row spaceBetween>{/* tittle and arrows */}              
               <StyledButton prevDay onPress={handlePrevButton}>
@@ -291,6 +301,106 @@ const MenuScreen = () => {
                 />
               </StyledButton>
               <StyledText tittleTab bold center>Tuesday</StyledText>
+              <StyledButton nextDay onPress={handleNextButton}>
+                <Octicons name="chevron-right"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+            </StyledContainer>
+          </StyledContainer>
+        </StyledContainer>
+        <StyledContainer page>{/* Wednesday */}
+          
+          <StyledContainer screenMenuContainer>
+            <StyledContainer row spaceBetween>
+              <StyledButton prevDay onPress={handlePrevButton}>
+                <Octicons name="chevron-left"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+              <StyledText tittleTab bold center>Wednesday</StyledText>
+              <StyledButton nextDay onPress={handleNextButton}>
+                <Octicons name="chevron-right"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+            </StyledContainer>
+          </StyledContainer>
+        </StyledContainer>
+        <StyledContainer page>{/* Thursday */}
+          
+          <StyledContainer screenMenuContainer>
+            <StyledContainer row spaceBetween>
+              <StyledButton prevDay onPress={handlePrevButton}>
+                <Octicons name="chevron-left"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+              <StyledText tittleTab bold center>Thursday</StyledText>
+              <StyledButton nextDay onPress={handleNextButton}>
+                <Octicons name="chevron-right"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+            </StyledContainer>
+          </StyledContainer>
+        </StyledContainer>
+        <StyledContainer page>{/* Friday */}
+          
+          <StyledContainer screenMenuContainer>
+            <StyledContainer row spaceBetween>
+              <StyledButton prevDay onPress={handlePrevButton}>
+                <Octicons name="chevron-left"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+              <StyledText tittleTab bold center>Friday</StyledText>
+              <StyledButton nextDay onPress={handleNextButton}>
+                <Octicons name="chevron-right"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+            </StyledContainer>
+          </StyledContainer>
+        </StyledContainer>
+        <StyledContainer page>{/* Saturday */}
+          
+          <StyledContainer screenMenuContainer>
+            <StyledContainer row spaceBetween>
+              <StyledButton prevDay onPress={handlePrevButton}>
+                <Octicons name="chevron-left"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+              <StyledText tittleTab bold center>Saturday</StyledText>
+              <StyledButton nextDay onPress={handleNextButton}>
+                <Octicons name="chevron-right"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+            </StyledContainer>
+          </StyledContainer>
+        </StyledContainer>
+        <StyledContainer page>{/* Sunday */}
+          
+          <StyledContainer screenMenuContainer>
+            <StyledContainer row spaceBetween>
+              <StyledButton prevDay onPress={handlePrevButton}>
+                <Octicons name="chevron-left"
+                          size={50}
+                          style={{color: colors.action}}
+                />
+              </StyledButton>
+              <StyledText tittleTab bold center>Sunday</StyledText>
               <StyledButton nextDay onPress={handleNextButton}>
                 <Octicons name="chevron-right"
                           size={50}

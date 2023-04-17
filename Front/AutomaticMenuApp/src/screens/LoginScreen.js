@@ -1,17 +1,19 @@
-import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { View, ScrollView, ImageBackground, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import { auth } from '../../firebase'
+import { useNavigation } from '@react-navigation/core'
+import { ScrollView } from 'react-native'
+
+import { firebase } from '../../firebase'
+
 import { Formik, useField } from 'formik'
-import { loginValidationSchema } from '../validationSchemas/loginValidation'
+import { logInValidationSchema } from '../validationSchemas/loginValidation'
+
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
 import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
-import { imageStyles } from '../styles/StyledImage';
 
-import { Ionicons, Octicons } from '@expo/vector-icons'
+import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
 const LoginScreen = () => {
@@ -25,11 +27,12 @@ const LoginScreen = () => {
   const [hidePassword, setHidePassword] = useState(true)
 
   const handleLogin = (email, password) => {
-    auth
+    console.log('pepe')
+    firebase.auth()
       .signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        //console.log('Logged in with:', user.email);
+        console.log('Logged in with:', user.email);
         navigation.navigate('Home')
       })
       .catch(error => alert(error.message))
@@ -69,7 +72,7 @@ const LoginScreen = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={loginValidationSchema}
+      validationSchema={logInValidationSchema}
       onSubmit={ (values) => handleLogin(values.email, values.password)
       }
       behavior="padding"
@@ -78,7 +81,7 @@ const LoginScreen = () => {
         return (
           <StyledContainer flex>
 
-            <ScrollView showsVerticalScrollIndicator={false} style={[styles.scrollview]}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: 'transparent'}}>
 
               <StyledContainer screenContainer>
 
@@ -106,25 +109,20 @@ const LoginScreen = () => {
 
                 <StyledButton 
                   standard 
-                  login 
-                  onPress={ () => handleSubmit()}>
+                  signup
+                  onPress={() => handleSubmit()}>
                   <StyledText button bold >Log In</StyledText>
                 </StyledButton>
                 <StyledContainer newAccount>
                   <StyledText small>Don't have an account yet? </StyledText>
-                    <StyledButton link onPress={() => navigation.navigate('PersonalData')}>
-                      <StyledText small color bold>Sign Up!</StyledText>
-                    </StyledButton>
+                  <StyledButton link onPress={() => navigation.navigate('SignUp')}>
+                    <StyledText small color bold>Sign Up!</StyledText>
+                  </StyledButton>
                 </StyledContainer>
 
               </StyledContainer>
 
             </ScrollView>
-
-            {/* <ImageBackground
-                  style={[styles.background, {zIndex: -1}]}
-                  source={require('../assets/icons/pissarra_10.jpg')}
-            /> */}
           </StyledContainer>
         )
       }}
@@ -133,18 +131,3 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
-
-const styles = StyleSheet.create({
-  background: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  },
- scrollview: {
-   backgroundColor: 'transparent'
- }
-});

@@ -59,7 +59,7 @@ const ProfileScreen = () => {
       <FlatList
         ListHeaderComponent={
           <>
-          <StyledContainer row spaceBetween>             
+          <StyledContainer row spaceBetween>
             <StyledText tittleTab bold center>Profile</StyledText>
             <StyledButton preferences onPress={() => navigation.navigate('Preferences')}>
               <MaterialCommunityIcons  name='format-list-checks' size={50} color={colors.action}/>

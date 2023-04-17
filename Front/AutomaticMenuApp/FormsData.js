@@ -77,13 +77,13 @@ export const userData = [
       arg: [
         {
             id: "41",
-            selected: false,
+            selected: true,
             name: "Yes",
             image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png')
         },
         {
             id: "42",
-            selected: true,
+            selected: false,
             name: "No",
             image: require('./src/assets/icons/Preferences/Proteins/meat.png')
         }
@@ -168,7 +168,7 @@ export const preferencesData = [
       },
       {
           id: "42",
-          selected: false,
+          selected: true,
           name: "Brunch",
           image: require('./src/assets/icons/Preferences/Meals/brunch.png')
       },
@@ -180,7 +180,7 @@ export const preferencesData = [
         },
         {
           id: "44",
-          selected: true,
+          selected: false,
           name: "Snack",
           image: require('./src/assets/icons/Preferences/Meals/snack.png')
         },
@@ -216,7 +216,7 @@ export const preferencesData = [
       },
       {
           id: "54",
-          selected: false,
+          selected: true,
           name: "Nuts",
           image: require('./src/assets/icons/Preferences/IntoAndAller/nuts.png')
       },
@@ -252,7 +252,7 @@ export const preferencesData = [
       },
       {
           id: "13",
-          selected: false,
+          selected: true,
           name: "Turkey",
           image: require('./src/assets/icons/Preferences/Proteins/turkey.png')
       },
@@ -270,7 +270,7 @@ export const preferencesData = [
       },
       {
           id: "16",
-          selected: false,
+          selected: true,
           name: "Tuna",
           image: require('./src/assets/icons/Preferences/Proteins/tuna.png')
       },
@@ -312,7 +312,7 @@ export const preferencesData = [
       },
       {
           id: "24",
-          selected: false,
+          selected: true,
           name: "Pasta",
           image: require('./src/assets/icons/Preferences/Grains/pasta.png')
       },
@@ -330,7 +330,7 @@ export const preferencesData = [
     arg: [
       {
           id: "31",
-          selected: false,
+          selected: true,
           name: "Fruits",
           image: require('./src/assets/icons/Preferences/Vegetables/fruits.png')
       },
@@ -372,7 +372,7 @@ export const preferencesData = [
       },
       {
           id: "38",
-          selected: true,
+          selected: false,
           name: "Mushroom",
           image: require('./src/assets/icons/Preferences/Vegetables/mushrooms.png')
       },
@@ -384,13 +384,13 @@ export const preferencesData = [
       },
       {
           id: "391",
-          selected: false,
+          selected: true,
           name: "Corn",
           image: require('./src/assets/icons/Preferences/Vegetables/corn.png')
       },
       {
           id: "392",
-          selected: false,
+          selected: true,
           name: "Potatoes",
           image: require('./src/assets/icons/Preferences/Vegetables/potatoes.png')
       },
@@ -420,13 +420,13 @@ export const preferencesData = [
       },
       {
           id: "44",
-          selected: false,
+          selected: true,
           name: "Berries",
           image: require('./src/assets/icons/Preferences/Fruits/berries.png')
       },
       {
           id: "45",
-          selected: true,
+          selected: false,
           name: "Melons",
           image: require('./src/assets/icons/Preferences/Fruits/melons.png')
       },
@@ -444,7 +444,7 @@ export const preferencesData = [
     arg: [
       {
           id: "51",
-          selected: false,
+          selected: true,
           name: "Milk",
           image: require('./src/assets/icons/Preferences/MilkAndDerivatives/milk.png')
       },
@@ -468,7 +468,7 @@ export const preferencesData = [
       },
       {
           id: "55",
-          selected: false,
+          selected: true,
           name: "Chocolate",
           image: require('./src/assets/icons/Preferences/MilkAndDerivatives/chocolate.png')
       }
@@ -480,7 +480,7 @@ export const preferencesData = [
     arg: [
       {
           id: "61",
-          selected: false,
+          selected: true,
           name: "Chickpeas",
           image: require('./src/assets/icons/Preferences/Legumes/chickpeas.png')
       },
@@ -504,7 +504,7 @@ export const preferencesData = [
       },
       {
           id: "65",
-          selected: false,
+          selected: true,
           name: "Peas",
           image: require('./src/assets/icons/Preferences/Legumes/peas.png')
       }
