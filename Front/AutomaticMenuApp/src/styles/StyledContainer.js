@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
     width50: {
       width: '50%'
     },
+    width60: {
+      width: '60%'
+    },
     leftIcon: {
       left: 15,
       top: 60,
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
   })
     
     const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer, 
-      newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, leftIcon, welcome, 
+      newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, width60, leftIcon, welcome, 
   row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, modalReceipsBack, modalReceipsCont, modalReceips, 
   tab, ...props}) => {
   const containerStyles = [
@@ -137,6 +140,7 @@ const styles = StyleSheet.create({
     userStatsProfile && styles.userStatsProfile,
     flexRow && styles.flexRow,
     width50 && styles.width50,
+    width60 && styles.width60,
     leftIcon && styles.leftIcon,
     welcome && styles.welcome,
     row && styles.row,

@@ -17,19 +17,26 @@ import { colors } from '../../Colors'
 
 import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo, utilitza web, potser x això no anava
 
+const initialValues = {
+  email: '',
+  password: '',
+  passwordConfirmation: ''
+}
+let emailToExport = ''
+
 const SignUpScreen = () => {
   const navigation = useNavigation()
 
-  const initialValues = {
-    email: '',
-    password: '',
-    passwordConfirmation: ''
-  }
+
+  const handleEmailChange = (text) => {
+    emailToExport = text
+  };
 
   const [hidePassword, setHidePassword] = useState(true)
   const [hidePasswordConfirmation, setHidePasswordConfirmation] = useState(true)
 
   const handleSignUp = (email, password) => {
+    handleEmailChange(email)
     firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then(userCredentials => {
@@ -146,4 +153,9 @@ const SignUpScreen = () => {
   )
 }
 
+const getEmail = () => {
+  return emailToExport
+};
+
 export default SignUpScreen
+export { getEmail }

@@ -4,9 +4,7 @@ import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
 
 import { firebase } from '../../firebase'
-
-import { Formik, useField } from 'formik'
-import { loginValidationSchema } from '../validationSchemas/loginValidation'
+import { getEmail } from './SignupScreen'
 
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
@@ -19,7 +17,7 @@ import { userData, ageDropdownData, weightDropdownData } from '../../FormsData'
 
 import { colors } from '../../Colors'
 
-import { Octicons, AntDesign } from '@expo/vector-icons'
+import { Octicons } from '@expo/vector-icons'
 import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
 
 const PersonalDataScreen = () => {
@@ -27,7 +25,7 @@ const PersonalDataScreen = () => {
 
   const [textInputIsFocus, setInputIsFocus] = useState(false);
 
-  const [userName, setUserName] = useState('pepito')
+  const [userName, setUserName] = useState('')
   const [userDataSelect, setUserDataSelect] = useState(userData)
 
   const [age, setAge] = useState(0);
@@ -35,8 +33,6 @@ const PersonalDataScreen = () => {
 
   const [ageIsFocus, setAgeIsFocus] = useState(false);
   const [weightIsFocus, setWeightIsFocus] = useState(false);
-  
-  const [category, setCategory] = useState('');
 
   const handlePersonalData = () => {
     navigation.navigate('Preferences')
@@ -54,10 +50,20 @@ const PersonalDataScreen = () => {
 
   const addField = () => {
     console.log(userName.length)
-    if(userName) {
-      console.log('lllllll')
+    if(userName && userName.length > 0) {
+      //utilitzem filter() per obtenir tots els objectes que tenen selected=true
+      const allData = userDataSelect.flatMap(category => category.arg.filter(arg => arg.selected));
+  
+      //obtenim un array dels valors de name de tots els objectes que tenen selected=true
+      const selectedData = allData.map(objet => objet.name);
+
       const data = {
-        name: userName
+        name: userName,
+        sex: selectedData[0],
+        exRout: selectedData[1],
+        exInt: selectedData[2],
+        veg: selectedData[3],
+        email: getEmail()
       }
       todoRef
         .add(data)
@@ -120,7 +126,7 @@ const PersonalDataScreen = () => {
                               style={textInputIsFocus && { borderBottomColor: colors.actionLight}}
                               onFocus={() => setInputIsFocus(true)}
                               onBlur={() => setInputIsFocus(false)}
-                              onChange={newName => setUserName(newName)}
+                              onChangeText={newName => setUserName(newName)}
             ></StyledTextInput>
           </StyledContainer>
 
@@ -181,6 +187,33 @@ const PersonalDataScreen = () => {
               <StyledContainer underline/>
             </StyledContainer>
           </StyledContainer>
+          {/* dropdown height */}
+          <StyledContainer userStats width60>
+            <StyledText label bold>Height</StyledText>
+            <StyledContainer underline/>
+            <Dropdown
+              style={[styledDropdownStyles.standard, styledDropdownStyles.age, ageIsFocus && { borderColor: colors.actionLight}]}
+              placeholderStyle={styledDropdownStyles.placeholderStyle}
+              selectedTextStyle={styledDropdownStyles.selectedTextStyle}
+              data={ageDropdownData}
+              maxHeight={200}
+              labelField="label"
+              valueField="value"
+              placeholder={'1,6m - 1,7m'}
+              value={age}
+              onFocus={() => setAgeIsFocus(true)}
+              onBlur={() => setAgeIsFocus(false)}
+              onChange={item => {
+                setAge(item.value);
+                setAgeIsFocus(false);
+              }}
+              showsVerticalScrollIndicator={false}
+              activeColor={colors.primary}
+              containerStyle={{backgroundColor: colors.secondary, borderRadius: 15}}
+              renderItem = {item => (<Text style={styledDropdownStyles.textStyle}>{item.label}</Text>)}
+            />
+            <StyledContainer underline/>
+          </StyledContainer>
           </>
           }
         data={userDataSelect}
@@ -222,7 +255,7 @@ const PersonalDataScreen = () => {
           <StyledButton 
             standard 
             signup 
-            onPress={() => handlePersonalData()}>
+            onPress={() => addField()/*handlePersonalData()*/}>
             <StyledText button bold >Next</StyledText>
           </StyledButton>
 
