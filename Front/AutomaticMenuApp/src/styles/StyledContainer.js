@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     },
   })
     
-    const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer, 
+    const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer,
       newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, width60, leftIcon, welcome, 
   row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, modalReceipsBack, modalReceipsCont, modalReceips, 
   tab, ...props}) => {

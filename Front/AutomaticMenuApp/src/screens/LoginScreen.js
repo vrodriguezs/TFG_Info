@@ -115,7 +115,7 @@ const LoginScreen = () => {
                 </StyledButton>
                 <StyledContainer newAccount>
                   <StyledText small>Don't have an account yet? </StyledText>
-                  <StyledButton link onPress={() => navigation.navigate('SignUp')}>
+                  <StyledButton link onPress={() => navigation.navigate('PersonalData')}>
                     <StyledText small color bold>Sign Up!</StyledText>
                   </StyledButton>
                 </StyledContainer>

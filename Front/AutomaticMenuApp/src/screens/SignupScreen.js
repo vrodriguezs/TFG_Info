@@ -12,6 +12,8 @@ import StyledText  from '../styles/StyledText'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
+import BackButton from '../../BackButton';
+
 import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
@@ -99,12 +101,7 @@ const SignUpScreen = () => {
             <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: 'transparent'}}>
 
               <StyledContainer screenContainer>
-                <StyledButton back onPress={() => navigation.navigate('LogIn')}>
-                  <Octicons name="chevron-left" 
-                            size={50} 
-                            style={{color: colors.text}}
-                  />
-                </StyledButton>
+              <BackButton screen={'LogIn'}/>
                 <StyledText tittle bold center>SignUp</StyledText>
                 <FormikInputValue
                   name='email'

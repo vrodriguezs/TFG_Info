@@ -5,6 +5,9 @@ import StyledText  from '../styles/StyledText'
 import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
+
+import BackButton from '../../BackButton';
+
 import { colors } from '../../Colors'
 
 import { Octicons } from '@expo/vector-icons'
@@ -17,14 +20,7 @@ const WelcomeScreen = () => {
   return (
     <StyledContainer flex>
       <StyledContainer screenContainer>
-        <StyledButton back onPress={() => navigation.navigate('SignUp')}>
-          <Octicons name="chevron-left"
-                    size={50} 
-                    style={{
-                        color: colors.text
-                    }}
-          />
-        </StyledButton>
+      <BackButton screen={'SignUp'}/>
         <StyledContainer innerContainer>
           <StyledIcon logoWelcome source={require('../assets/icons/logo_02.png')}/>
           <StyledContainer welcome>

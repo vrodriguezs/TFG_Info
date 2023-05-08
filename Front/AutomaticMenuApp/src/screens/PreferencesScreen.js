@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { View, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
@@ -13,6 +13,9 @@ import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
+import BackButton from '../../BackButton';
+import ScrollToTopButton from '../../ScrollToTopButton';
+
 import { preferencesData } from '../../FormsData'
 
 import { colors } from '../../Colors'
@@ -21,6 +24,19 @@ import { Octicons } from '@expo/vector-icons'
 
 const PreferencesScreen = () => {
   const navigation = useNavigation()
+
+  const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
+  const flatListRef = useRef(null);
+
+  const handleScroll = (event) => {
+    const topOffset = 400;
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setScrollToTopVisible(offsetY > topOffset);
+  };
+
+  const scrollToTop = () => {
+    flatListRef.current.scrollToOffset({ offset: 0 });
+  };
 
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
@@ -64,20 +80,14 @@ const PreferencesScreen = () => {
 
   return (
     <StyledContainer screenContainer>
-      <StyledButton back onPress={() => navigation.navigate('PersonalData')}>
-        <Octicons name="chevron-left" 
-                  size={50} 
-                  style={{
-                      color: colors.text
-                  }}
-          />
-      </StyledButton>
+    <BackButton screen={'PersonalData'}/>
       <FlatList
         ListHeaderComponent={
           <>
           <StyledText tittle bold center>Preferences</StyledText>
           </>
           }
+        ref={flatListRef}
         data={preferencesDataSelect}
         contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
         showsVerticalScrollIndicator = {false}
@@ -110,6 +120,7 @@ const PreferencesScreen = () => {
             
         )}
         keyExtractor={(item, index) => index}
+        onScroll={handleScroll}
 
         ListFooterComponent={
           <>
@@ -122,6 +133,7 @@ const PreferencesScreen = () => {
           </>
         }
       />
+      <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible}/>
     </StyledContainer>
   )
 }

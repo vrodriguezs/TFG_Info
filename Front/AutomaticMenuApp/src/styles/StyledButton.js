@@ -31,6 +31,18 @@ const styles = StyleSheet.create({
       left: -20,
       marginBottom: 0
     },
+    scrollToTop: {
+      position: 'absolute',
+      alignItems: 'center',
+      width: 50,
+      height: 50,
+      borderRadius: 100,
+      borderWidth: 3,
+      borderColor: colors.action,
+      backgroundColor: colors.primary,
+      bottom: 90,
+      right: 40,
+    },
     userStats: {
       borderWidth: 3,
       backgroundColor: colors.secondary,
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
     }
   })
   
-const StyledButton = ({style={}, standard, login, signup, back, widthBig, 
+const StyledButton = ({style={}, standard, login, signup, back, scrollToTop, widthBig, 
   widthSmall, userStats, userPreferences, rightIcon, welcome, link, padding, alignRight, prevDay,
   nextDay, modalX, preferences, ...props}) => {
   const buttonStyles = [
@@ -104,6 +116,7 @@ const StyledButton = ({style={}, standard, login, signup, back, widthBig,
     login && styles.login,
     signup && styles.signup,
     back && styles.back,
+    scrollToTop && styles.scrollToTop,
     widthBig && styles.widthBig,
     widthSmall && styles.widthSmall,
     userStats && styles.userStats,

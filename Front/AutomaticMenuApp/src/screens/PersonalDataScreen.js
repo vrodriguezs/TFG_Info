@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { FlatList, Text, Keyboard } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
@@ -13,6 +13,9 @@ import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 import { styledDropdownStyles } from '../styles/StyledDropdown'
 
+import BackButton from '../../BackButton';
+import ScrollToTopButton from '../../ScrollToTopButton';
+
 import { userData, ageDropdownData, weightDropdownData } from '../../FormsData'
 
 import { colors } from '../../Colors'
@@ -22,6 +25,19 @@ import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
 
 const PersonalDataScreen = () => {
   const navigation = useNavigation()
+
+  const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
+  const flatListRef = useRef(null);
+
+  const handleScroll = (event) => {
+    const topOffset = 400;
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setScrollToTopVisible(offsetY > topOffset);
+  };
+
+  const scrollToTop = () => {
+    flatListRef.current.scrollToOffset({ offset: 0 });
+  };
 
   const [textInputIsFocus, setInputIsFocus] = useState(false);
 
@@ -49,7 +65,6 @@ const PersonalDataScreen = () => {
   const todoRef = firebase.firestore().collection('users')
 
   const addField = () => {
-    console.log(userName.length)
     if(userName && userName.length > 0) {
       //utilitzem filter() per obtenir tots els objectes que tenen selected=true
       const allData = userDataSelect.flatMap(category => category.arg.filter(arg => arg.selected));
@@ -77,7 +92,7 @@ const PersonalDataScreen = () => {
     }
   }
   
-  const handleOnPress = (item) => {
+  const handleOnPressOption = (item) => {
     //faig una còpia d tot l'array
     const userStateCopy = [...userDataSelect]
 
@@ -108,12 +123,7 @@ const PersonalDataScreen = () => {
 
   return (
     <StyledContainer screenContainer>
-      <StyledButton back onPress={() => navigation.navigate('Welcome')}>
-        <Octicons name="chevron-left" 
-                  size={50} 
-                  style={{color: colors.text}}
-        />
-      </StyledButton>
+      <BackButton screen={'Welcome'}/>
       <FlatList
         ListHeaderComponent={
           <>
@@ -216,6 +226,7 @@ const PersonalDataScreen = () => {
           </StyledContainer>
           </>
           }
+        ref={flatListRef}
         data={userDataSelect}
         contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
         showsVerticalScrollIndicator = {false}
@@ -235,7 +246,7 @@ const PersonalDataScreen = () => {
               renderItem= {({item}) => (
                 <StyledContainer>
                   <StyledButton userStats widthBig style={{borderColor: item.selected ? colors.actionLight : colors.secondary}} 
-                  onPress = {() => handleOnPress(item)}>
+                  onPress = {() => handleOnPressOption(item)}>
                     <StyledText>{item.name}</StyledText>
                   </StyledButton>
                   {item.selected ? <StyledIcon buttonIcon source={item.image}/> : <StyledIcon/>}
@@ -248,6 +259,7 @@ const PersonalDataScreen = () => {
             
         )}
         keyExtractor={(item, index) => index}
+        onScroll={handleScroll}
 
         ListFooterComponent={
           <>
@@ -255,13 +267,14 @@ const PersonalDataScreen = () => {
           <StyledButton 
             standard 
             signup 
-            onPress={() => addField()/*handlePersonalData()*/}>
+            onPress={() => handlePersonalData()}>
             <StyledText button bold >Next</StyledText>
           </StyledButton>
 
           </>
         }
-      />
+        />
+      <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible}/>
     </StyledContainer>
   )
 }
