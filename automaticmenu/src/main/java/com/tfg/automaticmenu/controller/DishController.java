@@ -1,0 +1,25 @@
+package com.tfg.automaticmenu.controller;
+
+import com.tfg.automaticmenu.entity.Dish;
+import com.tfg.automaticmenu.service.DishService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.ExecutionException;
+
+@RestController
+@RequestMapping("/api")
+public class DishController {
+
+    @Autowired
+    private DishService dishService;
+
+    @PostMapping("/dishes")
+    public String saveDish(@RequestBody Dish dish) throws ExecutionException, InterruptedException {
+        return dishService.saveDish(dish);
+    }
+
+}
