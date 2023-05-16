@@ -84,7 +84,7 @@ const PreferencesScreen = () => {
       <FlatList
         ListHeaderComponent={
           <>
-          <StyledText tittle bold center>Preferences</StyledText>
+          <StyledText tittle bold center>Preferències</StyledText>
           </>
           }
         ref={flatListRef}
@@ -128,7 +128,7 @@ const PreferencesScreen = () => {
             standard 
             signup 
             onPress={ () => handlePreferences()}>
-            <StyledText button bold >Start</StyledText>
+            <StyledText button bold >Començar</StyledText>
           </StyledButton>
           </>
         }

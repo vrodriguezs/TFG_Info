@@ -11,7 +11,10 @@ public class Dish {
     Boolean veg;
     Boolean includeRecipe;
     List<String> meals;
+    String dish;
     List<String> recipe;
+
+    List<String> optional;
     List<String> intoAler;
 
     public String getName() {
@@ -70,12 +73,28 @@ public class Dish {
         this.meals = meals;
     }
 
+    public String getDish() {
+        return dish;
+    }
+
+    public void setDish(String dish) {
+        this.dish = dish;
+    }
+
     public List<String> getRecipe() {
         return recipe;
     }
 
     public void setRecipe(List<String> recipe) {
         this.recipe = recipe;
+    }
+
+    public List<String> getOptional() {
+        return optional;
+    }
+
+    public void setOptional(List<String> optional) {
+        this.optional = optional;
     }
 
     public List<String> getIntoAler() {

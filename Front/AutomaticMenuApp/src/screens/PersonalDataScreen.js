@@ -127,10 +127,10 @@ const PersonalDataScreen = () => {
       <FlatList
         ListHeaderComponent={
           <>
-          <StyledText tittle bold center>Let us know about yourself</StyledText>
+          <StyledText tittle bold center>Explica'ns una mica més sobre tu</StyledText>
           {/* textInput name */}
           <StyledContainer userStats>
-            <StyledText label bold>Name</StyledText>
+            <StyledText label bold>Nom</StyledText>
             <StyledTextInput textInputLine 
                               placeholder='Enter your name here'
                               style={textInputIsFocus && { borderBottomColor: colors.actionLight}}
@@ -143,7 +143,7 @@ const PersonalDataScreen = () => {
           <StyledContainer flexRow>
             {/* dropdown age */}
             <StyledContainer userStats width50>
-              <StyledText label bold>Age</StyledText>
+              <StyledText label bold>Edat</StyledText>
               <StyledContainer underline/>
               <Dropdown
                 style={[styledDropdownStyles.standard, styledDropdownStyles.age, ageIsFocus && { borderColor: colors.actionLight}]}
@@ -171,7 +171,7 @@ const PersonalDataScreen = () => {
 
             {/* dropdown weight */}
             <StyledContainer userStats width50>
-              <StyledText label bold>Weight</StyledText>
+              <StyledText label bold>Pes</StyledText>
               <StyledContainer underline/>
               <Dropdown
                 style={[styledDropdownStyles.standard, styledDropdownStyles.weight, weightIsFocus && { borderColor: colors.actionLight}]}
@@ -199,7 +199,7 @@ const PersonalDataScreen = () => {
           </StyledContainer>
           {/* dropdown height */}
           <StyledContainer userStats width60>
-            <StyledText label bold>Height</StyledText>
+            <StyledText label bold>Alçada</StyledText>
             <StyledContainer underline/>
             <Dropdown
               style={[styledDropdownStyles.standard, styledDropdownStyles.age, ageIsFocus && { borderColor: colors.actionLight}]}
@@ -268,7 +268,7 @@ const PersonalDataScreen = () => {
             standard 
             signup 
             onPress={() => handlePersonalData()}>
-            <StyledText button bold >Next</StyledText>
+            <StyledText button bold >Següent</StyledText>
           </StyledButton>
 
           </>

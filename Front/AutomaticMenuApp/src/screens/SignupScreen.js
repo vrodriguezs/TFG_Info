@@ -102,17 +102,17 @@ const SignUpScreen = () => {
 
               <StyledContainer screenContainer>
               <BackButton screen={'LogIn'}/>
-                <StyledText tittle bold center>SignUp</StyledText>
+                <StyledText tittle bold center>Registre</StyledText>
                 <FormikInputValue
                   name='email'
-                  labelTitle="Email"
+                  labelTitle="Correu"
                   icon="mail"
                   placeholder="example@mail.ext"
                   value={values.email}
                 />
                 <FormikInputValue
                   name='password'
-                  labelTitle="Password"
+                  labelTitle="Contrasenya"
                   icon="lock"
                   placeholder="******"
                   value={values.password}
@@ -123,7 +123,7 @@ const SignUpScreen = () => {
                 />
                 <FormikInputValue
                   name='passwordConfirmation'
-                  labelTitle="Confirm password"
+                  labelTitle="Confirma la contrasenya"
                   icon="lock"
                   placeholder="******"
                   value={values.passwordConfirmation}
@@ -137,7 +137,7 @@ const SignUpScreen = () => {
                   standard 
                   signup
                   onPress={() => handleSubmit()}>
-                  <StyledText button bold >Sign Up</StyledText>
+                  <StyledText button bold >Registrar-se</StyledText>
                 </StyledButton>
 
               </StyledContainer>

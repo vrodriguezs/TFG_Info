@@ -89,7 +89,7 @@ const LoginScreen = () => {
 
                 <FormikInputValue
                   name='email'
-                  labelTitle="Email"
+                  labelTitle="Correu"
                   icon="mail"
                   placeholder="example@mail.ext"
                   value={values.email}
@@ -97,7 +97,7 @@ const LoginScreen = () => {
 
                 <FormikInputValue
                   name='password'
-                  labelTitle="Password"
+                  labelTitle="Contrasenya"
                   icon="lock"
                   placeholder="******"
                   value={values.password}
@@ -111,12 +111,12 @@ const LoginScreen = () => {
                   standard 
                   signup
                   onPress={() => handleSubmit()}>
-                  <StyledText button bold >Log In</StyledText>
+                  <StyledText button bold >Iniciar sessió</StyledText>
                 </StyledButton>
                 <StyledContainer newAccount>
-                  <StyledText small>Don't have an account yet? </StyledText>
+                  <StyledText small>Encara no tens un compte? </StyledText>
                   <StyledButton link onPress={() => navigation.navigate('PersonalData')}>
-                    <StyledText small color bold>Sign Up!</StyledText>
+                    <StyledText small color bold>Registra't!</StyledText>
                   </StyledButton>
                 </StyledContainer>
 

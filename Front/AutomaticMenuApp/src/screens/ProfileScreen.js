@@ -60,7 +60,7 @@ const ProfileScreen = () => {
         ListHeaderComponent={
           <>
           <StyledContainer row spaceBetween>
-            <StyledText tittleTab bold center>Profile</StyledText>
+            <StyledText tittleTab bold center>Perfil</StyledText>
             <StyledButton preferences onPress={() => navigation.navigate('Preferences')}>
               <MaterialCommunityIcons  name='format-list-checks' size={50} color={colors.action}/>
             </StyledButton>
@@ -90,7 +90,7 @@ const ProfileScreen = () => {
             onPress={() => navigation.navigate('PersonalData')}> 
             {/*anar al signup pero sense fer cap signup d'usuari, sino update*/}
             {/*ergo posar un atribut o algo q identifiqui quan es ve d la screen d profile*/}
-            <StyledText button bold >Update</StyledText>
+            <StyledText button bold >Actualitzar</StyledText>
           </StyledButton>
           </>
         }

@@ -3,28 +3,28 @@ import * as yup from 'yup'
 export const logInValidationSchema = yup.object().shape({
     email: yup
         .string()
-        .email('Email is badly formated')
-        .required('Email is required'),
+        .email('El format no és correcte')
+        .required('El correu és obligatori'),
     password: yup
         .string()
-        .min(5, 'Password is too short')
-        .max(20, 'Password is too long')
-        .required('Password is required'),
+        .min(5, 'La contrasenya és massa curta')
+        .max(20, 'La contrasenya és massa llarga')
+        .required('La contrasenya és obligatòria'),
 })
 export const signUpValidationSchema = yup.object().shape({
     email: yup
         .string()
-        .email('Email is badly formated')
-        .required('Email is required'),
+        .email('El format no és correcte')
+        .required('El correu és obligatori'),
     password: yup
         .string()
-        .min(5, 'Password is too short')
-        .max(20, 'Password is too long')
-        .required('Password is required'),
+        .min(5, 'La contrasenya és massa curta')
+        .max(20, 'La contrasenya és massa llarga')
+        .required('La contrasenya és obligatòria'),
     passwordConfirmation: yup
         .string()
-        .min(5, 'Password is too short')
-        .max(20, 'Password is too long')
-        .required('Password is required')
-        .oneOf([yup.ref('password')], 'Passwords must match')
+        .min(5, 'La contrasenya és massa curta')
+        .max(20, 'La contrasenya és massa llarga')
+        .required('La contrasenya és obligatòria')
+        .oneOf([yup.ref('password')], 'Les contrasenyes han de coincidir')
 })
