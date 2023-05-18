@@ -1,6 +1,7 @@
 package com.tfg.automaticmenu.controller;
 
 import com.tfg.automaticmenu.entity.Dish;
+import com.tfg.automaticmenu.entity.User;
 import com.tfg.automaticmenu.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,13 @@ public class DishController {
     @PostMapping("/dishes")
     public String saveDish(@RequestBody Dish dish) throws ExecutionException, InterruptedException {
         return dishService.saveDish(dish);
+    }
+
+    //s'ha d canviar a q retorni una list o algo amb el menu
+    //o simplement q guardi el menu a la bbdd i segueixi sent void
+    @PostMapping("/api/generate-menu")
+    public void generateMenu(@RequestBody User user) {
+        dishService.generateMenu(user);
     }
 
 }

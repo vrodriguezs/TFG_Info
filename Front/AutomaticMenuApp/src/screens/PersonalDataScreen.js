@@ -16,21 +16,48 @@ import { styledDropdownStyles } from '../styles/StyledDropdown'
 import BackButton from '../../BackButton';
 import ScrollToTopButton from '../../ScrollToTopButton';
 
-import { userData, ageDropdownData, weightDropdownData } from '../../FormsData'
+import { userData, ageDropdownData, weightDropdownData, heightDropdownData } from '../../FormsData'
 
 import { colors } from '../../Colors'
-
-import { Octicons } from '@expo/vector-icons'
 import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
+
+const SCROLL_TOP_OFFSET = 400
+
+const DEFAULT_AGE = ageDropdownData[3].label
+const DEFAULT_WEIGHT = weightDropdownData[5].label
+const DEFAULT_HEIGHT = heightDropdownData[3].label
+
+const DISHES = "Àpats"
+
+const TWO_DISHES = "Esmorzar i Dinar"
+const THREE_DISHES = "Esmorzar, Dinar i Sopar"
+const FOUR_DISHES = "Esmorzar, Dinar, Berenar i Sopar"
+const FIVE_DISHES = "Esmorzar, Mig Matí Dinar, Berenar i Sopar"
+
+let nameToExport = "Anònim";
+let ageToExport = DEFAULT_AGE;
+let weightToExport = DEFAULT_WEIGHT;
+let heightToExport = DEFAULT_HEIGHT;
+let dishToExport = FOUR_DISHES;
 
 const PersonalDataScreen = () => {
   const navigation = useNavigation()
+
+  const handleNameChange = (text) => {nameToExport = text};
+
+  const handleAgeChange = (text) => {ageToExport = text};
+
+  const handleWeightChange = (text) => {weightToExport = text};
+
+  const handleHeightChange = (text) => {heightToExport = text};
+
+  const handleDishChange = (text) => {dishToExport = text};
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
 
   const handleScroll = (event) => {
-    const topOffset = 400;
+    const topOffset = SCROLL_TOP_OFFSET;
     const offsetY = event.nativeEvent.contentOffset.y;
     setScrollToTopVisible(offsetY > topOffset);
   };
@@ -46,9 +73,13 @@ const PersonalDataScreen = () => {
 
   const [age, setAge] = useState(0);
   const [weight, setWeight] = useState(0);
-
+  const [height, setHeight] = useState(0);
+  
   const [ageIsFocus, setAgeIsFocus] = useState(false);
   const [weightIsFocus, setWeightIsFocus] = useState(false);
+  const [heightIsFocus, setHeightIsFocus] = useState(false);
+
+  const [dish, setDish] = useState(FOUR_DISHES)
 
   const handlePersonalData = () => {
     navigation.navigate('Preferences')
@@ -93,6 +124,23 @@ const PersonalDataScreen = () => {
   }
   
   const handleOnPressOption = (item) => {
+    if(!isNaN(item.name)) {
+      handleDishChange(item.name)
+      switch (item.name.toString()) {
+        case '2':
+          setDish(TWO_DISHES)
+          break
+        case '3':
+          setDish(THREE_DISHES)
+          break
+        case '4':
+          setDish(FOUR_DISHES)
+          break
+        case '5':
+          setDish(FIVE_DISHES)
+          break
+      }
+    }
     //faig una còpia d tot l'array
     const userStateCopy = [...userDataSelect]
 
@@ -120,7 +168,6 @@ const PersonalDataScreen = () => {
     setUserDataSelect(userStateCopy)
   }
 
-
   return (
     <StyledContainer screenContainer>
       <BackButton screen={'Welcome'}/>
@@ -132,11 +179,14 @@ const PersonalDataScreen = () => {
           <StyledContainer userStats>
             <StyledText label bold>Nom</StyledText>
             <StyledTextInput textInputLine 
-                              placeholder='Enter your name here'
+                              placeholder='Escriu el teu nom aquí'
                               style={textInputIsFocus && { borderBottomColor: colors.actionLight}}
                               onFocus={() => setInputIsFocus(true)}
                               onBlur={() => setInputIsFocus(false)}
-                              onChangeText={newName => setUserName(newName)}
+                              onChangeText={newName => {
+                                setUserName(newName)
+                                handleNameChange(newName)
+                              }}
             ></StyledTextInput>
           </StyledContainer>
 
@@ -153,13 +203,14 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={ageDropdownData[4].label}
+                placeholder={DEFAULT_AGE}
                 value={age}
                 onFocus={() => setAgeIsFocus(true)}
                 onBlur={() => setAgeIsFocus(false)}
                 onChange={item => {
                   setAge(item.value);
                   setAgeIsFocus(false);
+                  handleAgeChange(ageDropdownData[item.value-1].label)
                 }}
                 showsVerticalScrollIndicator={false}
                 activeColor={colors.primary}
@@ -181,13 +232,14 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={weightDropdownData[7].label}
+                placeholder={DEFAULT_WEIGHT}
                 value={weight}
                 onFocus={() => setWeightIsFocus(true)}
                 onBlur={() => setWeightIsFocus(false)}
                 onChange={item => {
                   setWeight(item.value);
                   setWeightIsFocus(false);
+                  handleWeightChange(weightDropdownData[item.value-1].label)
                 }}
                 showsVerticalScrollIndicator={false}
                 activeColor={colors.primary}
@@ -198,24 +250,25 @@ const PersonalDataScreen = () => {
             </StyledContainer>
           </StyledContainer>
           {/* dropdown height */}
-          <StyledContainer userStats width60>
+          <StyledContainer userStats>
             <StyledText label bold>Alçada</StyledText>
             <StyledContainer underline/>
             <Dropdown
-              style={[styledDropdownStyles.standard, styledDropdownStyles.age, ageIsFocus && { borderColor: colors.actionLight}]}
+              style={[styledDropdownStyles.standard, styledDropdownStyles.height, heightIsFocus && { borderColor: colors.actionLight}]}
               placeholderStyle={styledDropdownStyles.placeholderStyle}
               selectedTextStyle={styledDropdownStyles.selectedTextStyle}
-              data={ageDropdownData}
+              data={heightDropdownData}
               maxHeight={200}
               labelField="label"
               valueField="value"
-              placeholder={'1,6m - 1,7m'}
-              value={age}
-              onFocus={() => setAgeIsFocus(true)}
-              onBlur={() => setAgeIsFocus(false)}
+              placeholder={DEFAULT_HEIGHT}
+              value={height}
+              onFocus={() => setHeightIsFocus(true)}
+              onBlur={() => setHeightIsFocus(false)}
               onChange={item => {
-                setAge(item.value);
-                setAgeIsFocus(false);
+                setHeight(item.value);
+                setHeightIsFocus(false);
+                handleHeightChange(heightDropdownData[item.value-1].label)
               }}
               showsVerticalScrollIndicator={false}
               activeColor={colors.primary}
@@ -238,7 +291,6 @@ const PersonalDataScreen = () => {
               <>
               <StyledText label bold>{item.categoryName}</StyledText>
               <StyledContainer underline/>
-              {/* setCategory(item.categoryName) */}
               </>
             }
               data={item.arg}
@@ -255,15 +307,15 @@ const PersonalDataScreen = () => {
               keyExtractor={(item) => item.id}
               />
               <StyledContainer underline/>
+              {item.categoryName===DISHES && <StyledText center>{dish}</StyledText>}
           </StyledContainer>
-            
+          
         )}
         keyExtractor={(item, index) => index}
         onScroll={handleScroll}
 
         ListFooterComponent={
           <>
-
           <StyledButton 
             standard 
             signup 
@@ -278,5 +330,10 @@ const PersonalDataScreen = () => {
     </StyledContainer>
   )
 }
+
+
+export const getUserAtributes = () => {
+  return [nameToExport, ageToExport, weightToExport, heightToExport, dishToExport]
+};
 
 export default PersonalDataScreen

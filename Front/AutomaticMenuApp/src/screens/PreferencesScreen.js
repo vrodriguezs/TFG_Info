@@ -20,9 +20,10 @@ import { preferencesData } from '../../FormsData'
 
 import { colors } from '../../Colors'
 
-import { Octicons } from '@expo/vector-icons'
+import { getUserAtributes } from './PersonalDataScreen'
 
 const PreferencesScreen = () => {
+  console.log("User Attributes: ",getUserAtributes())
   const navigation = useNavigation()
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
@@ -41,7 +42,7 @@ const PreferencesScreen = () => {
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
   const handlePreferences = () => {
-      navigation.navigate('Home')
+    // navigation.navigate('Home')
     // auth
     //   .createUserWithEmailAndPassword(email, password)
     //   .then(userCredentials => {

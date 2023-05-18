@@ -16,6 +16,9 @@ export const styledDropdownStyles = StyleSheet.create({
     weight: {
       width: 150,
     },
+    height: {
+      width: 180,
+    },
     placeholderStyle: {
       fontSize: 16,
       color: colors.text

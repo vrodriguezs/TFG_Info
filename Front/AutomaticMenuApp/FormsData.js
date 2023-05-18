@@ -88,6 +88,36 @@ export const userData = [
             image: require('./src/assets/icons/Preferences/Proteins/meat.png')
         }
       ]
+    },
+    {
+      id: "50",
+      categoryName: "Àpats",
+      arg: [
+        {
+            id: "51",
+            selected: false,
+            name: 2,
+            image: require('./src/assets/icons/Preferences/Meals/breakfast.png')
+        },
+        {
+            id: "52",
+            selected: false,
+            name: 3,
+            image: require('./src/assets/icons/Preferences/Meals/brunch.png')
+        },
+        {
+            id: "53",
+            selected: true,
+            name: 4,
+            image: require('./src/assets/icons/Preferences/Meals/lunch.png')
+        },
+        {
+            id: "54",
+            selected: false,
+            name: 5,
+            image: require('./src/assets/icons/Preferences/Meals/snack.png')
+        }
+      ]
     }
   ]
 
@@ -155,43 +185,17 @@ export const weightDropdownData = [
   { label: '> 99kg', value: '10' },
 ];
 
+export const heightDropdownData = [
+  { label: '140cm - 150cm', value: '1' },
+  { label: '150cm - 160cm', value: '2' },
+  { label: '160cm - 170cm', value: '3' },
+  { label: '170cm - 180cm', value: '4' },
+  { label: '180cm - 190cm', value: '5' },
+  { label: '190cm - 200cm', value: '6' },
+  { label: '> 200cm', value: '7' },
+];
+
 export const preferencesData = [
-  {
-    id: "40",
-    categoryName: "Àpats",
-    arg: [
-      {
-          id: "41",
-          selected: true,
-          name: "Esmorzar",
-          image: require('./src/assets/icons/Preferences/Meals/breakfast.png')
-      },
-      {
-          id: "42",
-          selected: true,
-          name: "Mig matí",
-          image: require('./src/assets/icons/Preferences/Meals/brunch.png')
-      },
-      {
-          id: "43",
-          selected: true,
-          name: "Dinar",
-          image: require('./src/assets/icons/Preferences/Meals/lunch.png')
-        },
-        {
-          id: "44",
-          selected: false,
-          name: "Berenar",
-          image: require('./src/assets/icons/Preferences/Meals/snack.png')
-        },
-        {
-          id: "45",
-          selected: true,
-          name: "Sopar",
-          image: require('./src/assets/icons/Preferences/Meals/dinner.png')
-      }
-    ]
-  },
   {
       id: "50",
       categoryName: "Al·lèrgies i intoleràncies",
@@ -384,12 +388,6 @@ export const preferencesData = [
       },
       {
           id: "391",
-          selected: true,
-          name: "Blat de moro",
-          image: require('./src/assets/icons/Preferences/Vegetables/corn.png')
-      },
-      {
-          id: "392",
           selected: true,
           name: "Patates",
           image: require('./src/assets/icons/Preferences/Vegetables/potatoes.png')
