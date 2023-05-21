@@ -23,10 +23,22 @@ import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
 
 const SCROLL_TOP_OFFSET = 400
 
-const DEFAULT_AGE = ageDropdownData[3].label
-const DEFAULT_WEIGHT = weightDropdownData[5].label
-const DEFAULT_HEIGHT = heightDropdownData[3].label
+const DEFAULT_AGE_LABEL = ageDropdownData[3].label
+const DEFAULT_WEIGHT_LABEL = weightDropdownData[5].label
+const DEFAULT_HEIGHT_LABEL = heightDropdownData[3].label
+const DEFAULT_AGE = ageDropdownData[3].export
+const DEFAULT_WEIGHT = weightDropdownData[5].export
+const DEFAULT_HEIGHT = heightDropdownData[3].export
+const DEFAULT_SEX = "Dona"
+const DEFAULT_EX_ROUTINE = "Sovint"
+const DEFAULT_EX_INTENSITY = "Mitjana"
+const DEFAULT_VEG = "No"
+const DEFAULT_DISHES = 4
 
+const SEX = "Sexe"
+const EX_ROUTINE = "Rutina d'exercici"
+const EX_INTENSITY = "Intensitat d'exercici"
+const VEG = "Ets vegà o vegetarià?"
 const DISHES = "Àpats"
 
 const TWO_DISHES = "Esmorzar i Dinar"
@@ -38,20 +50,24 @@ let nameToExport = "Anònim";
 let ageToExport = DEFAULT_AGE;
 let weightToExport = DEFAULT_WEIGHT;
 let heightToExport = DEFAULT_HEIGHT;
-let dishToExport = FOUR_DISHES;
+let sexToExport = DEFAULT_SEX;
+let exRoutineToExport = DEFAULT_EX_ROUTINE;
+let exIntensityToExport = DEFAULT_EX_INTENSITY;
+let vegToExport = DEFAULT_VEG;
+let dishesToExport = DEFAULT_DISHES;
 
 const PersonalDataScreen = () => {
   const navigation = useNavigation()
 
   const handleNameChange = (text) => {nameToExport = text};
-
   const handleAgeChange = (text) => {ageToExport = text};
-
   const handleWeightChange = (text) => {weightToExport = text};
-
   const handleHeightChange = (text) => {heightToExport = text};
-
-  const handleDishChange = (text) => {dishToExport = text};
+  const handleSexChange = (text) => {sexToExport = text};
+  const handleExRoutineChange = (text) => {exRoutineToExport = text};
+  const handleExIntensityChange = (text) => {exIntensityToExport = text};
+  const handleVegChange = (text) => {vegToExport = text};
+  const handleDishChange = (text) => {dishesToExport = text};
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
@@ -141,6 +157,18 @@ const PersonalDataScreen = () => {
           break
       }
     }
+    else if(item.categoryName===SEX) {
+      handleSexChange(item.name)
+    }
+    else if(item.categoryName===EX_ROUTINE) {
+      handleExRoutineChange(item.name)
+    }
+    else if(item.categoryName===EX_INTENSITY) {
+      handleExIntensityChange(item.name)
+    }
+    else if(item.categoryName===VEG) {
+      handleVegChange(item.name)
+    }
     //faig una còpia d tot l'array
     const userStateCopy = [...userDataSelect]
 
@@ -203,14 +231,14 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={DEFAULT_AGE}
+                placeholder={DEFAULT_AGE_LABEL}
                 value={age}
                 onFocus={() => setAgeIsFocus(true)}
                 onBlur={() => setAgeIsFocus(false)}
                 onChange={item => {
                   setAge(item.value);
                   setAgeIsFocus(false);
-                  handleAgeChange(ageDropdownData[item.value-1].label)
+                  handleAgeChange(ageDropdownData[item.value-1].export)
                 }}
                 showsVerticalScrollIndicator={false}
                 activeColor={colors.primary}
@@ -232,14 +260,14 @@ const PersonalDataScreen = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={DEFAULT_WEIGHT}
+                placeholder={DEFAULT_WEIGHT_LABEL}
                 value={weight}
                 onFocus={() => setWeightIsFocus(true)}
                 onBlur={() => setWeightIsFocus(false)}
                 onChange={item => {
                   setWeight(item.value);
                   setWeightIsFocus(false);
-                  handleWeightChange(weightDropdownData[item.value-1].label)
+                  handleWeightChange(weightDropdownData[item.value-1].export)
                 }}
                 showsVerticalScrollIndicator={false}
                 activeColor={colors.primary}
@@ -261,14 +289,14 @@ const PersonalDataScreen = () => {
               maxHeight={200}
               labelField="label"
               valueField="value"
-              placeholder={DEFAULT_HEIGHT}
+              placeholder={DEFAULT_HEIGHT_LABEL}
               value={height}
               onFocus={() => setHeightIsFocus(true)}
               onBlur={() => setHeightIsFocus(false)}
               onChange={item => {
                 setHeight(item.value);
                 setHeightIsFocus(false);
-                handleHeightChange(heightDropdownData[item.value-1].label)
+                handleHeightChange(heightDropdownData[item.value-1].export)
               }}
               showsVerticalScrollIndicator={false}
               activeColor={colors.primary}
@@ -332,8 +360,14 @@ const PersonalDataScreen = () => {
 }
 
 
-export const getUserAtributes = () => {
-  return [nameToExport, ageToExport, weightToExport, heightToExport, dishToExport]
-};
+export {nameToExport}
+export {ageToExport}
+export {weightToExport}
+export {heightToExport}
+export {sexToExport}
+export {exRoutineToExport}
+export {exIntensityToExport}
+export {vegToExport}
+export {dishesToExport}
 
 export default PersonalDataScreen

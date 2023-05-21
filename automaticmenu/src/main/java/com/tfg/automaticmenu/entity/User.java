@@ -1,16 +1,21 @@
 package com.tfg.automaticmenu.entity;
 
+import java.util.List;
+
 public class User {
 
     String name;
-    String exRoutine;
-    String exIntensity;
-    String sex;
     int age;
     int weight;
     int height;
-    Boolean veg;
+    String sex;
+    String exRoutine;
+    String exIntensity;
+    String veg;
     int dishes;
+
+    List<String> allerInto;
+    List<String> ingredients;
 
     public String getName() {
         return name;
@@ -68,11 +73,11 @@ public class User {
         this.height = height;
     }
 
-    public Boolean getVeg() {
+    public String getVeg() {
         return veg;
     }
 
-    public void setVeg(Boolean veg) {
+    public void setVeg(String veg) {
         this.veg = veg;
     }
 
@@ -82,5 +87,21 @@ public class User {
 
     public void setDishes(int dishes) {
         this.dishes = dishes;
+    }
+
+    public List<String> getAllerInto() {
+        return allerInto;
+    }
+
+    public void setAllerInto(List<String> allerInto) {
+        this.allerInto = allerInto;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
     }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { View, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
+import axios from 'axios'
 
 import { auth } from '../../firebase'
 
@@ -20,14 +21,16 @@ import { preferencesData } from '../../FormsData'
 
 import { colors } from '../../Colors'
 
-import { getUserAtributes } from './PersonalDataScreen'
+import { nameToExport, ageToExport, weightToExport, heightToExport, sexToExport, 
+  exRoutineToExport, exIntensityToExport, vegToExport, dishesToExport } from './PersonalDataScreen'
 
 const PreferencesScreen = () => {
-  console.log("User Attributes: ",getUserAtributes())
   const navigation = useNavigation()
-
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
+
+  const allerIntoToExport = []
+  const ingredientsToExport = []
 
   const handleScroll = (event) => {
     const topOffset = 400;
@@ -41,7 +44,9 @@ const PreferencesScreen = () => {
 
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
-  const handlePreferences = () => {
+  const handlePreferencesScreen = () => {
+    handlePreferences()
+    sendDataToBackEnd()
     // navigation.navigate('Home')
     // auth
     //   .createUserWithEmailAndPassword(email, password)
@@ -51,6 +56,48 @@ const PreferencesScreen = () => {
     //     navigation.navigate('Home')
     //   })
     //   .catch(error => alert(error.message))
+  }
+
+  const handlePreferences = () => {
+    preferencesDataSelect.forEach((category) => {
+      if(category.categoryName === "Al·lèrgies i intoleràncies") {
+        category.arg.forEach(item => {
+          if(!item.selected) {
+            allerIntoToExport.push(item.name)
+          }
+        })
+      }
+      else {
+        category.arg.forEach(item => {
+          if(!item.selected) {
+            ingredientsToExport.push(item.name)
+          }
+        })
+      }
+    })
+  }
+
+  const sendDataToBackEnd = async () => {
+    const user = {
+      name: nameToExport,
+      age: ageToExport,
+      weight: weightToExport,
+      height: heightToExport,
+      sex: sexToExport,
+      exRoutine: exRoutineToExport,
+      exIntensity: exIntensityToExport,
+      veg: vegToExport,
+      dishes: dishesToExport,
+      allerInto: allerIntoToExport,
+      ingredients: ingredientsToExport
+    }
+
+    try {
+      const response = await axios.post('http://192.168.1.43:8080/api/generate-menu', user)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
   
   const handleOnPress = (item) => {
@@ -128,7 +175,7 @@ const PreferencesScreen = () => {
           <StyledButton 
             standard 
             signup 
-            onPress={ () => handlePreferences()}>
+            onPress={ () => handlePreferencesScreen()}>
             <StyledText button bold >Començar</StyledText>
           </StyledButton>
           </>

@@ -8,8 +8,7 @@ import com.tfg.automaticmenu.entity.Dish;
 import com.tfg.automaticmenu.entity.User;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -17,7 +16,7 @@ public class DishService {
 
     private static final String COLLECTION_NAME = "dishes";
     private static final String WOMAN = "Dona";
-    private static final int KCAL_MARGIN = 200;
+    private static final int KCAL_MARGIN = 100;
     private static final String BREAKFAST = "Esmorzar";
     private static final String BRUNCH = "Mig Matí";
     private static final String LUNCH = "Dinar";
@@ -38,7 +37,15 @@ public class DishService {
         int minKcal = kcal-KCAL_MARGIN;
 
         //calculate kcal per dish, depending on the dishes the user does
-        calculateKcalPerDish(kcal, user.getDishes());
+        Map<String, Integer> kcalPerDish = calculateKcalPerDish(kcal, user.getDishes());
+        System.out.println("Total kcal "+kcal);
+        for (Map.Entry<String, Integer> entry : kcalPerDish.entrySet()) {
+            String dish = entry.getKey();
+            int kcalDish = entry.getValue();
+            System.out.println(dish+": "+kcalDish+" kcal");
+        }
+        System.out.println(user.getAllerInto());
+        System.out.println(user.getIngredients());
     }
 
     private double calculateTotalKcal(User user) {
@@ -58,31 +65,35 @@ public class DishService {
     }
 
     private double calculateExFactor(String exRoutine, String exIntensity) {
-        return 0;
+        return 1;
     }
 
     //fix percentages
     private Map<String, Integer> calculateKcalPerDish(int kcal, int dishes) {
-        Map<String, Integer> kcalPerDish = new HashMap<>();
+        Map<String, Integer> kcalPerDish = new LinkedHashMap<>();
         switch(dishes) {
             case 2:
                 putDishMap(kcalPerDish, BREAKFAST, kcal, 0.4);
                 putDishMap(kcalPerDish, LUNCH, kcal, 0.6);
+                break;
             case 3:
                 putDishMap(kcalPerDish, BREAKFAST, kcal, 0.35);
                 putDishMap(kcalPerDish, LUNCH, kcal, 0.45);
                 putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                break;
             case 4:
                 putDishMap(kcalPerDish, BREAKFAST, kcal, 0.3);
                 putDishMap(kcalPerDish, LUNCH, kcal, 0.4);
                 putDishMap(kcalPerDish, SNACK, kcal, 0.1);
                 putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                break;
             case 5:
                 putDishMap(kcalPerDish, BREAKFAST, kcal, 0.25);
                 putDishMap(kcalPerDish, BRUNCH, kcal, 0.1);
                 putDishMap(kcalPerDish, LUNCH, kcal, 0.35);
                 putDishMap(kcalPerDish, SNACK, kcal, 0.1);
                 putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                break;
         }
 
         return kcalPerDish;

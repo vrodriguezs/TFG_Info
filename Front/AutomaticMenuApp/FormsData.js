@@ -7,13 +7,15 @@ export const userData = [
             id: "11",
             selected: true,
             name: "Dona",
-            image: require('./src/assets/icons/female.png')
+            image: require('./src/assets/icons/female.png'),
+            categoryName: "Sexe",
         },
         {
             id: "12",
             selected: false,
             name: "Home",
-            image: require('./src/assets/icons/male.png')
+            image: require('./src/assets/icons/male.png'),
+            categoryName: "Sexe",
         }
       ]
     },
@@ -25,25 +27,29 @@ export const userData = [
             id: "21",
             selected: false,
             name: "Mai",
-            image: require('./src/assets/icons/exerciseRoutineNever.png')
+            image: require('./src/assets/icons/exerciseRoutineNever.png'),
+            categoryName: "Rutina d'exercici",
         },
         {
             id: "22",
             selected: false,
             name: "A vegades",
-            image: require('./src/assets/icons/exerciseRoutineSometimes.png')
+            image: require('./src/assets/icons/exerciseRoutineSometimes.png'),
+            categoryName: "Rutina d'exercici",
         },
         {
             id: "23",
             selected: true,
             name: "Sovint",
-            image: require('./src/assets/icons/exerciseRoutineOften.png')
+            image: require('./src/assets/icons/exerciseRoutineOften.png'),
+            categoryName: "Rutina d'exercici",
         },
         {
             id: "24",
             selected: false,
             name: "A diari",
-            image: require('./src/assets/icons/exerciseRoutineDaily.png')
+            image: require('./src/assets/icons/exerciseRoutineDaily.png'),
+            categoryName: "Rutina d'exercici",
         }
       ]
     },
@@ -55,19 +61,22 @@ export const userData = [
             id: "31",
             selected: false,
             name: "Baixa",
-            image: require('./src/assets/icons/exerciseIntensityLow.png')
+            image: require('./src/assets/icons/exerciseIntensityLow.png'),
+            categoryName: "Intensitat d'exercici",
         },
         {
             id: "32",
             selected: true,
             name: "Mitjana",
-            image: require('./src/assets/icons/exerciseIntensityMid.png')
+            image: require('./src/assets/icons/exerciseIntensityMid.png'),
+            categoryName: "Intensitat d'exercici",
         },
         {
             id: "33",
             selected: false,
             name: "Alta",
-            image: require('./src/assets/icons/exerciseIntensityHigh.png')
+            image: require('./src/assets/icons/exerciseIntensityHigh.png'),
+            categoryName: "Intensitat d'exercici",
         }
       ]
     },
@@ -77,15 +86,17 @@ export const userData = [
       arg: [
         {
             id: "41",
-            selected: true,
+            selected: false,
             name: "Sí",
-            image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png')
+            image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png'),
+            categoryName: "Ets vegà o vegetarià?",
         },
         {
             id: "42",
-            selected: false,
+            selected: true,
             name: "No",
-            image: require('./src/assets/icons/Preferences/Proteins/meat.png')
+            image: require('./src/assets/icons/Preferences/Proteins/meat.png'),
+            categoryName: "Ets vegà o vegetarià?",
         }
       ]
     },
@@ -97,25 +108,29 @@ export const userData = [
             id: "51",
             selected: false,
             name: 2,
-            image: require('./src/assets/icons/Preferences/Meals/breakfast.png')
+            image: require('./src/assets/icons/Preferences/Meals/breakfast.png'),
+            categoryName: "Àpats",
         },
         {
             id: "52",
             selected: false,
             name: 3,
-            image: require('./src/assets/icons/Preferences/Meals/brunch.png')
+            image: require('./src/assets/icons/Preferences/Meals/brunch.png'),
+            categoryName: "Àpats",
         },
         {
             id: "53",
             selected: true,
             name: 4,
-            image: require('./src/assets/icons/Preferences/Meals/lunch.png')
+            image: require('./src/assets/icons/Preferences/Meals/lunch.png'),
+            categoryName: "Àpats",
         },
         {
             id: "54",
             selected: false,
             name: 5,
-            image: require('./src/assets/icons/Preferences/Meals/snack.png')
+            image: require('./src/assets/icons/Preferences/Meals/snack.png'),
+            categoryName: "Àpats",
         }
       ]
     }
@@ -161,38 +176,38 @@ export const userDataSimple = [
 ];
 
 export const ageDropdownData = [
-  { label: '10 - 14', value: '1' },
-  { label: '15 - 19', value: '2' },
-  { label: '20 - 24', value: '3' },
-  { label: '25 - 29', value: '4' },
-  { label: '30 - 39', value: '5' },
-  { label: '40 - 49', value: '6' },
-  { label: '50 - 59', value: '7' },
-  { label: '60 - 69', value: '8' },
-  { label: '> 69', value: '9' },
+  { label: '10 - 14', export: 12, value: '1' },
+  { label: '15 - 19', export: 17, value: '2' },
+  { label: '20 - 24', export: 22, value: '3' },
+  { label: '25 - 29', export: 27, value: '4' },
+  { label: '30 - 39', export: 35, value: '5' },
+  { label: '40 - 49', export: 45, value: '6' },
+  { label: '50 - 59', export: 55, value: '7' },
+  { label: '60 - 69', export: 65, value: '8' },
+  { label: '> 69', export: 75, value: '9' },
 ];
 
 export const weightDropdownData = [
-  { label: '< 20kg', value: '1' },
-  { label: '20 - 29kg', value: '2' },
-  { label: '30 - 39kg', value: '3' },
-  { label: '40 - 49kg', value: '4' },
-  { label: '50 - 59kg', value: '5' },
-  { label: '60 - 69kg', value: '6' },
-  { label: '70 - 79kg', value: '7' },
-  { label: '80 - 89kg', value: '8' },
-  { label: '90 - 99kg', value: '9' },
-  { label: '> 99kg', value: '10' },
+  { label: '< 20kg', export: 15, value: '1' },
+  { label: '20 - 29kg', export: 25, value: '2' },
+  { label: '30 - 39kg', export: 35, value: '3' },
+  { label: '40 - 49kg', export: 45, value: '4' },
+  { label: '50 - 59kg', export: 55, value: '5' },
+  { label: '60 - 69kg', export: 65, value: '6' },
+  { label: '70 - 79kg', export: 75, value: '7' },
+  { label: '80 - 89kg', export: 85, value: '8' },
+  { label: '90 - 99kg', export: 95, value: '9' },
+  { label: '> 99kg', export: 105, value: '10' },
 ];
 
 export const heightDropdownData = [
-  { label: '140cm - 150cm', value: '1' },
-  { label: '150cm - 160cm', value: '2' },
-  { label: '160cm - 170cm', value: '3' },
-  { label: '170cm - 180cm', value: '4' },
-  { label: '180cm - 190cm', value: '5' },
-  { label: '190cm - 200cm', value: '6' },
-  { label: '> 200cm', value: '7' },
+  { label: '140cm - 150cm', export: 145, value: '1' },
+  { label: '150cm - 160cm', export: 155, value: '2' },
+  { label: '160cm - 170cm', export: 165, value: '3' },
+  { label: '170cm - 180cm', export: 175, value: '4' },
+  { label: '180cm - 190cm', export: 185, value: '5' },
+  { label: '190cm - 200cm', export: 195, value: '6' },
+  { label: '> 200cm', export: 205, value: '7' },
 ];
 
 export const preferencesData = [

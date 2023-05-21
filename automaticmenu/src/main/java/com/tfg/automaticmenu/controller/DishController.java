@@ -25,7 +25,7 @@ public class DishController {
 
     //s'ha d canviar a q retorni una list o algo amb el menu
     //o simplement q guardi el menu a la bbdd i segueixi sent void
-    @PostMapping("/api/generate-menu")
+    @PostMapping("/generate-menu")
     public void generateMenu(@RequestBody User user) {
         dishService.generateMenu(user);
     }
