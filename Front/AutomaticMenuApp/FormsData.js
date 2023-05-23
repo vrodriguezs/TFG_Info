@@ -217,7 +217,7 @@ export const preferencesData = [
       arg: [
       {
           id: "51",
-          selected: true,
+          selected: false,
           name: "Gluten",
           image: require('./src/assets/icons/Preferences/IntoAndAller/gluten.png')
       },
@@ -235,7 +235,7 @@ export const preferencesData = [
       },
       {
           id: "54",
-          selected: true,
+          selected: false,
           name: "Fruits secs",
           image: require('./src/assets/icons/Preferences/IntoAndAller/nuts.png')
       },
@@ -265,7 +265,7 @@ export const preferencesData = [
       },
       {
           id: "12",
-          selected: false,
+          selected: true,
           name: "Pollastre",
           image: require('./src/assets/icons/Preferences/Proteins/chicken.png')
       },
@@ -277,13 +277,13 @@ export const preferencesData = [
       },
       {
           id: "14",
-          selected: false,
+          selected: true,
           name: "Porc",
           image: require('./src/assets/icons/Preferences/Proteins/pork.png')
       },
       {
           id: "15",
-          selected: false,
+          selected: true,
           name: "Peix",
           image: require('./src/assets/icons/Preferences/Proteins/fish.png')
       },
@@ -295,13 +295,13 @@ export const preferencesData = [
       },
       {
           id: "17",
-          selected: false,
+          selected: true,
           name: "Ou",
           image: require('./src/assets/icons/Preferences/Proteins/egg.png')
       },
       {
           id: "18",
-          selected: false,
+          selected: true,
           name: "Fruits secs",
           image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
       }
@@ -313,7 +313,7 @@ export const preferencesData = [
     arg: [
       {
           id: "21",
-          selected: false,
+          selected: true,
           name: "Pa",
           image: require('./src/assets/icons/Preferences/Grains/bread.png')
       },
@@ -325,7 +325,7 @@ export const preferencesData = [
       },
       {
           id: "23",
-          selected: false,
+          selected: true,
           name: "Cereal",
           image: require('./src/assets/icons/Preferences/Grains/cereal.png')
       },
@@ -337,7 +337,7 @@ export const preferencesData = [
       },
       {
           id: "25",
-          selected: false,
+          selected: true,
           name: "Civada",
           image: require('./src/assets/icons/Preferences/Grains/oat.png')
       }
@@ -361,13 +361,13 @@ export const preferencesData = [
       },
       {
           id: "33",
-          selected: false,
+          selected: true,
           name: "Cols",
           image: require('./src/assets/icons/Preferences/Vegetables/cabbages.png')
       },
       {
           id: "34",
-          selected: false,
+          selected: true,
           name: "Pepo",
           image: require('./src/assets/icons/Preferences/Vegetables/pepo.png')
       },
@@ -379,25 +379,25 @@ export const preferencesData = [
       },
       {
           id: "36",
-          selected: false,
+          selected: true,
           name: "Fulles",
           image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png')
       },
       {
           id: "37",
-          selected: false,
+          selected: true,
           name: "Espàrecs",
           image: require('./src/assets/icons/Preferences/Vegetables/asparagus.png')
       },
       {
           id: "38",
-          selected: false,
+          selected: true,
           name: "Bolets",
           image: require('./src/assets/icons/Preferences/Vegetables/mushrooms.png')
       },
       {
           id: "39",
-          selected: false,
+          selected: true,
           name: "Carxofes",
           image: require('./src/assets/icons/Preferences/Vegetables/artichoke.png')
       },
@@ -415,7 +415,7 @@ export const preferencesData = [
     arg: [
       {
           id: "41",
-          selected: false,
+          selected: true,
           name: "Pomes",
           image: require('./src/assets/icons/Preferences/Fruits/pomes.png')
       },
@@ -427,7 +427,7 @@ export const preferencesData = [
       },
       {
           id: "43",
-          selected: false,
+          selected: true,
           name: "Drupes",
           image: require('./src/assets/icons/Preferences/Fruits/drupes.png')
       },
@@ -439,13 +439,13 @@ export const preferencesData = [
       },
       {
           id: "45",
-          selected: false,
+          selected: true,
           name: "Melons",
           image: require('./src/assets/icons/Preferences/Fruits/melons.png')
       },
       {
           id: "46",
-          selected: false,
+          selected: true,
           name: "Tropical",
           image: require('./src/assets/icons/Preferences/Fruits/tropical.png')
       }
@@ -469,13 +469,13 @@ export const preferencesData = [
       },
       {
           id: "53",
-          selected: false,
+          selected: true,
           name: "Formatge",
           image: require('./src/assets/icons/Preferences/MilkAndDerivatives/cheese.png')
       },
       {
           id: "54",
-          selected: false,
+          selected: true,
           name: "Mantega",
           image: require('./src/assets/icons/Preferences/MilkAndDerivatives/butter.png')
       },
@@ -505,13 +505,13 @@ export const preferencesData = [
       },
       {
           id: "63",
-          selected: false,
+          selected: true,
           name: "Mongetes",
           image: require('./src/assets/icons/Preferences/Legumes/beans.png')
       },
       {
           id: "64",
-          selected: false,
+          selected: true,
           name: "Soja",
           image: require('./src/assets/icons/Preferences/Legumes/soybeans.png')
       },
