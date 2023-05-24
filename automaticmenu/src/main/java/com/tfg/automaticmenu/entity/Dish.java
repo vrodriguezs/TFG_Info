@@ -1,5 +1,6 @@
 package com.tfg.automaticmenu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dish {
@@ -16,6 +17,11 @@ public class Dish {
 
     List<String> optional;
     List<String> intoAler;
+
+
+    public Dish() {
+        ingredients = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
@@ -47,6 +53,10 @@ public class Dish {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredients.add(ingredient);
     }
 
     public Boolean getVeg() {

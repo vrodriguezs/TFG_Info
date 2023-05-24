@@ -14,7 +14,7 @@ public class User {
     String veg;
     int dishes;
 
-    List<String> allerInto;
+    List<String> intoAler;
     List<String> ingredients;
 
     public String getName() {
@@ -89,12 +89,12 @@ public class User {
         this.dishes = dishes;
     }
 
-    public List<String> getAllerInto() {
-        return allerInto;
+    public List<String> getIntoAler() {
+        return intoAler;
     }
 
-    public void setAllerInto(List<String> allerInto) {
-        this.allerInto = allerInto;
+    public void setIntoAler(List<String> intoAler) {
+        this.intoAler = intoAler;
     }
 
     public List<String> getIngredients() {

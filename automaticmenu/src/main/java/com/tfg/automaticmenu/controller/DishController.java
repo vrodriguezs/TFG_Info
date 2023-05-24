@@ -1,5 +1,6 @@
 package com.tfg.automaticmenu.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tfg.automaticmenu.entity.Dish;
 import com.tfg.automaticmenu.entity.User;
 import com.tfg.automaticmenu.service.DishService;
@@ -26,8 +27,8 @@ public class DishController {
     //s'ha d canviar a q retorni una list o algo amb el menu
     //o simplement q guardi el menu a la bbdd i segueixi sent void
     @PostMapping("/generate-menu")
-    public void generateMenu(@RequestBody User user) {
-        dishService.generateMenu(user);
+    public boolean generateMenu(@RequestBody User user) throws ExecutionException, InterruptedException, JsonProcessingException {
+        return dishService.generateMenu(user);
     }
 
 }

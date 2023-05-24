@@ -29,7 +29,7 @@ const PreferencesScreen = () => {
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
 
-  const allerIntoToExport = []
+  const intoAlerToExport = []
   const ingredientsToExport = []
 
   const handleScroll = (event) => {
@@ -47,7 +47,7 @@ const PreferencesScreen = () => {
   const handlePreferencesScreen = () => {
     handlePreferences()
     sendDataToBackEnd()
-    // navigation.navigate('Home')
+    //navigation.navigate('Home')
     // auth
     //   .createUserWithEmailAndPassword(email, password)
     //   .then(userCredentials => {
@@ -62,8 +62,8 @@ const PreferencesScreen = () => {
     preferencesDataSelect.forEach((category) => {
       if(category.categoryName === "Al·lèrgies i intoleràncies") {
         category.arg.forEach(item => {
-          if(!item.selected) {
-            allerIntoToExport.push(item.name)
+          if(item.selected) {
+            intoAlerToExport.push(item.name)
           }
         })
       }
@@ -88,12 +88,12 @@ const PreferencesScreen = () => {
       exIntensity: exIntensityToExport,
       veg: vegToExport,
       dishes: dishesToExport,
-      allerInto: allerIntoToExport,
+      intoAler: intoAlerToExport,
       ingredients: ingredientsToExport
     }
 
     try {
-      const response = await axios.post('http://192.168.1.43:8080/api/generate-menu', user)
+      const response = await axios.post('http://192.168.1.38:8080/api/generate-menu', user)
       console.log(response.data)
     } catch (error) {
       console.log(error)
