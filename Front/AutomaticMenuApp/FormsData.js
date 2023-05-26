@@ -212,41 +212,41 @@ export const heightDropdownData = [
 
 export const preferencesData = [
   {
-      id: "50",
+      id: "00",
       categoryName: "Al·lèrgies i intoleràncies",
       arg: [
       {
-          id: "51",
+          id: "01",
           selected: false,
           name: "Gluten",
           image: require('./src/assets/icons/Preferences/IntoAndAller/gluten.png')
       },
       {
-          id: "52",
+          id: "02",
           selected: false,
           name: "Fructosa",
           image: require('./src/assets/icons/Preferences/IntoAndAller/fructose.png')
       },
       {
-          id: "53",
+          id: "03",
           selected: false,
           name: "Lactosa",
           image: require('./src/assets/icons/Preferences/IntoAndAller/lactose.png')
       },
       {
-          id: "54",
+          id: "04",
           selected: false,
           name: "Fruits secs",
           image: require('./src/assets/icons/Preferences/IntoAndAller/nuts.png')
       },
       {
-          id: "55",
+          id: "05",
           selected: false,
           name: "Marisc",
           image: require('./src/assets/icons/Preferences/IntoAndAller/seafood.png')
       },
       {
-          id: "56",
+          id: "06",
           selected: false,
           name: "Ous",
           image: require('./src/assets/icons/Preferences/IntoAndAller/egg.png')

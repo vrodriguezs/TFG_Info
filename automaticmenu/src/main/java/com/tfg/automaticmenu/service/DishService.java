@@ -180,7 +180,7 @@ public class DishService {
         kcalPerDish.put(dish, (int) Math.round(kcal*percent));
     }
 
-    /*private String menuAlgorythm(Map<String, Integer> kcalPerDish, List<String> intoAler, List<String> ingredients) throws JsonProcessingException {
+    /*private String menuAlgorythm(Map<String, Integer> kcalPerDish, List<String> filteredRecipes) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
 
@@ -225,6 +225,7 @@ public class DishService {
 
     private static boolean isIntoAlerValid(boolean userHasAllergies, Dish dish, List<String> userIntoAler) {
         //verificar si la recepta té les intoAler de l'usuari
+        System.out.println("Alergies: "+userHasAllergies+" "+userIntoAler);
         boolean dishHasAllergies = false;
         if(userHasAllergies) {
             List<String> recipeIntoAler = dish.getIntoAler();
