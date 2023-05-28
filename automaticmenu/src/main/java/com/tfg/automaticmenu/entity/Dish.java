@@ -5,18 +5,18 @@ import java.util.List;
 
 public class Dish {
 
-    String name;
-    String time;
-    int kcal;
-    List<Ingredient> ingredients;
-    Boolean veg;
-    Boolean includeRecipe;
-    List<String> meals;
-    String dish;
-    List<String> recipe;
+    private String name;
+    private String time;
+    private int kcal;
+    private List<Ingredient> ingredients;
+    private Boolean veg;
+    private Boolean includeRecipe;
+    private List<String> meals;
+    private String dish;
+    private List<String> recipe;
 
-    List<String> optional;
-    List<String> intoAler;
+    private List<String> optional;
+    private List<String> intoAler;
 
 
     public Dish() {

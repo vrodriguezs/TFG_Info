@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class DishService {
@@ -19,11 +20,11 @@ public class DishService {
     private static final String COLLECTION_DAY_NAME = "days";
     private static final String WOMAN = "Dona";
     private static final int KCAL_MARGIN = 100;
-    private static final String BREAKFAST = "Esmorzar";
-    private static final String BRUNCH = "Mig Matí";
-    private static final String LUNCH = "Dinar";
-    private static final String SNACK = "Berenar";
-    private static final String DINNER = "Sopar";
+    public static final String BREAKFAST = "Esmorzar";
+    public static final String BRUNCH = "Mig Matí";
+    public static final String LUNCH = "Dinar";
+    public static final String SNACK = "Berenar";
+    public static final String DINNER = "Sopar";
 
     public String saveDish(Dish dish) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -34,34 +35,11 @@ public class DishService {
     }
 
     public boolean generateMenu(User user) throws ExecutionException, InterruptedException, JsonProcessingException {
-        /*int kcal = (int) Math.round(calculateTotalKcal(user));
+        int kcal = (int) Math.round(calculateTotalKcal(user));
         int maxKcal = kcal+KCAL_MARGIN;
         int minKcal = kcal-KCAL_MARGIN;
 
         //calculate kcal per dish, depending on the dishes the user does
-        Map<String, Integer> kcalPerDish = calculateKcalPerDish(kcal, user.getDishes());
-        System.out.println("Total kcal "+kcal);
-        for (Map.Entry<String, Integer> entry : kcalPerDish.entrySet()) {
-            String dish = entry.getKey();
-            int kcalDish = entry.getValue();
-            System.out.println(dish+": "+kcalDish+" kcal");
-        }
-        System.out.println(user.getIntoAler());
-        System.out.println(user.getIngredients());
-
-        List<String> intoAler = user.getIntoAler();
-        List<String> ingredients = user.getIngredients();
-        String dayJson = menuAlgorythm(kcalPerDish, intoAler, ingredients);
-
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-
-        ApiFuture< WriteResult > collectionApiFuture;
-
-        //el COLLECTION_DAY_NAME ha d'anar canviant d nom (dia)
-        for (int i = 0; i<7; i++) {
-            collectionApiFuture = dbFirestore.collection(COLLECTION_DAY_NAME).document().set(dayJson);
-            System.out.println("Time: "+collectionApiFuture.get().getUpdateTime());
-        }*/
 
         /*Day day1 = new Day("Dilluns");
         Meal meal1Day1 = new Meal("Esmorzar");
@@ -97,32 +75,15 @@ public class DishService {
         Boolean veg = vegToBoolean(user.getVeg());
 
         // Filtrar las recetas aptas para el usuario
+        Map<String, Integer> kcalPerMeal = calculateKcalPerMeal(kcal, user.getDishes());
         List<Dish> filteredRecipes = filterRecipes(recipesCollection, intoAler, veg, ingredients);
+        menuAlgorythm(kcalPerMeal, filteredRecipes);
 
-        System.out.println("Size: "+filteredRecipes.size());
-
-        // Imprimir las recetas filtradas
-        for (Dish dish : filteredRecipes) {
-            System.out.print("Recipe: " + dish.getName());
-            System.out.print("\t\tIngredients: " + ingredientToName(dish.getIngredients()));
-            System.out.println("\t\tAlergies: " + dish.getIntoAler());
-        }
-
-        System.out.println("ACABA");
         return true;
     }
 
-    private List<String> ingredientToName(List<Ingredient> ingredients) {
-        List<String> names = new ArrayList<>();
-        for(Ingredient i : ingredients) {
-            names.add(i.getName());
-        }
-        return names;
-    }
-
     private Boolean vegToBoolean(String veg) {
-        if(veg.equals("No")) return false;
-        else return true;
+        return !veg.equals("No");
     }
 
     private double calculateTotalKcal(User user) {
@@ -142,51 +103,80 @@ public class DishService {
     }
 
     private double calculateExFactor(String exRoutine, String exIntensity) {
-        return 1;
+        return 1.2;
     }
 
     //fix percentages
-    private Map<String, Integer> calculateKcalPerDish(int kcal, int dishes) {
-        Map<String, Integer> kcalPerDish = new LinkedHashMap<>();
-        switch(dishes) {
+    private Map<String, Integer> calculateKcalPerMeal(int kcal, int meals) {
+        Map<String, Integer> kcalPerMeal = new LinkedHashMap<>();
+
+        switch(meals) {
             case 2:
-                putDishMap(kcalPerDish, BREAKFAST, kcal, 0.4);
-                putDishMap(kcalPerDish, LUNCH, kcal, 0.6);
+                putMealMap(kcalPerMeal, BREAKFAST, kcal, 0.4);
+                putMealMap(kcalPerMeal, LUNCH, kcal, 0.6);
                 break;
             case 3:
-                putDishMap(kcalPerDish, BREAKFAST, kcal, 0.35);
-                putDishMap(kcalPerDish, LUNCH, kcal, 0.45);
-                putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                putMealMap(kcalPerMeal, BREAKFAST, kcal, 0.35);
+                putMealMap(kcalPerMeal, LUNCH, kcal, 0.45);
+                putMealMap(kcalPerMeal, DINNER, kcal, 0.2);
                 break;
             case 4:
-                putDishMap(kcalPerDish, BREAKFAST, kcal, 0.3);
-                putDishMap(kcalPerDish, LUNCH, kcal, 0.4);
-                putDishMap(kcalPerDish, SNACK, kcal, 0.1);
-                putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                putMealMap(kcalPerMeal, BREAKFAST, kcal, 0.3);
+                putMealMap(kcalPerMeal, LUNCH, kcal, 0.4);
+                putMealMap(kcalPerMeal, SNACK, kcal, 0.1);
+                putMealMap(kcalPerMeal, DINNER, kcal, 0.2);
                 break;
             case 5:
-                putDishMap(kcalPerDish, BREAKFAST, kcal, 0.25);
-                putDishMap(kcalPerDish, BRUNCH, kcal, 0.1);
-                putDishMap(kcalPerDish, LUNCH, kcal, 0.35);
-                putDishMap(kcalPerDish, SNACK, kcal, 0.1);
-                putDishMap(kcalPerDish, DINNER, kcal, 0.2);
+                putMealMap(kcalPerMeal, BREAKFAST, kcal, 0.25);
+                putMealMap(kcalPerMeal, BRUNCH, kcal, 0.1);
+                putMealMap(kcalPerMeal, LUNCH, kcal, 0.35);
+                putMealMap(kcalPerMeal, SNACK, kcal, 0.1);
+                putMealMap(kcalPerMeal, DINNER, kcal, 0.2);
                 break;
         }
 
-        return kcalPerDish;
+        return kcalPerMeal;
     }
 
-    private void putDishMap(Map<String, Integer> kcalPerDish, String dish, int kcal, double percent) {
-        kcalPerDish.put(dish, (int) Math.round(kcal*percent));
+    private void putMealMap(Map<String, Integer> kcalPerMeal, String meal, int kcal, double percent) {
+        kcalPerMeal.put(meal, (int) Math.round(kcal*percent));
     }
 
-    /*private String menuAlgorythm(Map<String, Integer> kcalPerDish, List<String> filteredRecipes) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+    private String menuAlgorythm(Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws JsonProcessingException {
+        List<DailyMenu> menu = new ArrayList<>();
 
+        for (int weekDaysNumber = 7; weekDaysNumber > 0; weekDaysNumber --) {
+            menu.add(new DailyMenu(getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal)
+        }
 
+        return null;
+    }
 
-        return mapper.writeValueAsString(day);
-    }*/
+    private String getWeekDayName(int day) {
+        switch (day) {
+            case 1: return "Dl"; break;
+            case 2: return "Dm"; break;
+            case 3: return "Dm"; break;
+            case 4: return "Dj"; break;
+            case 5: return "Dv"; break;
+            case 6: return "Ds"; break;
+            case 7: return "Dg"; break;
+            default: throw new Exception("Invalid number for getWeekDayNumber")
+        }
+    }
+
+    /*
+    * menu: dias con su menu diario (esmorzar, dinar, brenar, sopar)
+    * menu diari: esmorzar + list(plat), dinar + list(plat), brenar + list(plat), sopar + list(plat)
+    * */
+
+    private Map<String, Dish> dailyMenu ( Map<String, Dish> menu, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) {
+        for (Map.Entry<String, Integer> entry : kcalPerMeal.entrySet()) {
+            String meal = entry.getKey();
+            List<Dish> allMealsAvailable = filteredRecipes.stream().filter((recipes) -> recipes.getMeals().contains(meal)).toList();
+            menu.put(meal, allMealsAvailable.remove())
+        }
+    }
 
     private static List<Dish> filterRecipes(CollectionReference recipesCollection, List<String> userIntoAler, boolean isUserVegan, List<String> userDislikedIngredients) throws ExecutionException, InterruptedException {
         List<Dish> filteredRecipes = new ArrayList<>();
@@ -194,9 +184,6 @@ public class DishService {
         //agafar receptes de la col·lecció
         ApiFuture<QuerySnapshot> future = recipesCollection.get();
         QuerySnapshot querySnapshot = future.get();
-
-        System.out.println("Longitut inicial de les receptes: " + querySnapshot.size());
-        System.out.println("Ingredients que no agraden: "+userDislikedIngredients);
 
         boolean userHasAllergies = !userIntoAler.isEmpty();
 
@@ -225,7 +212,6 @@ public class DishService {
 
     private static boolean isIntoAlerValid(boolean userHasAllergies, Dish dish, List<String> userIntoAler) {
         //verificar si la recepta té les intoAler de l'usuari
-        System.out.println("Alergies: "+userHasAllergies+" "+userIntoAler);
         boolean dishHasAllergies = false;
         if(userHasAllergies) {
             List<String> recipeIntoAler = dish.getIntoAler();
