@@ -9,8 +9,8 @@ import { Formik, useField } from 'formik'
 import { loginValidationSchema } from '../validationSchemas/loginValidation'
 
 import StyledTextInput from '../styles/StyledTextInput'
-import StyledText  from '../styles/StyledText'
-import StyledIcon  from '../styles/StyledIcon'
+import StyledText from '../styles/StyledText'
+import StyledIcon from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
@@ -21,8 +21,10 @@ import { preferencesData } from '../../FormsData'
 
 import { colors } from '../../Colors'
 
-import { nameToExport, ageToExport, weightToExport, heightToExport, sexToExport, 
-  exRoutineToExport, exIntensityToExport, vegToExport, dishesToExport } from './PersonalDataScreen'
+import {
+  nameToExport, ageToExport, weightToExport, heightToExport, sexToExport,
+  exRoutineToExport, exIntensityToExport, vegToExport, dishesToExport
+} from './PersonalDataScreen'
 
 const PreferencesScreen = () => {
   const navigation = useNavigation()
@@ -60,16 +62,16 @@ const PreferencesScreen = () => {
 
   const handlePreferences = () => {
     preferencesDataSelect.forEach((category) => {
-      if(category.categoryName === "Al·lèrgies i intoleràncies") {
+      if (category.categoryName === "Al·lèrgies i intoleràncies") {
         category.arg.forEach(item => {
-          if(item.selected) {
+          if (item.selected) {
             intoAlerToExport.push(item.name)
           }
         })
       }
       else {
         category.arg.forEach(item => {
-          if(!item.selected) {
+          if (!item.selected) {
             ingredientsToExport.push(item.name)
           }
         })
@@ -93,13 +95,13 @@ const PreferencesScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.38:8080/api/generate-menu', user)
+      const response = await axios.post('http://192.168.1.128:8080/api/generate-menu', user)
       console.log(response.data)
     } catch (error) {
       console.log(error)
     }
   }
-  
+
   const handleOnPress = (item) => {
     //faig una còpia d tot l'array
     const userStateCopy = [...preferencesDataSelect]
@@ -110,14 +112,14 @@ const PreferencesScreen = () => {
 
     //em guardo l'índex de l'objecte q vull modificar
     const foundIndexItemCat = userStateCopy.findIndex((i) => !!i.arg.find((arg) => arg.name === item.name))
-    
+
     //...newItemCat, arg: -> faig una còpia d tot l'objecte newItemsCat i només modificaré l'objecte arg
     //recorro l'array arg amb map
     //...i, selected: -> faig una còpia d tot l'objecte i i només modificaré l'objecte selected
     //recorrent tot l'array, mira si el nom d l'objecte és el mateix al del botó q es clica i retorna un true o un false
     //sobrescriu l'objecte selected, x tant independentment del número d'objectes q hi hagi, sempre funcionarà, pq
     //setejarà a true si el nom coincideix i a false si no
-    newItemCat = {...newItemCat, arg: newItemCat.arg.map((i) => ({...i, selected: !((i.selected === false && i.name != item.name) || (i.name === item.name && i.selected === true))}))}
+    newItemCat = { ...newItemCat, arg: newItemCat.arg.map((i) => ({ ...i, selected: !((i.selected === false && i.name != item.name) || (i.name === item.name && i.selected === true)) })) }
 
     //actualitzo el contingut d newItemCat sobre userStateCopy amb el q hi ha a l'índex foundIndexItemCat
     userStateCopy[foundIndexItemCat] = newItemCat
@@ -128,60 +130,60 @@ const PreferencesScreen = () => {
 
   return (
     <StyledContainer screenContainer>
-    <BackButton screen={'PersonalData'}/>
+      <BackButton screen={'PersonalData'} />
       <FlatList
         ListHeaderComponent={
           <>
-          <StyledText tittle bold center>Preferències</StyledText>
+            <StyledText tittle bold center>Preferències</StyledText>
           </>
-          }
+        }
         ref={flatListRef}
         data={preferencesDataSelect}
-        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-        showsVerticalScrollIndicator = {false}
-        renderItem = {({item}) => (
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
           <StyledContainer userStats>
             {/* flatLists categories buttons */}
             <FlatList
               ListHeaderComponent={
                 <>
-                <StyledText label bold>{item.categoryName}</StyledText>
-                <StyledContainer underline/>
+                  <StyledText label bold>{item.categoryName}</StyledText>
+                  <StyledContainer underline />
                 </>
               }
-                data={item.arg}
-                key={'_'}
-                numColumns={3}
-                renderItem= {({item}) => (
-                  <StyledContainer>
-                    <StyledButton userPreferences widthSmall style={{borderColor: item.selected ? colors.actionLight : colors.secondary}} 
-                    onPress = {() => handleOnPress(item)}>
-                      <StyledText>{item.name}</StyledText>
-                      <StyledIcon buttonIconPreferences source={item.image}/>
-                    </StyledButton>
-                  </StyledContainer>
-                )}
-                keyExtractor={(item) => item.id}
+              data={item.arg}
+              key={'_'}
+              numColumns={3}
+              renderItem={({ item }) => (
+                <StyledContainer>
+                  <StyledButton userPreferences widthSmall style={{ borderColor: item.selected ? colors.actionLight : colors.secondary }}
+                    onPress={() => handleOnPress(item)}>
+                    <StyledText>{item.name}</StyledText>
+                    <StyledIcon buttonIconPreferences source={item.image} />
+                  </StyledButton>
+                </StyledContainer>
+              )}
+              keyExtractor={(item) => item.id}
             />
-            <StyledContainer underline/>
+            <StyledContainer underline />
           </StyledContainer>
-            
+
         )}
         keyExtractor={(item, index) => index}
         onScroll={handleScroll}
 
         ListFooterComponent={
           <>
-          <StyledButton 
-            standard 
-            signup 
-            onPress={ () => handlePreferencesScreen()}>
-            <StyledText button bold >Començar</StyledText>
-          </StyledButton>
+            <StyledButton
+              standard
+              signup
+              onPress={() => handlePreferencesScreen()}>
+              <StyledText button bold >Començar</StyledText>
+            </StyledButton>
           </>
         }
       />
-      <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible}/>
+      <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible} />
     </StyledContainer>
   )
 }

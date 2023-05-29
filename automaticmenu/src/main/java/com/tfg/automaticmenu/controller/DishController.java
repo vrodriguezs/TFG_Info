@@ -27,7 +27,7 @@ public class DishController {
     //s'ha d canviar a q retorni una list o algo amb el menu
     //o simplement q guardi el menu a la bbdd i segueixi sent void
     @PostMapping("/generate-menu")
-    public boolean generateMenu(@RequestBody User user) throws ExecutionException, InterruptedException, JsonProcessingException {
+    public boolean generateMenu(@RequestBody User user) throws Exception {
         return dishService.generateMenu(user);
     }
 
