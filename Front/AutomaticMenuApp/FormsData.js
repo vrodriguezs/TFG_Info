@@ -304,6 +304,12 @@ export const preferencesData = [
                 selected: true,
                 name: "Fruits secs",
                 image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
+            },
+            {
+                id: "19",
+                selected: true,
+                name: "Marisc",
+                image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
             }
         ]
     },
@@ -337,6 +343,12 @@ export const preferencesData = [
             },
             {
                 id: "25",
+                selected: true,
+                name: "Galetes",
+                image: require('./src/assets/icons/Preferences/Grains/oat.png')
+            },
+            {
+                id: "26",
                 selected: true,
                 name: "Avena",
                 image: require('./src/assets/icons/Preferences/Grains/oat.png')
@@ -386,7 +398,7 @@ export const preferencesData = [
             {
                 id: "37",
                 selected: true,
-                name: "Espàrecs",
+                name: "Espàrrecs",
                 image: require('./src/assets/icons/Preferences/Vegetables/asparagus.png')
             },
             {
@@ -483,6 +495,12 @@ export const preferencesData = [
                 id: "55",
                 selected: true,
                 name: "Xocolata",
+                image: require('./src/assets/icons/Preferences/MilkAndDerivatives/chocolate.png')
+            },
+            {
+                id: "56",
+                selected: true,
+                name: "Nata",
                 image: require('./src/assets/icons/Preferences/MilkAndDerivatives/chocolate.png')
             }
         ]
