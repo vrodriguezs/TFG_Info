@@ -95,7 +95,7 @@ const PreferencesScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.128:8080/api/generate-menu', user)
+      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', user)
       console.log(response.data)
     } catch (error) {
       console.log(error)

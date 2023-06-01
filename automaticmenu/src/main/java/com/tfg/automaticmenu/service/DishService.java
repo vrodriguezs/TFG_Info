@@ -1,7 +1,5 @@
 package com.tfg.automaticmenu.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -11,21 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static com.tfg.automaticmenu.utilities.ConstantGeneralUtilities.*;
+import static com.tfg.automaticmenu.utilities.ConstantMeals.*;
 
 @Service
 public class DishService {
-
-    private static final String COLLECTION_DISH_NAME = "dishes";
-    private static final String COLLECTION_DAY_NAME = "days";
-    private static final String WOMAN = "Dona";
-    private static final int KCAL_MARGIN = 100;
-    public static final String BREAKFAST = "Esmorzar";
-    public static final String BRUNCH = "Mig Matí";
-    public static final String LUNCH = "Dinar";
-    public static final String SNACK = "Berenar";
-    public static final String DINNER = "Sopar";
-
     public String saveDish(Dish dish) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
@@ -77,7 +66,7 @@ public class DishService {
     }
 
     private double calculateExFactor(String exRoutine, String exIntensity) {
-        return 1.2;
+        return 1.375;
     }
 
     //fix percentages
