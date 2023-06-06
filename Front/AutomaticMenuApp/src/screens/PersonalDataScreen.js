@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
 
 import { firebase } from '../../firebase'
-import { getEmail } from './SignupScreen'
 
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
@@ -109,35 +108,6 @@ const PersonalDataScreen = () => {
     //   .catch(error => alert(error.message))
   }
 
-  const todoRef = firebase.firestore().collection('users')
-
-  const addField = () => {
-    if(userName && userName.length > 0) {
-      //utilitzem filter() per obtenir tots els objectes que tenen selected=true
-      const allData = userDataSelect.flatMap(category => category.arg.filter(arg => arg.selected));
-  
-      //obtenim un array dels valors de name de tots els objectes que tenen selected=true
-      const selectedData = allData.map(objet => objet.name);
-
-      const data = {
-        name: userName,
-        sex: selectedData[0],
-        exRout: selectedData[1],
-        exInt: selectedData[2],
-        veg: selectedData[3],
-        email: getEmail()
-      }
-      todoRef
-        .add(data)
-        .then(() => {
-          setUserName('')
-          Keyboard.dismiss()
-        })
-        .catch((error) => {
-          alert(error)
-        })
-    }
-  }
   
   const handleOnPressOption = (item) => {
     if(!isNaN(item.name)) {

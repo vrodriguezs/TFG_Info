@@ -13,20 +13,26 @@ public class DailyMenu {
     public String weekId;
     public Map<String, List<Dish>> menu;
     private int kcal;
+    private Map<String, Integer> finalKcalPerMeal;
 
     public DailyMenu(String weekId, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
         this.weekId = weekId;
         this.menu = new HashMap<>();
+        this.finalKcalPerMeal = new HashMap<>();
         generateDailyMenu(allMealsAvailable, kcalPerMeal);
         System.out.println("FINAL MENU");
         for (Map.Entry<String, List<Dish>> entry : menu.entrySet()) {
             String meal = entry.getKey();
             List<Dish> dishes = entry.getValue();
+            int actualKcal = 0;
             System.out.println(meal);
             for(Dish dish : dishes) {
                 System.out.println("\t- "+dish.getName());
+                actualKcal += dish.getKcal();
             }
             System.out.println();
+            finalKcalPerMeal.put(meal, actualKcal);
+            System.out.println(actualKcal);
         }
     }
 
@@ -186,5 +192,13 @@ public class DailyMenu {
 
     public void setMenu(Map<String, List<Dish>> menu) {
         this.menu = menu;
+    }
+
+    public Map<String, Integer> getFinalKcalPerMeal() {
+        return finalKcalPerMeal;
+    }
+
+    public void setFinalKcalPerMeal(Map<String, Integer> finalKcalPerMeal) {
+        this.finalKcalPerMeal = finalKcalPerMeal;
     }
 }

@@ -23,13 +23,19 @@ public class DishService {
         return collectionApiFuture.get().getUpdateTime().toString();
     }
 
-    public boolean generateMenu(User user) throws Exception {
+    public String generateMenu(User user) throws Exception {
         int kcal = (int) Math.round(calculateTotalKcal(user));
         int maxKcal = kcal+KCAL_MARGIN;
         int minKcal = kcal-KCAL_MARGIN;
 
         System.out.println("COMENÇA");
         Firestore db = FirestoreClient.getFirestore();
+        DocumentReference documentReference = db.collection("users").document(user.getName());
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("menu", Collections.emptyList());
+        documentReference.update(updates);
+
         CollectionReference recipesCollection = db.collection("dishes");
 
         List<String> intoAler = user.getIntoAler();
@@ -40,9 +46,31 @@ public class DishService {
         Map<String, Integer> kcalPerMeal = calculateKcalPerMeal(kcal, user.getDishes());
         //filtrar les receptes aptes per a l'usuari
         List<Dish> filteredRecipes = filterRecipes(recipesCollection, intoAler, veg, ingredients);
-        menuAlgorythm(kcalPerMeal, filteredRecipes);
+        List<DailyMenu> weeklyMenu = menuAlgorythm(kcalPerMeal, filteredRecipes);
 
-        return true;
+        //documentReference.update("menu", FieldValue.arrayUnion(weeklyMenu));
+
+        updateMenuField(documentReference, weeklyMenu);
+
+        /*List<ApiFuture< WriteResult >> collectionApiFuture = new ArrayList<>();
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        for (int i = 0; i < weeklyMenu.size(); i++) {
+            DailyMenu menu = weeklyMenu.get(i);
+            String documentTitle = daysOfWeek[i];
+            collectionApiFuture.add(dbFirestore.collection(COLLECTION_DAY_NAME).document(documentTitle).set(menu));
+        }*/
+        return "FUNCIONA";
+    }
+    private static void updateMenuField(DocumentReference documentRef, List<DailyMenu> weeklyMenu) throws Exception {
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("menu", weeklyMenu);
+
+        // Update the document with the map to set the "menu" field
+        ApiFuture<WriteResult> future = documentRef.update(updates);
+        future.get();
+
+        System.out.println("Menu field updated successfully.");
     }
 
     private Boolean vegToBoolean(String veg) {
@@ -105,43 +133,31 @@ public class DishService {
         kcalPerMeal.put(meal, (int) Math.round(kcal*percent));
     }
 
-    private String menuAlgorythm(Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
+    private List<DailyMenu> menuAlgorythm(Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
         List<DailyMenu> menu = new ArrayList<>();
 
-        //for (int weekDaysNumber = 1; weekDaysNumber < 8 ; weekDaysNumber ++) {
-        menu.add(new DailyMenu(getWeekDayName(1), filteredRecipes, kcalPerMeal));
-        //}
+        for (int weekDaysNumber = 1; weekDaysNumber < 8 ; weekDaysNumber ++) {
+            menu.add(new DailyMenu(getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal));
+        }
 
-        return null;
+        return menu;
     }
 
     private String getWeekDayName(int day) throws Exception {
         switch (day) {
-            case 1: return "Dl";
-            case 2: return "Dm";
-            case 3: return "Dm";
-            case 4: return "Dj";
-            case 5: return "Dv";
-            case 6: return "Ds";
-            case 7: return "Dg";
+            case 1: return "Dilluns";
+            case 2: return "Dimarts";
+            case 3: return "Dimecres";
+            case 4: return "Dijous";
+            case 5: return "Divendres";
+            case 6: return "Dissabte";
+            case 7: return "Diumenge";
             default: throw new Exception("Invalid number for getWeekDayNumber");
         }
     }
 
-    /*
-    * menu: dias con su menu diario (esmorzar, dinar, brenar, sopar)
-    * menu diari: esmorzar + list(plat), dinar + list(plat), brenar + list(plat), sopar + list(plat)
-    * */
-
-    /*private Map<String, Dish> dailyMenu ( Map<String, Dish> menu, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) {
-        for (Map.Entry<String, Integer> entry : kcalPerMeal.entrySet()) {
-            String meal = entry.getKey();
-            List<Dish> allMealsAvailable = filteredRecipes.stream().filter((recipes) -> recipes.getMeals().contains(meal)).toList();
-            menu.put(meal, allMealsAvailable.remove())
-        }
-    }*/
-
-    private static List<Dish> filterRecipes(CollectionReference recipesCollection, List<String> userIntoAler, boolean isUserVegan, List<String> userDislikedIngredients) throws ExecutionException, InterruptedException {
+    private static List<Dish> filterRecipes(CollectionReference recipesCollection, List<String> userIntoAler, boolean isUserVegan,
+                                            List<String> userDislikedIngredients) throws ExecutionException, InterruptedException {
         List<Dish> filteredRecipes = new ArrayList<>();
 
         //agafar receptes de la col·lecció

@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import axios from 'axios'
 
-import { auth } from '../../firebase'
+import { firebase } from '../../firebase'
 
 import { Formik, useField } from 'formik'
 import { loginValidationSchema } from '../validationSchemas/loginValidation'
@@ -26,8 +26,11 @@ import {
   exRoutineToExport, exIntensityToExport, vegToExport, dishesToExport
 } from './PersonalDataScreen'
 
+import { getEmail, getPassword } from './SignupScreen'
+
 const PreferencesScreen = () => {
   const navigation = useNavigation()
+
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
 
@@ -47,17 +50,18 @@ const PreferencesScreen = () => {
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
   const handlePreferencesScreen = () => {
+    navigation.navigate('Home')
+    firebase.auth()
+      .createUserWithEmailAndPassword(getEmail(), getPassword())
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Done preferences with:', user.email);
+        navigation.navigate('Home')
+      })
+      .catch(error => alert(error.message))
+    addDataToUserDatabase()  
     handlePreferences()
     sendDataToBackEnd()
-    //navigation.navigate('Home')
-    // auth
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(userCredentials => {
-    //     const user = userCredentials.user;
-    //     console.log('Done preferences with:', user.email);
-    //     navigation.navigate('Home')
-    //   })
-    //   .catch(error => alert(error.message))
   }
 
   const handlePreferences = () => {
@@ -79,6 +83,39 @@ const PreferencesScreen = () => {
     })
   }
 
+  const todoRef = firebase.firestore().collection('users')
+
+  const addDataToUserDatabase = () => {
+    //if(userName && userName.length > 0) {
+      //utilitzem filter() per obtenir tots els objectes que tenen selected=true
+      //const allData = userDataSelect.flatMap(category => category.arg.filter(arg => arg.selected));
+  
+      //obtenim un array dels valors de name de tots els objectes que tenen selected=true
+      //const selectedData = allData.map(objet => objet.name);
+
+    const data = {
+      name: nameToExport,
+      age: ageToExport,
+      weight: weightToExport,
+      height: heightToExport,
+      sex: sexToExport,
+      exRoutine: exRoutineToExport,
+      exIntensity: exIntensityToExport,
+      veg: vegToExport,
+      dishes: dishesToExport,
+      email: getEmail(),
+      menu: []
+    }
+    todoRef
+      .doc(data.name)
+      .set(data)
+      // .add(data)
+      .catch((error) => {
+        alert(error)
+      })
+    //}
+  }
+
   const sendDataToBackEnd = async () => {
     const user = {
       name: nameToExport,
@@ -95,7 +132,7 @@ const PreferencesScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', user)
+      const response = await axios.post('http://192.168.1.43:8080/api/generate-menu', user)
       console.log(response.data)
     } catch (error) {
       console.log(error)

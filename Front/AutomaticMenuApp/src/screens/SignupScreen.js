@@ -25,6 +25,7 @@ const initialValues = {
   passwordConfirmation: ''
 }
 let emailToExport = ''
+let passwordToExport = ''
 
 const SignUpScreen = () => {
   const navigation = useNavigation()
@@ -34,19 +35,25 @@ const SignUpScreen = () => {
     emailToExport = text
   };
 
+  const handlePasswordChange = (text) => {
+    passwordToExport = text
+  };
+
   const [hidePassword, setHidePassword] = useState(true)
   const [hidePasswordConfirmation, setHidePasswordConfirmation] = useState(true)
 
   const handleSignUp = (email, password) => {
     handleEmailChange(email)
-    firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Signed up with:', user.email);
-        navigation.navigate('Welcome')
-      })
-      .catch(error => alert(error.message))
+    handlePasswordChange(password)
+    navigation.navigate('Welcome')
+    // firebase.auth()
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(userCredentials => {
+    //     const user = userCredentials.user;
+    //     console.log('Signed up with:', user.email);
+    //     navigation.navigate('Welcome')
+    //   })
+    //   .catch(error => alert(error.message))
   }
   
   const FormikInputValue = ({name, labelTitle, icon, isPassword, isPasswordConfirmation, 
@@ -154,5 +161,9 @@ const getEmail = () => {
   return emailToExport
 };
 
+const getPassword = () => {
+  return passwordToExport
+};
+
 export default SignUpScreen
-export { getEmail }
+export { getEmail, getPassword }

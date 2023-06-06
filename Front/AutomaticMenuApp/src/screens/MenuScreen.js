@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Text, ScrollView, Dimensions, Modal } from 'react-native'
+import { Text, View, ScrollView, Dimensions, Modal } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import StyledContainer from '../styles/StyledContainer'
@@ -10,91 +10,266 @@ import StyledIcon from '../styles/StyledIcon'
 import { Feather, Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
-const fruits = require('../assets/icons/Preferences/Fruits/pomes.png')
-const grains = require('../assets/icons/Preferences/Grains/bread.png')
-const legumes = require('../assets/icons/Preferences/Legumes/chickpeas.png')
-const milkAndDerivatives = require('../assets/icons/Preferences/MilkAndDerivatives/milk.png')
-const proteins = require('../assets/icons/Preferences/Proteins/chicken.png')
-const vegetables = require('../assets/icons/Preferences/Vegetables/leavesAndStems.png')
+import { firebase } from '../../firebase'
 
-const egg = require('../assets/icons/Preferences/IntoAndAller/egg.png')
-const fructose = require('../assets/icons/Preferences/IntoAndAller/fructose.png')
-const gluten = require('../assets/icons/Preferences/IntoAndAller/gluten.png')
-const lactose = require('../assets/icons/Preferences/IntoAndAller/lactose.png')
-const nuts = require('../assets/icons/Preferences/IntoAndAller/nuts.png')
-const seafood = require('../assets/icons/Preferences/IntoAndAller/seafood.png')
+// const egg = require('../assets/icons/Preferences/IntoAndAller/egg.png')
+// const fructose = require('../assets/icons/Preferences/IntoAndAller/fructose.png')
+// const gluten = require('../assets/icons/Preferences/IntoAndAller/gluten.png')
+// const lactose = require('../assets/icons/Preferences/IntoAndAller/lactose.png')
+// const nuts = require('../assets/icons/Preferences/IntoAndAller/nuts.png')
+// const seafood = require('../assets/icons/Preferences/IntoAndAller/seafood.png')
 
-const ModalPopUp = ({visible, children}) => {
-  const [showModal, setShowModal] = useState(visible)
-  useEffect(() => {
-    toggleModal()
-  }, [visible])
-  const toggleModal = () => {
-    if(visible) {
-      setShowModal(true)
-    } 
-    else {
-      setShowModal(false)
-    }
+const getImageByCategory = (category) => {
+  switch (category) {
+    case 'verdures':
+      return require('../assets/icons/Preferences/Vegetables/leavesAndStems.png')
+    case 'fruites':
+      return require('../assets/icons/Preferences/Fruits/pomes.png')
+    case 'cereals':
+      return require('../assets/icons/Preferences/Grains/bread.png')
+    case 'llegums':
+      return require('../assets/icons/Preferences/Legumes/chickpeas.png')
+    case 'proteïnes':
+      return require('../assets/icons/Preferences/Proteins/chicken.png')
+    case 'llet i derivats':
+      return require('../assets/icons/Preferences/MilkAndDerivatives/milk.png')
+    default:
+      return require('../assets/icons/Preferences/Vegetables/leavesAndStems.png')
   }
-  return (
-    <Modal transparent visible={showModal}>
-      <StyledContainer modalReceipsBack>
-        <StyledContainer modalReceipsCont>
-          {children}
-        </StyledContainer>
-      </StyledContainer>
-    </Modal>
-  )
-}
+};
+
+// const ModalPopUp = ({visible, children}) => {
+//   const [showModal, setShowModal] = useState(visible)
+//   useEffect(() => {
+//     toggleModal()
+//   }, [visible])
+//   const toggleModal = () => {
+//     if(visible) {
+//       setShowModal(true)
+//     } 
+//     else {
+//       setShowModal(false)
+//     }
+//   }
+//   return (
+//     <Modal hasBackdrop={true}
+//     backdropOpacity={10}
+//     backdropColor="black"
+//     visible={showModal}>
+//       <StyledContainer modalReceipsBack>
+//         <StyledContainer modalReceipsCont>
+//           {children}
+//         </StyledContainer>
+//       </StyledContainer>
+//     </Modal>
+//   )
+// }
+
+
+
+// const MealModal = ({ visible, meal, dishes, onClose }) => (
+//   <ModalPopUp visible={visible}>
+//     <StyledContainer center>
+//       <StyledText big>{meal}</StyledText>
+//       <StyledButton modalX onPress={onClose}>
+//         <Octicons name='x' size={40} color={colors.action}/>
+//       </StyledButton> 
+//     </StyledContainer>
+//     <StyledContainer modalReceips>
+//       <StyledContainer underlineMeal/>
+//       {dishes.map((dish, index) => (
+//         <StyledContainer row spaceBetween modalReceips>
+//           <StyledContainer row>
+//             <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
+//               <Text key={index}>{dish.name}</Text>
+//               {dish.ingredients && (
+//                 <StyledContainer row flexStart>
+//                   {dish.ingredients.reduce((uniqueIngredients, ingredient) => {
+//                     if (!uniqueIngredients.includes(ingredient.category)) {
+//                       uniqueIngredients.push(ingredient.category);
+//                     }
+//                     return uniqueIngredients;
+//                   }, []).map((category, i) => (
+//                     <View key={i}>
+//                       <StyledIcon iconMenu source={getImageByCategory(category)} />
+//                     </View>
+//                   ))}
+//                 </StyledContainer>
+//               )}
+//           </StyledContainer>
+//           {dish.includeRecipe && <Octicons name={'eye'} size={26} color={colors.action}/>}
+//         </StyledContainer>
+//       ))}
+//     </StyledContainer>
+//   </ModalPopUp>
+// );
+
 
 const MenuScreen = () => {
   const navigation = useNavigation()
   const scrollViewRef = useRef(null);
   const screenWidth = Dimensions.get('screen').width
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = (event) => {
+    const { contentOffset } = event.nativeEvent;
+    setScrollPosition(contentOffset.x);
+  };
+
   const handlePrevButton = () => {
-    scrollViewRef.current?.scrollTo({ x: 0, animated: true });
+    scrollViewRef.current?.scrollTo({ x: Math.max(0, scrollPosition - screenWidth), animated: true });
   };
   
   const handleNextButton = () => {
-    scrollViewRef.current?.scrollTo({ x: Dimensions.get('screen').width, animated: true });
+    scrollViewRef.current?.scrollTo({ x: scrollPosition + Dimensions.get('screen').width, animated: true  });
   };
-
-  // mètode que diu a quina pàgina estàs
-  // const handleMomentumScrollEnd = event => {
-  //   const contentOffsetX = event.nativeEvent.contentOffset.x;
-  //   const viewSize = event.nativeEvent.layoutMeasurement.width;
-  //   const pageNum = Math.floor(contentOffsetX / viewSize);
-  //   console.log("Current page: ", pageNum);
-  // };
   
-  const [visible, setVisible] = useState(false)
+  const [menuData, setMenuData] = useState(new Map());
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMeal, setSelectedMeal] = useState('');
+  const [selectedDishes, setSelectedDishes] = useState([]);
+   
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        const db = firebase.firestore();
+        const userRef = db.collection('users').doc('User1'); // Update with your user document path
+  
+        // Get the user document
+        const userDoc = await userRef.get();
+  
+        if (userDoc.exists) {
+          const userData = userDoc.data();
+  
+          // Retrieve the menu data from the user document
+          const menuData = userData.menu;
+          const menuDataMap = new Map();
+  
+          menuData.forEach((dayData) => {
+            const dayId = dayData.weekId;
+            const menu = dayData.menu;
+            menuDataMap.set(dayId, menu);
+          });
+  
+          // Set the menuData state with the retrieved data
+          setMenuData(menuDataMap);
+        }
+      } catch (error) {
+        console.error('Error fetching menu data:', error);
+      }
+    };
+  
+    fetchMenuData();
+  }, []);
+  
 
   return (
     <StyledContainer flex>
-      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} ref={scrollViewRef} 
-      /*onMomentumScrollEnd={handleMomentumScrollEnd}*/>
-        <StyledContainer page>{/* Monday */} 
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>{/* tittle and arrows */}              
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left" 
-                          size={50} 
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Monday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right" 
-                          size={50} 
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
+    {menuData ? (
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        ref={scrollViewRef}
+        onScroll={handleScroll}
+        scrollEventThrottle={1000}
+      >
+        {Array.from(menuData).map(([day, menuList]) => (
+          <StyledContainer page key={day}>
+            <StyledContainer screenMenuContainer>
+              <StyledContainer row spaceBetween>{/* tittle and arrows */}
+                <StyledButton prevDay onPress={handlePrevButton}>
+                  <Octicons name="chevron-left" size={50} style={{ color: colors.action }} />
+                </StyledButton>
+                <StyledText tittleTab bold center>{day}</StyledText>
+                <StyledButton nextDay onPress={handleNextButton}>
+                  <Octicons name="chevron-right" size={50} style={{ color: colors.action }} />
+                </StyledButton>
+              </StyledContainer>
+
+              <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
+                {Object.keys(menuList).map((meal, mealIndex) => (
+                  <View key={mealIndex}>
+                    <StyledContainer meal>
+                      <StyledContainer row spaceBetween userStatsProfile>
+                        <StyledText big bold>{meal}</StyledText>
+                        <StyledContainer row spaceBetween>
+                          <StyledText small colorPlaceholder>{meal.totalKcal}</StyledText>
+                          <StyledButton padding onPress={() => {
+                            setSelectedMeal(meal);
+                            setSelectedDishes(menuList[meal]);
+                            setModalVisible(true);
+                          }}>
+                            <Feather name='edit-2' size={30} color={colors.action} />
+                          </StyledButton>
+                        </StyledContainer>
+                      </StyledContainer>
+                      {menuList[meal].map((menu, index) => (
+                        <View key={index}>
+                          {typeof menu === "string" ? (
+                            <Text>{menu}</Text>
+                          ) : (
+                            Object.entries(menu).map(([key, values], i) => (
+                              key === "name" && (
+                                <StyledContainer row spaceBetween>
+                                  <StyledContainer row>
+                                    <StyledContainer row flexStart key={i}>
+                                      <StyledButton>
+                                        <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
+                                      </StyledButton>
+                                      <StyledText margin key={i}>{values}</StyledText>
+                                      {menu.ingredients && (
+                                        <StyledContainer row flexStart>
+                                          {menu.ingredients.reduce((uniqueIngredients, ingredient) => {
+                                            if (ingredient.hasOwnProperty("category") && !uniqueIngredients.includes(ingredient.category)) {
+                                              uniqueIngredients.push(ingredient.category);
+                                              return uniqueIngredients;
+                                            }
+                                            return uniqueIngredients;
+                                          }, []).map((category, j) => (
+                                            <View key={j}>
+                                              <StyledIcon iconMenu source={getImageByCategory(category)} />
+                                            </View>
+                                          ))}
+                                        </StyledContainer>
+                                      )}
+                                    </StyledContainer>
+                                  </StyledContainer>
+                                  {menu.includeRecipe && 
+                                    <StyledButton>
+                                      <Octicons name={'eye'} size={26} color={colors.action}/>
+                                    </StyledButton>}
+                                </StyledContainer>
+                              )
+                            ))
+                          )}
+                        </View>
+                      ))}
+                      {/* <MealModal
+                        visible={modalVisible}
+                        meal={selectedMeal}
+                        dishes={selectedDishes}
+                        onClose={() => setModalVisible(false)}
+                      /> */}
+
+                    </StyledContainer>
+                  </View>
+                ))}
+              </ScrollView>
             </StyledContainer>
-            <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
-              
-              <StyledContainer meal>{/* ----Breakfast---- */}
+          </StyledContainer>
+        ))}
+      </ScrollView>
+    ) : (
+      <View>
+        <Text>LOADING</Text>
+      </View>
+    )}
+      
+        
+              {/* <StyledContainer meal>
                 <StyledContainer row spaceBetween userStatsProfile>
                   <StyledText big bold>Breakfast</StyledText>
                   <StyledContainer row spaceBetween>
@@ -116,7 +291,7 @@ const MenuScreen = () => {
                 </StyledContainer>            
               </StyledContainer>
 
-              <StyledContainer meal>{/* ----Lunch---- */}
+              <StyledContainer meal>
                 <StyledContainer row spaceBetween userStatsProfile>
                   <StyledText big bold>Lunch</StyledText>
                   <StyledContainer row spaceBetween>
@@ -126,7 +301,7 @@ const MenuScreen = () => {
                     </StyledButton> 
                   </StyledContainer> 
                 </StyledContainer>
-                {/* -------------------------------Modal------------------------------- */}
+
                 <ModalPopUp visible={visible}>
 
                   <StyledContainer center>
@@ -138,7 +313,7 @@ const MenuScreen = () => {
                   
                   <StyledContainer modalReceips>
                     <StyledContainer underlineMeal/>
-                    {/* primer plat */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <StyledText margin>Chickpea Salad</StyledText>
@@ -146,7 +321,7 @@ const MenuScreen = () => {
                         <StyledIcon iconMenu source={vegetables}/>
                       </StyledContainer>
                     </StyledContainer>
-                    {/* alternatives */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
@@ -166,7 +341,7 @@ const MenuScreen = () => {
 
                   <StyledContainer modalReceips>
                     <StyledContainer underlineMeal/>
-                  {/* segon plat */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <StyledText margin>Breaded Chicken Fillets</StyledText>
@@ -175,7 +350,7 @@ const MenuScreen = () => {
                       </StyledContainer>
                       <Octicons name={'eye'} size={26} color={colors.action}/>
                     </StyledContainer>
-                    {/* alternatives */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
@@ -184,8 +359,7 @@ const MenuScreen = () => {
                         <StyledIcon iconMenu source={grains}/>
                       </StyledContainer>
                       <StyledButton onPress={() => navigation.navigate('Recipes')}>
-                        {/* s'ha d posar q hi hagi un mètode q faci setVisible(false) i canvii la tab
-                        passar x paràmetre el nom d la recepte x quan es faci el canvi d tab */}
+
                         <Octicons name={'eye'} size={26} color={colors.action}/>
                       </StyledButton>
                     </StyledContainer>
@@ -203,14 +377,14 @@ const MenuScreen = () => {
 
                   <StyledContainer modalReceips>
                     <StyledContainer underlineMeal/>
-                  {/* postre */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <StyledText margin>Greek Yogurt</StyledText>
                         <StyledIcon iconMenu source={milkAndDerivatives}/>
                       </StyledContainer>
                     </StyledContainer>
-                    {/* alternatives */}
+
                     <StyledContainer row spaceBetween modalReceips>
                       <StyledContainer row>
                         <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
@@ -229,7 +403,7 @@ const MenuScreen = () => {
 
                   </StyledContainer>
                 </ModalPopUp>
-                {/* -------------------------------Modal------------------------------- */}
+
                 
                 <StyledContainer row flexStart>
                   <StyledText margin>Chickpea Salad</StyledText>
@@ -247,7 +421,7 @@ const MenuScreen = () => {
                 </StyledContainer>
               </StyledContainer>
 
-              <StyledContainer meal>{/* ----Snack---- */}
+              <StyledContainer meal>
                 <StyledContainer row spaceBetween userStatsProfile>
                   <StyledText big bold>Snack</StyledText>
                   <StyledContainer row spaceBetween>
@@ -265,7 +439,7 @@ const MenuScreen = () => {
                 </StyledContainer>              
               </StyledContainer>
 
-              <StyledContainer meal>{/* ----Dinner---- */}
+              <StyledContainer meal>
                 <StyledContainer row spaceBetween userStatsProfile>
                   <StyledText big bold>Dinner</StyledText>
                   <StyledContainer row spaceBetween>
@@ -285,132 +459,10 @@ const MenuScreen = () => {
                   <StyledIcon iconMenu source={proteins}/>
                   <StyledIcon iconMenu source={vegetables}/>
                 </StyledContainer>            
-              </StyledContainer>
-            </ScrollView>
-          </StyledContainer>
-        </StyledContainer>
+              </StyledContainer> */}
+            {/* </ScrollView> */}
 
-        <StyledContainer page>{/* Tuesday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Tuesday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-        <StyledContainer page>{/* Wednesday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Wednesday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-        <StyledContainer page>{/* Thursday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Thursday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-        <StyledContainer page>{/* Friday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Friday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-        <StyledContainer page>{/* Saturday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Saturday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-        <StyledContainer page>{/* Sunday */}
-          
-          <StyledContainer screenMenuContainer>
-            <StyledContainer row spaceBetween>
-              <StyledButton prevDay onPress={handlePrevButton}>
-                <Octicons name="chevron-left"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-              <StyledText tittleTab bold center>Sunday</StyledText>
-              <StyledButton nextDay onPress={handleNextButton}>
-                <Octicons name="chevron-right"
-                          size={50}
-                          style={{color: colors.action}}
-                />
-              </StyledButton>
-            </StyledContainer>
-          </StyledContainer>
-        </StyledContainer>
-      </ScrollView>
+        
     </StyledContainer>
   )
 }

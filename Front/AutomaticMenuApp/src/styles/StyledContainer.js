@@ -105,20 +105,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center'
     },
-    modalReceipsBack: {
-      flex: 1,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    modalReceipsCont: {
-      width: '90%',
-      backgroundColor: colors.primary,
-      borderRadius: 15,
-      padding: 10
-    },
-    modalReceips: {
-      paddingTop: 15
+    paddingBott: {
+      paddingBottom: 50
     },
     tab: {
       paddingLeft: 15
@@ -127,7 +115,7 @@ const styles = StyleSheet.create({
     
     const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer,
       newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, width60, leftIcon, welcome, 
-  row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, modalReceipsBack, modalReceipsCont, modalReceips, 
+  row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, paddingBott, 
   tab, ...props}) => {
   const containerStyles = [
     flex && styles.flex,
@@ -152,9 +140,7 @@ const styles = StyleSheet.create({
     meal && styles.meal,
     center && styles.center,
     centerScreen && styles.centerScreen,
-    modalReceipsBack && styles.modalReceipsBack,
-    modalReceipsCont && styles.modalReceipsCont,
-    modalReceips && styles.modalReceips,
+    paddingBott && styles.paddingBott,
     tab && styles.tab,
     style
   ]
