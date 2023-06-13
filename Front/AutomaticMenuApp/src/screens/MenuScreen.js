@@ -66,9 +66,9 @@ const MenuScreen = () => {
     const fetchMenuData = async () => {
       try {
         const db = firebase.firestore();
-        //userId = firebase.auth().currentUser.uid
-        //console.log(userId)
-        const userRef = db.collection('users').doc('DK1yy72TFUQmxxCgVeK2zZvoMCy1');
+        userId = firebase.auth().currentUser.uid
+        console.log('UserId ',userId)
+        const userRef = db.collection('users').doc(userId);
   
         // Get the user document
         const userDoc = await userRef.get();

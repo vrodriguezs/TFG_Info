@@ -1,25 +1,23 @@
 package com.tfg.automaticmenu.entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.tfg.automaticmenu.utilities.ConstantCourses.*;
 import static com.tfg.automaticmenu.utilities.ConstantGeneralUtilities.PERCENTAGE_CATEGORIES_MARGIN;
+import static com.tfg.automaticmenu.utilities.ConstantGeneralUtilities.KCAL_MARGIN;
 import static com.tfg.automaticmenu.utilities.ConstantMeals.*;
 
 public class DailyMenu {
     public String weekId;
-    public Map<String, List<Dish>> menu;
+    public Map<String, List<Dish>> weeklyMenu;
     private int kcal;
 
     public DailyMenu(User user, String weekId, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
         this.weekId = weekId;
-        this.menu = new HashMap<>();
+        this.weeklyMenu = new HashMap<>();
         generateDailyMenu(user, allMealsAvailable, kcalPerMeal);
         System.out.println("FINAL MENU");
-        for (Map.Entry<String, List<Dish>> entry : menu.entrySet()) {
+        for (Map.Entry<String, List<Dish>> entry : weeklyMenu.entrySet()) {
             String meal = entry.getKey();
             List<Dish> dishes = entry.getValue();
             System.out.println(meal);
@@ -34,13 +32,13 @@ public class DailyMenu {
     private void generateDailyMenu(User user, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
         boolean repeat = true;
         while(repeat) {
-            if(!menu.isEmpty()) menu.clear();
+            if(!weeklyMenu.isEmpty()) weeklyMenu.clear();
             for (Map.Entry<String, Integer> entry : kcalPerMeal.entrySet()) {
                 this.kcal = 0;
                 String meal = entry.getKey();
                 int targetKcal = entry.getValue();
-                int botBound = targetKcal - 100;
-                int topBound = targetKcal + 100;
+                int botBound = targetKcal - KCAL_MARGIN;
+                int topBound = targetKcal + KCAL_MARGIN;
                 //System.out.println("Àpat: "+meal.toUpperCase());
                 List<Dish> dishesForDailyMenu = new ArrayList<>();
 
@@ -55,9 +53,9 @@ public class DailyMenu {
                     //System.out.println(botBound+" "+this.kcal+" "+topBound+"\n\n");
                 }
 
-                this.menu.put(meal, dishesForDailyMenu);
+                this.weeklyMenu.put(meal, dishesForDailyMenu);
             }
-            repeat = !checkIngredientCategoriesPercentages(user, menu);
+            repeat = !checkIngredientCategoriesPercentages(user, weeklyMenu);
         }
     }
 
@@ -104,9 +102,11 @@ public class DailyMenu {
         return dish;
     }
 
-    private boolean justOneCourse() { return false; }
+    private boolean justOneCourse() {
+        Random random = new Random();
+        return random.nextInt(4) == 0;
+    }
 
-    //acabar d mirar tema enum, constantExercises... se li ha d passar x paràmetre
     private boolean checkIngredientCategoriesPercentages(User user, Map<String, List<Dish>> menu) {
         double vegetables = 0;
         double carbohydrates = 0;
@@ -176,16 +176,7 @@ public class DailyMenu {
     public String getWeekId() {
         return weekId;
     }
-
-    public void setWeekId(String weekId) {
-        this.weekId = weekId;
-    }
-
     public Map<String, List<Dish>> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Map<String, List<Dish>> menu) {
-        this.menu = menu;
+        return weeklyMenu;
     }
 }

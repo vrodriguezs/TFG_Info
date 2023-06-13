@@ -35,6 +35,7 @@ const ProfileScreen = () => {
       try {
         const db = firebase.firestore();
         userId = firebase.auth().currentUser.uid
+        console.log(userId)
         const userDocRef = db.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
     

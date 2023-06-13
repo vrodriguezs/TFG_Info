@@ -30,16 +30,16 @@ import {
 import { getEmail, getPassword } from './SignupScreen'
 import { StyledImageBackground } from '../styles/StyledImageBackground';
 
-const PreferencesScreen = () => {
+const PreferencesScreen = ({ onDataSent }) => {
   const navigation = useNavigation()
   const route = useRoute();
   const arrivedFromProfile = route.params?.arrivedFromProfile || false;
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
-
   const intoAlerToExport = []
   const ingredientsToExport = []
+
 
   const handleScroll = (event) => {
     const topOffset = 400;
@@ -120,7 +120,7 @@ const PreferencesScreen = () => {
       intoAler: intoAlerToExport,
       ingredients: ingredientsToExport,
       email: getEmail(),
-      menu: []
+      weeklyMenu: []
     }
     const userId = firebase.auth().currentUser.uid;
     const userRef = todoRef.doc(userId);
@@ -174,6 +174,10 @@ const PreferencesScreen = () => {
       console.log('SendData ',userId)
       const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', { user, userId })
       console.log(response.data)
+
+      // if(onDataSent) {
+      //   onDataSent(userId)
+      // }
     } catch (error) {
       console.log(error)
     }

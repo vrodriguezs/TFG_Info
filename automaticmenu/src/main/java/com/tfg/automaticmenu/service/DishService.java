@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import static com.tfg.automaticmenu.utilities.ConstantGeneralUtilities.*;
 import static com.tfg.automaticmenu.utilities.ConstantMeals.*;
+import static com.tfg.automaticmenu.utilities.ConstantDays.*;
 
 @Service
 public class DishService {
@@ -26,20 +27,17 @@ public class DishService {
     }
 
     public String generateMenu(User user, String userId) throws Exception {
-        int kcal = (int) Math.round(calculateTotalKcal(user));
-        int maxKcal = kcal+KCAL_MARGIN;
-        int minKcal = kcal-KCAL_MARGIN;
-
         System.out.println("COMENÇA "+userId);
+
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference documentReference = db.collection("users").document(userId);
-
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("weekly", Collections.emptyList());
-        documentReference.update(updates);
-
         CollectionReference recipesCollection = db.collection("dishes");
 
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("weeklyMenu", Collections.emptyList());
+        documentReference.update(updates);
+
+        int kcal = (int) Math.round(calculateTotalKcal(user));
         List<String> intoAler = user.getIntoAler();
         List<String> ingredients = user.getIngredients();
         Boolean veg = vegToBoolean(user.getVeg());
@@ -50,24 +48,13 @@ public class DishService {
         List<Dish> filteredRecipes = filterRecipes(recipesCollection, intoAler, veg, ingredients);
         List<DailyMenu> weeklyMenu = menuAlgorythm(user, kcalPerMeal, filteredRecipes);
 
-        //documentReference.update("menu", FieldValue.arrayUnion(weeklyMenu));
-
         updateMenuField(documentReference, weeklyMenu);
 
-        /*List<ApiFuture< WriteResult >> collectionApiFuture = new ArrayList<>();
-        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
-        for (int i = 0; i < weeklyMenu.size(); i++) {
-            DailyMenu menu = weeklyMenu.get(i);
-            String documentTitle = daysOfWeek[i];
-            collectionApiFuture.add(dbFirestore.collection(COLLECTION_DAY_NAME).document(documentTitle).set(menu));
-        }*/
-        return "FUNCIONA: "+user.getExRoutine()+" "+user.getExIntensity()+" "+user.getExerciseCombination().getName();
+        return "FUNCIONA:";
     }
 
     public Dish getSimilarDish(Dish dish, List<String> userIntoAler) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-
         CollectionReference recipesCollection = db.collection("dishes");
         ApiFuture<QuerySnapshot> future = recipesCollection.get();
         QuerySnapshot querySnapshot = future.get();
@@ -83,8 +70,6 @@ public class DishService {
                 else similarDish = newDish;
             }
         }
-
-        System.out.println("SIMILAR DISH, "+similarDish);
 
         return similarDish;
     }
@@ -105,7 +90,6 @@ public class DishService {
         Map<String, Object> updates = new HashMap<>();
         updates.put("weeklyMenu", weeklyMenu);
 
-        // Update the document with the map to set the "menu" field
         ApiFuture<WriteResult> future = documentRef.update(updates);
         future.get();
 
@@ -166,24 +150,24 @@ public class DishService {
     }
 
     private List<DailyMenu> menuAlgorythm(User user, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
-        List<DailyMenu> menu = new ArrayList<>();
+        List<DailyMenu> weeklyMenu = new ArrayList<>();
 
         for (int weekDaysNumber = 1; weekDaysNumber < 8 ; weekDaysNumber ++) {
-            menu.add(new DailyMenu(user, getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal));
+            weeklyMenu.add(new DailyMenu(user, getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal));
         }
 
-        return menu;
+        return weeklyMenu;
     }
 
     private String getWeekDayName(int day) throws Exception {
         switch (day) {
-            case 1: return "Dilluns";
-            case 2: return "Dimarts";
-            case 3: return "Dimecres";
-            case 4: return "Dijous";
-            case 5: return "Divendres";
-            case 6: return "Dissabte";
-            case 7: return "Diumenge";
+            case 1: return MONDAY;
+            case 2: return TUESDAY;
+            case 3: return WEDNESDAY;
+            case 4: return THURSDAY;
+            case 5: return FRIDAY;
+            case 6: return SATURDAY;
+            case 7: return SUNDAY;
             default: throw new Exception("Invalid number for getWeekDayNumber");
         }
     }
