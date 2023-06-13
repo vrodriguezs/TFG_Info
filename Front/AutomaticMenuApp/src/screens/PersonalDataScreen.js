@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { FlatList, Text, Keyboard } from 'react-native'
+import { FlatList, Text, Alert, ImageBackground, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
+import { useRoute } from '@react-navigation/native';
 
 import { firebase } from '../../firebase'
 
@@ -18,7 +19,9 @@ import ScrollToTopButton from '../../ScrollToTopButton';
 import { userData, ageDropdownData, weightDropdownData, heightDropdownData } from '../../FormsData'
 
 import { colors } from '../../Colors'
+import { Octicons } from '@expo/vector-icons'
 import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
+import { StyledImageBackground } from '../styles/StyledImageBackground';
 
 const SCROLL_TOP_OFFSET = 400
 
@@ -57,6 +60,8 @@ let dishesToExport = DEFAULT_DISHES;
 
 const PersonalDataScreen = () => {
   const navigation = useNavigation()
+  const route = useRoute();
+  const arrivedFromProfile = route.params?.arrivedFromProfile || false;
 
   const handleNameChange = (text) => {nameToExport = text};
   const handleAgeChange = (text) => {ageToExport = text};
@@ -97,15 +102,7 @@ const PersonalDataScreen = () => {
   const [dish, setDish] = useState(FOUR_DISHES)
 
   const handlePersonalData = () => {
-    navigation.navigate('Preferences')
-    // firebase.auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(userCredentials => {
-    //     const user = userCredentials.user;
-    //     console.log('Signed up with:', user.email);
-    //     navigation.navigate('Preferences')
-    //   })
-    //   .catch(error => alert(error.message))
+    navigation.navigate('Preferences', {arrivedFromProfile})
   }
 
   
@@ -166,6 +163,18 @@ const PersonalDataScreen = () => {
     setUserDataSelect(userStateCopy)
   }
 
+  const coursesInformationAlert = () => {
+    Alert.alert(
+      '',
+      'Nutricionistes recomanen fer 4 àpats al dia per a fer dejú durant la nit. \n\nTot i això, tot dependrà dels teus hàbits. Si necessites més informació, si us plau, consulta al teu nutricionista',
+      [
+        {
+          text: 'D\'acord'
+        }
+      ]
+    )
+  }
+
   return (
     <StyledContainer screenContainer>
       <BackButton screen={'Welcome'}/>
@@ -173,6 +182,7 @@ const PersonalDataScreen = () => {
         ListHeaderComponent={
           <>
           <StyledText tittle bold center>Explica'ns una mica més sobre tu</StyledText>
+          <StyledText center>Per a introduir les teves dades, prem sobre els botons.</StyledText>
           {/* textInput name */}
           <StyledContainer userStats>
             <StyledText label bold>Nom</StyledText>
@@ -286,8 +296,16 @@ const PersonalDataScreen = () => {
             {/* flatLists categories buttons */}
             <FlatList
             ListHeaderComponent={
-              <>
-              <StyledText label bold>{item.categoryName}</StyledText>
+              <>{item.categoryName === DISHES ? (
+                <StyledContainer row spaceBetween>
+                  <StyledText label bold>{item.categoryName}</StyledText>
+                  <StyledButton onPress={coursesInformationAlert}>
+                    <Octicons name={'question'} size={28} color={colors.action}/>
+                  </StyledButton>
+                </StyledContainer>) : (
+                <StyledText label bold>{item.categoryName}</StyledText>
+                )
+              }
               <StyledContainer underline/>
               </>
             }
@@ -303,9 +321,9 @@ const PersonalDataScreen = () => {
                 </StyledContainer>
               )}
               keyExtractor={(item) => item.id}
-              />
-              <StyledContainer underline/>
-              {item.categoryName===DISHES && <StyledText center>{dish}</StyledText>}
+            />
+            <StyledContainer underline/>
+            {item.categoryName===DISHES && <StyledText center>{dish}</StyledText>}
           </StyledContainer>
           
         )}
@@ -318,13 +336,14 @@ const PersonalDataScreen = () => {
             standard 
             signup 
             onPress={() => handlePersonalData()}>
-            <StyledText button bold >Següent</StyledText>
+            <StyledText button bold >{arrivedFromProfile ? 'Actualitzar' : 'Següent'}</StyledText>
           </StyledButton>
 
           </>
         }
         />
       <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible}/>
+      <StyledImageBackground/>
     </StyledContainer>
   )
 }

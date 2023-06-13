@@ -8,6 +8,7 @@ import WelcomeScreen from './WelcomeScreen';
 import PersonalDataScreen from './PersonalDataScreen';
 import PreferencesScreen from './PreferencesScreen';
 import HomeTabScreen from './HomeTabScreen';
+import DetailsScreen from './DetailsScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -27,6 +28,7 @@ function RootStack () {
                 <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
                 <Stack.Screen name="Preferences" component={PreferencesScreen} />
                 <Stack.Screen name="Home" component={HomeTabScreen} />
+                <Stack.Screen name="Details" component={DetailsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

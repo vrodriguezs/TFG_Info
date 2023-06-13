@@ -40,15 +40,27 @@ const styles = StyleSheet.create({
       borderBottomColor: colors.secondary,
       color: colors.text
     },
+    textInputBoxSearch: {
+      backgroundColor: colors.secondary,
+      color: colors.text,
+      padding: 15,
+      paddingHorizontal: 55,
+      borderRadius: 15,
+      fontSize: 16,
+      height: 60,
+      marginVertical: 3,
+      marginBottom: 10
+    },
 })
   
 const StyledTextInput = ({style={}, textInput, errorContainer, textInputBox, 
-  textInputLine, ...props}) => {
+  textInputLine, textInputBoxSearch, ...props}) => {
   const textInputStyles = [
     styles.textInput,
     errorContainer && styles.errorContainer,
     textInputLine && styles.textInputLine,
     textInputBox && styles.textInputBox,
+    textInputBoxSearch && styles.textInputBoxSearch,
     style
   ]
   return <TextInput style={textInputStyles} {...props}/>

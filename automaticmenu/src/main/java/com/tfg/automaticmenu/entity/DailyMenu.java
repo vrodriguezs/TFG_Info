@@ -13,30 +13,25 @@ public class DailyMenu {
     public String weekId;
     public Map<String, List<Dish>> menu;
     private int kcal;
-    private Map<String, Integer> finalKcalPerMeal;
 
-    public DailyMenu(String weekId, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
+    public DailyMenu(User user, String weekId, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
         this.weekId = weekId;
         this.menu = new HashMap<>();
-        this.finalKcalPerMeal = new HashMap<>();
-        generateDailyMenu(allMealsAvailable, kcalPerMeal);
+        generateDailyMenu(user, allMealsAvailable, kcalPerMeal);
         System.out.println("FINAL MENU");
         for (Map.Entry<String, List<Dish>> entry : menu.entrySet()) {
             String meal = entry.getKey();
             List<Dish> dishes = entry.getValue();
-            int actualKcal = 0;
             System.out.println(meal);
             for(Dish dish : dishes) {
                 System.out.println("\t- "+dish.getName());
-                actualKcal += dish.getKcal();
             }
             System.out.println();
-            finalKcalPerMeal.put(meal, actualKcal);
-            System.out.println(actualKcal);
+            System.out.println(weekId);
         }
     }
 
-    private void generateDailyMenu(List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
+    private void generateDailyMenu(User user, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
         boolean repeat = true;
         while(repeat) {
             if(!menu.isEmpty()) menu.clear();
@@ -47,7 +42,6 @@ public class DailyMenu {
                 int botBound = targetKcal - 100;
                 int topBound = targetKcal + 100;
                 //System.out.println("Àpat: "+meal.toUpperCase());
-                List<Dish> temporaryDishesForDailyMenu = new ArrayList<>();
                 List<Dish> dishesForDailyMenu = new ArrayList<>();
 
                 if (meal == LUNCH || meal == DINNER || meal == BREAKFAST) {
@@ -63,7 +57,7 @@ public class DailyMenu {
 
                 this.menu.put(meal, dishesForDailyMenu);
             }
-            repeat = !checkIngredientCategoriesPercentages(menu);
+            repeat = !checkIngredientCategoriesPercentages(user, menu);
         }
     }
 
@@ -109,10 +103,11 @@ public class DailyMenu {
         this.kcal += dish.getKcal();
         return dish;
     }
+
     private boolean justOneCourse() { return false; }
 
     //acabar d mirar tema enum, constantExercises... se li ha d passar x paràmetre
-    private boolean checkIngredientCategoriesPercentages(Map<String, List<Dish>> menu) {
+    private boolean checkIngredientCategoriesPercentages(User user, Map<String, List<Dish>> menu) {
         double vegetables = 0;
         double carbohydrates = 0;
         double proteins = 0;
@@ -160,17 +155,17 @@ public class DailyMenu {
         double carbohydratesPercent = calculatePercentage(sum, carbohydrates);
         double proteinsPercent = calculatePercentage(sum, proteins);
 
-        return (percentagesAreValid(vegetablesPercent, carbohydratesPercent, proteinsPercent));
+        return (percentagesAreValid(user, vegetablesPercent, carbohydratesPercent, proteinsPercent));
     }
 
     private double calculatePercentage(double sum, double category) {
         return category/sum*100;
     }
 
-    private boolean percentagesAreValid(double vegetablesPercent, double carbohydratesPercent, double proteinsPercent) {
-        return(percentageCategoryIsValid(vegetablesPercent, 50) &&
-                percentageCategoryIsValid(carbohydratesPercent, 30) &&
-                percentageCategoryIsValid(proteinsPercent, 20));
+    private boolean percentagesAreValid(User user, double vegetablesPercent, double carbohydratesPercent, double proteinsPercent) {
+        return(percentageCategoryIsValid(vegetablesPercent, user.getExerciseCombination().getVegetablesPercent()) &&
+                percentageCategoryIsValid(carbohydratesPercent, user.getExerciseCombination().getCarbohydratesPercent()) &&
+                percentageCategoryIsValid(proteinsPercent, user.getExerciseCombination().getProteinsPercent()));
     }
 
     private boolean percentageCategoryIsValid(double categoryPercentage, int targetPercentage) {
@@ -192,13 +187,5 @@ public class DailyMenu {
 
     public void setMenu(Map<String, List<Dish>> menu) {
         this.menu = menu;
-    }
-
-    public Map<String, Integer> getFinalKcalPerMeal() {
-        return finalKcalPerMeal;
-    }
-
-    public void setFinalKcalPerMeal(Map<String, Integer> finalKcalPerMeal) {
-        this.finalKcalPerMeal = finalKcalPerMeal;
     }
 }

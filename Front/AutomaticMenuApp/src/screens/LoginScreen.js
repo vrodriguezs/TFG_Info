@@ -15,6 +15,7 @@ import StyledButton from '../styles/StyledButton'
 
 import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
+import { StyledImageBackground } from '../styles/StyledImageBackground'
 
 const LoginScreen = () => {
   const navigation = useNavigation()
@@ -27,7 +28,6 @@ const LoginScreen = () => {
   const [hidePassword, setHidePassword] = useState(true)
 
   const handleLogin = (email, password) => {
-    console.log('pepe')
     firebase.auth()
       .signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
@@ -120,9 +120,11 @@ const LoginScreen = () => {
                   </StyledButton>
                 </StyledContainer>
 
+                <StyledImageBackground/>
               </StyledContainer>
 
             </ScrollView>
+            <StyledImageBackground/>
           </StyledContainer>
         )
       }}

@@ -88,14 +88,14 @@ export const userData = [
                 id: "41",
                 selected: false,
                 name: "Sí",
-                image: require('./src/assets/icons/Preferences/Vegetables/leavesAndStems.png'),
+                image: require('./src/assets/icons/Preferences/Veg/veg.png'),
                 categoryName: "Ets vegà o vegetarià?",
             },
             {
                 id: "42",
                 selected: true,
                 name: "No",
-                image: require('./src/assets/icons/Preferences/Proteins/meat.png'),
+                image: require('./src/assets/icons/Preferences/Veg/noVeg.png'),
                 categoryName: "Ets vegà o vegetarià?",
             }
         ]
@@ -108,28 +108,28 @@ export const userData = [
                 id: "51",
                 selected: false,
                 name: 2,
-                image: require('./src/assets/icons/Preferences/Meals/breakfast.png'),
+                image: require('./src/assets/icons/Preferences/Meals/twoMeals.png'),
                 categoryName: "Àpats",
             },
             {
                 id: "52",
                 selected: false,
                 name: 3,
-                image: require('./src/assets/icons/Preferences/Meals/brunch.png'),
+                image: require('./src/assets/icons/Preferences/Meals/threeMeals.png'),
                 categoryName: "Àpats",
             },
             {
                 id: "53",
                 selected: true,
                 name: 4,
-                image: require('./src/assets/icons/Preferences/Meals/lunch.png'),
+                image: require('./src/assets/icons/Preferences/Meals/fourMeals.png'),
                 categoryName: "Àpats",
             },
             {
                 id: "54",
                 selected: false,
                 name: 5,
-                image: require('./src/assets/icons/Preferences/Meals/snack.png'),
+                image: require('./src/assets/icons/Preferences/Meals/fiveMeals.png'),
                 categoryName: "Àpats",
             }
         ]
@@ -309,7 +309,7 @@ export const preferencesData = [
                 id: "19",
                 selected: true,
                 name: "Marisc",
-                image: require('./src/assets/icons/Preferences/Proteins/nuts.png')
+                image: require('./src/assets/icons/Preferences/Proteins/seafood.png')
             }
         ]
     },
@@ -345,7 +345,7 @@ export const preferencesData = [
                 id: "25",
                 selected: true,
                 name: "Galetes",
-                image: require('./src/assets/icons/Preferences/Grains/oat.png')
+                image: require('./src/assets/icons/Preferences/Grains/cookie.png')
             },
             {
                 id: "26",
@@ -501,7 +501,7 @@ export const preferencesData = [
                 id: "56",
                 selected: true,
                 name: "Nata",
-                image: require('./src/assets/icons/Preferences/MilkAndDerivatives/chocolate.png')
+                image: require('./src/assets/icons/Preferences/MilkAndDerivatives/cream.png')
             }
         ]
     },

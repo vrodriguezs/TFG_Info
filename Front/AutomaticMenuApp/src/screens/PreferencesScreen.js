@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { View, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
+import { useRoute } from '@react-navigation/native';
 import axios from 'axios'
 
 import { firebase } from '../../firebase'
@@ -27,9 +28,12 @@ import {
 } from './PersonalDataScreen'
 
 import { getEmail, getPassword } from './SignupScreen'
+import { StyledImageBackground } from '../styles/StyledImageBackground';
 
 const PreferencesScreen = () => {
   const navigation = useNavigation()
+  const route = useRoute();
+  const arrivedFromProfile = route.params?.arrivedFromProfile || false;
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   const flatListRef = useRef(null);
@@ -50,18 +54,35 @@ const PreferencesScreen = () => {
   const [preferencesDataSelect, setPreferencesDataSelect] = useState(preferencesData)
 
   const handlePreferencesScreen = () => {
-    navigation.navigate('Home')
+    handlePreferences();
+    if(!arrivedFromProfile || arrivedFromProfile === 'undefined') {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(getEmail(), getPassword())
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          console.log('Done preferences with:', user.email);
+          console.log('Going to do logIn')
+          handleLogin(getEmail(), getPassword())
+          console.log('Going to store in db')
+          updateDataToUserDatabase(); // Pass the user UID as an argument
+          
+        })
+        .catch((error) => alert(error.message));
+    } else {
+      updateDataToUserDatabase(); // Pass the user UID as an argument
+    }
+    navigation.navigate('Home');
+  };
+
+  const handleLogin = (email, password) => {
     firebase.auth()
-      .createUserWithEmailAndPassword(getEmail(), getPassword())
+      .signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Done preferences with:', user.email);
-        navigation.navigate('Home')
+        console.log('Logged in with:', user.email);
       })
       .catch(error => alert(error.message))
-    addDataToUserDatabase()  
-    handlePreferences()
-    sendDataToBackEnd()
   }
 
   const handlePreferences = () => {
@@ -85,14 +106,7 @@ const PreferencesScreen = () => {
 
   const todoRef = firebase.firestore().collection('users')
 
-  const addDataToUserDatabase = () => {
-    //if(userName && userName.length > 0) {
-      //utilitzem filter() per obtenir tots els objectes que tenen selected=true
-      //const allData = userDataSelect.flatMap(category => category.arg.filter(arg => arg.selected));
-  
-      //obtenim un array dels valors de name de tots els objectes que tenen selected=true
-      //const selectedData = allData.map(objet => objet.name);
-
+  const updateDataToUserDatabase = () => {
     const data = {
       name: nameToExport,
       age: ageToExport,
@@ -103,20 +117,45 @@ const PreferencesScreen = () => {
       exIntensity: exIntensityToExport,
       veg: vegToExport,
       dishes: dishesToExport,
+      intoAler: intoAlerToExport,
+      ingredients: ingredientsToExport,
       email: getEmail(),
       menu: []
     }
-    todoRef
-      .doc(data.name)
-      .set(data)
-      // .add(data)
-      .catch((error) => {
-        alert(error)
-      })
-    //}
+    const userId = firebase.auth().currentUser.uid;
+    const userRef = todoRef.doc(userId);
+    console.log('AddData ',userId)
+    userRef
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userRef
+          .update(data)
+          .then(() => {
+            console.log('User data updated successfully.');
+          })
+          .catch((error) => {
+            console.error('Error updating user data:', error);
+          });
+      } else {
+        userRef
+          .set(data)
+          .then(() => {
+            console.log('User data saved successfully.');
+          })
+          .catch((error) => {
+            console.error('Error saving user data:', error);
+          });
+      }
+      sendDataToBackEnd(userId)
+    })
+    .catch((error) => {
+      console.error('Error checking user document:', error);
+    });
+    
   }
 
-  const sendDataToBackEnd = async () => {
+  const sendDataToBackEnd = async (userId) => {
     const user = {
       name: nameToExport,
       age: ageToExport,
@@ -132,7 +171,8 @@ const PreferencesScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.43:8080/api/generate-menu', user)
+      console.log('SendData ',userId)
+      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', { user, userId })
       console.log(response.data)
     } catch (error) {
       console.log(error)
@@ -172,6 +212,7 @@ const PreferencesScreen = () => {
         ListHeaderComponent={
           <>
             <StyledText tittle bold center>Preferències</StyledText>
+            <StyledText center>Per a introduir les teves dades, prem sobre els botons.</StyledText>
           </>
         }
         ref={flatListRef}
@@ -221,6 +262,7 @@ const PreferencesScreen = () => {
         }
       />
       <ScrollToTopButton onPress={scrollToTop} visible={scrollToTopVisible} />
+      <StyledImageBackground/>
     </StyledContainer>
   )
 }

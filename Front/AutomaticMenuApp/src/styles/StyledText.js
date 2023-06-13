@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     big: {
         fontSize: 22,
     },
+    subtittle: {
+        fontSize: 20,
+    },
     tittle: {
         fontSize: 28,
         textAlign: 'center',
@@ -65,22 +68,28 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     center: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign: 'center'
     },
     margin: {
         marginHorizontal: 5
     },
+    mealKcal: {
+        bottom: 130,
+        left: 250
+    },
 })
   
-export default function StyledTextInput ({children, button, bold, small, big, tittle, tittleTab, color, 
+export default function StyledTextInput ({children, button, bold, small, big, subtittle, tittle, tittleTab, color, 
     colorlight, colorPlaceholder ,error, label, welcome, flex, alignRight, center, margin,
-    getStarted}) {
+    getStarted, mealKcal}) {
   const textStyles = [
     styles.text,
     button && styles.button,
     bold && styles.bold,
     small && styles.small,
     big && styles.big,
+    subtittle && styles.subtittle,
     tittle && styles.tittle,
     tittleTab && styles.tittleTab,
     color && styles.color,
@@ -94,6 +103,7 @@ export default function StyledTextInput ({children, button, bold, small, big, ti
     center && styles.center,
     margin && styles.margin,
     getStarted && styles.getStarted,
+    mealKcal && styles.mealKcal,
   ]
   return (
     <Text style={textStyles}>

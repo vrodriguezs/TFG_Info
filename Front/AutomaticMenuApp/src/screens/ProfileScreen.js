@@ -8,16 +8,11 @@ import StyledText from '../styles/StyledText'
 
 import { ageDropdownData, heightDropdownData, weightDropdownData } from '../../FormsData'
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
 import { firebase } from '../../firebase'
+import { StyledImageBackground } from '../styles/StyledImageBackground'
   
-//   return (
-//     <StyledText flex alignRight>{category}</StyledText>
-//   )
-// }
-
 const ProfileScreen = () => {
   const navigation = useNavigation()
   const [userData, setUserData] = useState([]);
@@ -33,14 +28,14 @@ const ProfileScreen = () => {
     veg: 'Vegà/Vegetarià',
     dishes: 'Àpats',
     sex: 'Sexe'
-    // Add more field titles as needed
   };
   
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const db = firebase.firestore();
-        const userDocRef = db.collection('users').doc('User1');
+        userId = firebase.auth().currentUser.uid
+        const userDocRef = db.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
     
         if (userDoc.exists) {
@@ -77,18 +72,11 @@ const ProfileScreen = () => {
   
 
   return (
-    <StyledContainer screenContainer>
+    <StyledContainer screenMenuContainer>
       <FlatList
         ListHeaderComponent={
-          <>
-          <StyledContainer row spaceBetween>
-            <StyledText tittleTab bold center>Perfil</StyledText>
-            <StyledButton preferences onPress={() => navigation.navigate('Preferences')}>
-              <MaterialCommunityIcons  name='format-list-checks' size={50} color={colors.action}/>
-            </StyledButton>
-          </StyledContainer>
-          </>
-          }
+          <StyledText tittleTab bold center>Perfil</StyledText>
+        }
         data={userData}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={{flexGrow: 1}}
@@ -97,7 +85,7 @@ const ProfileScreen = () => {
           <>
           <StyledContainer flexRow userStatsProfile>
             {fieldOrder.map(field => (
-              <StyledContainer row paddingBott={
+              <StyledContainer key={field} row paddingBott={
                   item.titles[field] === 'Sexe' || 
                   item.titles[field] === 'Intensitat de l\'exercici' ||
                   item.titles[field] === 'Àpats'
@@ -115,14 +103,14 @@ const ProfileScreen = () => {
           <StyledButton 
             standard 
             signup 
-            onPress={() => navigation.navigate('PersonalData')}> 
-            {/*anar al signup pero sense fer cap signup d'usuari, sino update*/}
+            onPress={() => navigation.navigate('PersonalData', { arrivedFromProfile: true })}>
             {/*ergo posar un atribut o algo q identifiqui quan es ve d la screen d profile*/}
             <StyledText button bold >Actualitzar</StyledText>
           </StyledButton>
           </>
         }
       />
+      <StyledImageBackground/>
     </StyledContainer>
   )
 

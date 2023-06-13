@@ -2,12 +2,14 @@ package com.tfg.automaticmenu.service;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.FirestoreClient;
 import com.tfg.automaticmenu.entity.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.tfg.automaticmenu.utilities.ConstantGeneralUtilities.*;
@@ -23,17 +25,17 @@ public class DishService {
         return collectionApiFuture.get().getUpdateTime().toString();
     }
 
-    public String generateMenu(User user) throws Exception {
+    public String generateMenu(User user, String userId) throws Exception {
         int kcal = (int) Math.round(calculateTotalKcal(user));
         int maxKcal = kcal+KCAL_MARGIN;
         int minKcal = kcal-KCAL_MARGIN;
 
-        System.out.println("COMENÇA");
+        System.out.println("COMENÇA "+userId);
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference documentReference = db.collection("users").document(user.getName());
+        DocumentReference documentReference = db.collection("users").document(userId);
 
         Map<String, Object> updates = new HashMap<>();
-        updates.put("menu", Collections.emptyList());
+        updates.put("weekly", Collections.emptyList());
         documentReference.update(updates);
 
         CollectionReference recipesCollection = db.collection("dishes");
@@ -46,7 +48,7 @@ public class DishService {
         Map<String, Integer> kcalPerMeal = calculateKcalPerMeal(kcal, user.getDishes());
         //filtrar les receptes aptes per a l'usuari
         List<Dish> filteredRecipes = filterRecipes(recipesCollection, intoAler, veg, ingredients);
-        List<DailyMenu> weeklyMenu = menuAlgorythm(kcalPerMeal, filteredRecipes);
+        List<DailyMenu> weeklyMenu = menuAlgorythm(user, kcalPerMeal, filteredRecipes);
 
         //documentReference.update("menu", FieldValue.arrayUnion(weeklyMenu));
 
@@ -60,11 +62,48 @@ public class DishService {
             String documentTitle = daysOfWeek[i];
             collectionApiFuture.add(dbFirestore.collection(COLLECTION_DAY_NAME).document(documentTitle).set(menu));
         }*/
-        return "FUNCIONA";
+        return "FUNCIONA: "+user.getExRoutine()+" "+user.getExIntensity()+" "+user.getExerciseCombination().getName();
     }
+
+    public Dish getSimilarDish(Dish dish, List<String> userIntoAler) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        CollectionReference recipesCollection = db.collection("dishes");
+        ApiFuture<QuerySnapshot> future = recipesCollection.get();
+        QuerySnapshot querySnapshot = future.get();
+
+        boolean userHasAllergies = !userIntoAler.isEmpty();
+
+        Dish similarDish = null;
+
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Dish newDish = document.toObject(Dish.class);
+            if (hasMinimumRequisits(dish, newDish, userHasAllergies, userIntoAler)) {
+                if (similarDish != null && isBetterDish(dish, similarDish, newDish)) similarDish = newDish;
+                else similarDish = newDish;
+            }
+        }
+
+        System.out.println("SIMILAR DISH, "+similarDish);
+
+        return similarDish;
+    }
+
+    private boolean hasMinimumRequisits(Dish dish, Dish newDish, boolean userHasAllergies, List<String> userIntoAler) {
+        return isIntoAlerValid(userHasAllergies, newDish, userIntoAler)
+                && newDish.getVeg() == dish.getVeg()
+                && newDish.getDish().compareTo(dish.getDish()) == 0
+                && newDish.getMeals().containsAll(dish.getMeals())
+                && (newDish.getKcal() <= dish.getKcal() + 50  && newDish.getKcal() >= dish.getKcal() - 50);
+    }
+
+    private boolean isBetterDish(Dish dish, Dish similarDish, Dish newDish) {
+        return Math.abs(dish.getKcal() - similarDish.getKcal()) < Math.abs(dish.getKcal() - newDish.getKcal());
+    }
+
     private static void updateMenuField(DocumentReference documentRef, List<DailyMenu> weeklyMenu) throws Exception {
         Map<String, Object> updates = new HashMap<>();
-        updates.put("menu", weeklyMenu);
+        updates.put("weeklyMenu", weeklyMenu);
 
         // Update the document with the map to set the "menu" field
         ApiFuture<WriteResult> future = documentRef.update(updates);
@@ -79,9 +118,7 @@ public class DishService {
 
     private double calculateTotalKcal(User user) {
         double tmb = calculateTMB(user.getSex(), user.getWeight(), user.getHeight(), user.getAge());
-        double exFactor = calculateExFactor(user.getExRoutine(), user.getExIntensity());
-
-        return Math.round(tmb * exFactor);
+        return Math.round(tmb * user.getExerciseCombination().getExFactor());
     }
 
     private double calculateTMB(String sex, int weight, int height, int age) {
@@ -93,11 +130,6 @@ public class DishService {
         }
     }
 
-    private double calculateExFactor(String exRoutine, String exIntensity) {
-        return 1.375;
-    }
-
-    //fix percentages
     private Map<String, Integer> calculateKcalPerMeal(int kcal, int meals) {
         Map<String, Integer> kcalPerMeal = new LinkedHashMap<>();
 
@@ -133,11 +165,11 @@ public class DishService {
         kcalPerMeal.put(meal, (int) Math.round(kcal*percent));
     }
 
-    private List<DailyMenu> menuAlgorythm(Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
+    private List<DailyMenu> menuAlgorythm(User user, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
         List<DailyMenu> menu = new ArrayList<>();
 
         for (int weekDaysNumber = 1; weekDaysNumber < 8 ; weekDaysNumber ++) {
-            menu.add(new DailyMenu(getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal));
+            menu.add(new DailyMenu(user, getWeekDayName(weekDaysNumber), filteredRecipes, kcalPerMeal));
         }
 
         return menu;

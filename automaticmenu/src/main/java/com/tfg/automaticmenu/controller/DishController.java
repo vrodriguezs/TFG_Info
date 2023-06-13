@@ -1,15 +1,11 @@
 package com.tfg.automaticmenu.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.tfg.automaticmenu.entity.DailyMenu;
-import com.tfg.automaticmenu.entity.Dish;
-import com.tfg.automaticmenu.entity.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tfg.automaticmenu.entity.*;
 import com.tfg.automaticmenu.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -29,8 +25,19 @@ public class DishController {
     //s'ha d canviar a q retorni una list o algo amb el menu
     //o simplement q guardi el menu a la bbdd i segueixi sent void
     @PostMapping("/generate-menu")
-    public String generateMenu(@RequestBody User user) throws Exception {
-        return dishService.generateMenu(user);
+    public String generateMenu(@RequestBody UserAndId userAndId) throws Exception {
+        String userId = userAndId.getUserId();
+        User user = userAndId.getUser();
+        System.out.println(userId);
+        return dishService.generateMenu(user, userId);
     }
+
+    @PostMapping("/similar-dish")
+    public Dish getSimilarDish(@RequestBody DishAndIntoAler dishAndIntoAler) throws Exception {
+        Dish dish = dishAndIntoAler.getDish();
+        List<String> intoAlerUser = dishAndIntoAler.getIntoAlerUser();
+        return dishService.getSimilarDish(dish, intoAlerUser);
+    }
+
 
 }

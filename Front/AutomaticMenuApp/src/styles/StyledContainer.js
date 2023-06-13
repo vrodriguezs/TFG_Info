@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     screenMenuContainer: {
       flex: 1,
       padding: 25,
-      paddingBottom: 10,
-      backgroundColor: colors.primary
+      paddingBottom: 100,
+      //backgroundColor: colors.primary
     },
     innerContainer: {
       flex: 1,
@@ -57,6 +57,12 @@ const styles = StyleSheet.create({
       position: 'absolute',
       zIndex: 1
     },
+    leftIconSearch: {
+      left: 40,
+      top: 140,
+      position: 'absolute',
+      zIndex: 1
+    },
     welcome: {
       paddingTop: 40,
       paddingBottom: 100,
@@ -67,8 +73,16 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center'
     },
+    rowTop: {
+      flexDirection: 'row',
+      alignItems: 'flex-start'
+    },
     spaceBetween: {
       justifyContent: 'space-between',
+      flexWrap: 'wrap'
+    },
+    spaceAround: {
+      justifyContent: 'space-around',
       flexWrap: 'wrap'
     },
     flexStart: {
@@ -102,21 +116,38 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     centerScreen: { /*ara mateix només d'usa x la screen d receptes, s'haurà d borrar*/
-      alignItems: 'center',
       justifyContent: 'center'
     },
     paddingBott: {
       paddingBottom: 50
     },
+    paddingVertical: {
+      paddingVertical: 15
+    },
     tab: {
       paddingLeft: 15
+    },
+    modalReceipsBack: {
+      flex: 1,
+      backgroundColor: '#000000AA',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalReceipsCont: {
+      width: '90%',
+      backgroundColor: colors.primary,
+      borderRadius: 15,
+      padding: 10
+    },
+    modalReceips: {
+      paddingTop: 15
     },
   })
     
     const StyledContainer = ({style={}, flex, screenContainer, screenMenuContainer, innerContainer,
-      newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, width60, leftIcon, welcome, 
-  row, spaceBetween, flexStart, underline, underlineMeal, page, meal, center, centerScreen, paddingBott, 
-  tab, ...props}) => {
+      newAccount, userStatsLogin, userStats, userStatsProfile, flexRow, width50, width60, leftIcon, leftIconSearch, welcome, 
+  row, rowTop, spaceBetween, spaceAround, flexStart, underline, underlineMeal, page, meal, center, centerScreen, paddingBott, 
+  paddingVertical, tab, modalReceipsBack, modalReceipsCont, modalReceips, ...props}) => {
   const containerStyles = [
     flex && styles.flex,
     screenContainer && styles.screenContainer,
@@ -130,9 +161,12 @@ const styles = StyleSheet.create({
     width50 && styles.width50,
     width60 && styles.width60,
     leftIcon && styles.leftIcon,
+    leftIconSearch && styles.leftIconSearch,
     welcome && styles.welcome,
     row && styles.row,
+    rowTop && styles.rowTop,
     spaceBetween && styles.spaceBetween,
+    spaceAround && styles.spaceAround,
     flexStart && styles.flexStart,
     underline && styles.underline,
     underlineMeal && styles.underlineMeal,
@@ -141,7 +175,11 @@ const styles = StyleSheet.create({
     center && styles.center,
     centerScreen && styles.centerScreen,
     paddingBott && styles.paddingBott,
+    paddingVertical && styles.paddingVertical,
     tab && styles.tab,
+    modalReceipsBack && styles.modalReceipsBack,
+    modalReceipsCont && styles.modalReceipsCont,
+    modalReceips && styles.modalReceips,
     style
   ]
   return <View style={containerStyles} {...props}/>

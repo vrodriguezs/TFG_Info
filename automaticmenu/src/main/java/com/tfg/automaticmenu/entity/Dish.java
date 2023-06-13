@@ -14,7 +14,6 @@ public class Dish {
     private List<String> meals;
     private String dish;
     private List<String> recipe;
-
     private List<String> optional;
     private List<String> intoAler;
 

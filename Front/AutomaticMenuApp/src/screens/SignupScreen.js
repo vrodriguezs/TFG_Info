@@ -18,6 +18,7 @@ import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
 import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo, utilitza web, potser x això no anava
+import { StyledImageBackground } from '../styles/StyledImageBackground'
 
 const initialValues = {
   email: '',
@@ -29,7 +30,6 @@ let passwordToExport = ''
 
 const SignUpScreen = () => {
   const navigation = useNavigation()
-
 
   const handleEmailChange = (text) => {
     emailToExport = text
@@ -46,14 +46,6 @@ const SignUpScreen = () => {
     handleEmailChange(email)
     handlePasswordChange(password)
     navigation.navigate('Welcome')
-    // firebase.auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(userCredentials => {
-    //     const user = userCredentials.user;
-    //     console.log('Signed up with:', user.email);
-    //     navigation.navigate('Welcome')
-    //   })
-    //   .catch(error => alert(error.message))
   }
   
   const FormikInputValue = ({name, labelTitle, icon, isPassword, isPasswordConfirmation, 
@@ -147,9 +139,11 @@ const SignUpScreen = () => {
                   <StyledText button bold >Registrar-se</StyledText>
                 </StyledButton>
 
+              <StyledImageBackground/>
               </StyledContainer>
 
             </ScrollView>
+            <StyledImageBackground/>
           </StyledContainer>
         )
       }}
