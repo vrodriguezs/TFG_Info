@@ -13,8 +13,8 @@ import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 import { styledDropdownStyles } from '../styles/StyledDropdown'
 
-import BackButton from '../../BackButton';
-import ScrollToTopButton from '../../ScrollToTopButton';
+import BackButton from '../specialButtons/BackButton';
+import ScrollToTopButton from '../specialButtons/ScrollToTopButton';
 
 import { userData, ageDropdownData, weightDropdownData, heightDropdownData } from '../../FormsData'
 

@@ -12,7 +12,7 @@ import StyledText  from '../styles/StyledText'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
-import BackButton from '../../BackButton';
+import BackButton from '../specialButtons/BackButton';
 
 import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'

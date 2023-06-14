@@ -22,14 +22,12 @@ public class DishController {
         return dishService.saveDish(dish);
     }
 
-    //s'ha d canviar a q retorni una list o algo amb el menu
-    //o simplement q guardi el menu a la bbdd i segueixi sent void
     @PostMapping("/generate-menu")
-    public String generateMenu(@RequestBody UserAndId userAndId) throws Exception {
+    public void generateMenu(@RequestBody UserAndId userAndId) throws Exception {
         String userId = userAndId.getUserId();
         User user = userAndId.getUser();
         System.out.println(userId);
-        return dishService.generateMenu(user, userId);
+        dishService.generateMenu(user, userId);
     }
 
     @PostMapping("/similar-dish")

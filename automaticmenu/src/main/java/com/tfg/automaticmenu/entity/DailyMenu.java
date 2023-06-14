@@ -16,17 +16,6 @@ public class DailyMenu {
         this.weekId = weekId;
         this.weeklyMenu = new HashMap<>();
         generateDailyMenu(user, allMealsAvailable, kcalPerMeal);
-        System.out.println("FINAL MENU");
-        for (Map.Entry<String, List<Dish>> entry : weeklyMenu.entrySet()) {
-            String meal = entry.getKey();
-            List<Dish> dishes = entry.getValue();
-            System.out.println(meal);
-            for(Dish dish : dishes) {
-                System.out.println("\t- "+dish.getName());
-            }
-            System.out.println();
-            System.out.println(weekId);
-        }
     }
 
     private void generateDailyMenu(User user, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {
@@ -39,18 +28,14 @@ public class DailyMenu {
                 int targetKcal = entry.getValue();
                 int botBound = targetKcal - KCAL_MARGIN;
                 int topBound = targetKcal + KCAL_MARGIN;
-                //System.out.println("Àpat: "+meal.toUpperCase());
                 List<Dish> dishesForDailyMenu = new ArrayList<>();
 
                 if (meal == LUNCH || meal == DINNER || meal == BREAKFAST) {
                     dishesForDailyMenu = addComplexDishes(allMealsAvailable, botBound, topBound, meal);
                 }
                 else {
-                    //System.out.println("UNIQUE COURSE");
                     Dish simpleDish = getOneDish(UNIQUE_COURSE, allMealsAvailable, meal);
                     dishesForDailyMenu.add(simpleDish);
-                    //System.out.println("\nChosen unique dish: "+simpleDish.getName()+"\n");
-                    //System.out.println(botBound+" "+this.kcal+" "+topBound+"\n\n");
                 }
 
                 this.weeklyMenu.put(meal, dishesForDailyMenu);
@@ -65,26 +50,17 @@ public class DailyMenu {
             this.kcal = 0;
             if(!dishes.isEmpty()) dishes.clear();
             if (justOneCourse()) {
-                //System.out.println("UNIQUE COURSE");
                 Dish unique = getOneDish(UNIQUE_COURSE, allMealsAvailable, meal);
                 dishes.add(unique);
-                //System.out.println("\nChosen unique dish: "+unique.getName()+"\n");
             } else {
-                //System.out.println("FIRST COURSE");
                 Dish firstDish = getOneDish(FIRST_COURSE, allMealsAvailable, meal);
                 dishes.add(firstDish);
-                //System.out.println("\nChosen first dish: "+firstDish.getName()+"\n");
-                //System.out.println("SECOND COURSE");
                 Dish secondDish = getOneDish(SECOND_COURSE, allMealsAvailable, meal);
                 dishes.add(secondDish);
-                //System.out.println("\nChosen second dish: "+secondDish.getName()+"\n");
             }
             Dish dessert;
-            //System.out.println("DESERT");
             dessert = getOneDish(DESSERT_COURSE, allMealsAvailable, meal);
             dishes.add(dessert);
-            //System.out.println("\nChosen dessert: "+dessert.getName());
-            //System.out.println(botBound+" "+this.kcal+" "+topBound+"\n\n");
         }
 
         return dishes;
@@ -93,10 +69,7 @@ public class DailyMenu {
     private Dish getOneDish(String typeOfCourse, List<Dish> allMealsAvailable, String meal) {
         List<Dish> allDishesWithTypeOfCourse = allMealsAvailable.stream().filter((dish ->
                 dish.getDish().equals(typeOfCourse) && dish.getMeals().contains(meal))).toList();
-        //System.out.println("\tNumber of "+typeOfCourse+" dishes in the "+meal+": "+allDishesWithTypeOfCourse.size());
-        /*for(Dish d : allDishesWithTypeOfCourse) {
-            System.out.println("\t\t"+d.getName());
-        }*/
+
         Dish dish = allDishesWithTypeOfCourse.get((int) (Math.random() * allDishesWithTypeOfCourse.size()));
         this.kcal += dish.getKcal();
         return dish;

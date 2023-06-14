@@ -65,12 +65,11 @@ const MenuScreen = () => {
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
+        //agafar l'usuari loguejat
         const db = firebase.firestore();
         userId = firebase.auth().currentUser.uid
-        console.log('UserId ',userId)
         const userRef = db.collection('users').doc(userId);
   
-        // Get the user document
         const userDoc = await userRef.get();
   
         if (userDoc.exists) {
@@ -78,7 +77,7 @@ const MenuScreen = () => {
           
           intoAler = userData.intoAler
 
-          // Retrieve the menu data from the user document
+          //agafar la informació del menú de l'usuari
           const menuData = userData.weeklyMenu;
           const menuDataMap = new Map();
   
@@ -88,7 +87,7 @@ const MenuScreen = () => {
             menuDataMap.set(dayId, menu);
           });
   
-          // Set the menuData state with the retrieved data
+          //actualitzar l'atribut amb la informació del menú
           setMenuData(menuDataMap);
         }
       } catch (error) {

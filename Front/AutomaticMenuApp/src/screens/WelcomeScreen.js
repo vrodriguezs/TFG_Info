@@ -6,7 +6,7 @@ import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
-import BackButton from '../../BackButton';
+import BackButton from '../specialButtons/BackButton';
 
 import { colors } from '../../Colors'
 

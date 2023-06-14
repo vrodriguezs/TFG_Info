@@ -15,8 +15,8 @@ import StyledIcon from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
 import StyledButton from '../styles/StyledButton'
 
-import BackButton from '../../BackButton';
-import ScrollToTopButton from '../../ScrollToTopButton';
+import BackButton from '../specialButtons/BackButton';
+import ScrollToTopButton from '../specialButtons/ScrollToTopButton';
 
 import { preferencesData } from '../../FormsData'
 
@@ -171,13 +171,10 @@ const PreferencesScreen = ({ onDataSent }) => {
     }
 
     try {
-      console.log('SendData ',userId)
-      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', { user, userId })
+      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', 
+      { user, userId })
       console.log(response.data)
 
-      // if(onDataSent) {
-      //   onDataSent(userId)
-      // }
     } catch (error) {
       console.log(error)
     }

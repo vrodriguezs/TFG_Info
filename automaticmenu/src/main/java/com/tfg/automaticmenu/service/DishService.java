@@ -21,17 +21,16 @@ public class DishService {
     public String saveDish(Dish dish) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
-        ApiFuture< WriteResult > collectionApiFuture = dbFirestore.collection(COLLECTION_DISH_NAME).document().set(dish);
+        ApiFuture< WriteResult > collectionApiFuture = dbFirestore.collection(COLLECTION_DISH_NAME)
+                .document().set(dish);
 
         return collectionApiFuture.get().getUpdateTime().toString();
     }
 
-    public String generateMenu(User user, String userId) throws Exception {
-        System.out.println("COMENÇA "+userId);
-
+    public void generateMenu(User user, String userId) throws Exception {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference documentReference = db.collection("users").document(userId);
-        CollectionReference recipesCollection = db.collection("dishes");
+        DocumentReference documentReference = db.collection(COLLECTION_USER_NAME).document(userId);
+        CollectionReference recipesCollection = db.collection(COLLECTION_DISH_NAME);
 
         Map<String, Object> updates = new HashMap<>();
         updates.put("weeklyMenu", Collections.emptyList());
@@ -44,13 +43,12 @@ public class DishService {
 
         //map de les kcal per meal
         Map<String, Integer> kcalPerMeal = calculateKcalPerMeal(kcal, user.getDishes());
+
         //filtrar les receptes aptes per a l'usuari
         List<Dish> filteredRecipes = filterRecipes(recipesCollection, intoAler, veg, ingredients);
         List<DailyMenu> weeklyMenu = menuAlgorythm(user, kcalPerMeal, filteredRecipes);
 
         updateMenuField(documentReference, weeklyMenu);
-
-        return "FUNCIONA:";
     }
 
     public Dish getSimilarDish(Dish dish, List<String> userIntoAler) throws ExecutionException, InterruptedException {
@@ -149,7 +147,8 @@ public class DishService {
         kcalPerMeal.put(meal, (int) Math.round(kcal*percent));
     }
 
-    private List<DailyMenu> menuAlgorythm(User user, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes) throws Exception {
+    private List<DailyMenu> menuAlgorythm(User user, Map<String, Integer> kcalPerMeal, List<Dish> filteredRecipes)
+            throws Exception {
         List<DailyMenu> weeklyMenu = new ArrayList<>();
 
         for (int weekDaysNumber = 1; weekDaysNumber < 8 ; weekDaysNumber ++) {
@@ -172,8 +171,9 @@ public class DishService {
         }
     }
 
-    private static List<Dish> filterRecipes(CollectionReference recipesCollection, List<String> userIntoAler, boolean isUserVegan,
-                                            List<String> userDislikedIngredients) throws ExecutionException, InterruptedException {
+    private static List<Dish> filterRecipes(CollectionReference recipesCollection, List<String> userIntoAler,
+                                            boolean isUserVegan, List<String> userDislikedIngredients)
+                                            throws ExecutionException, InterruptedException {
         List<Dish> filteredRecipes = new ArrayList<>();
 
         //agafar receptes de la col·lecció
@@ -234,7 +234,8 @@ public class DishService {
                 .collect(Collectors.toList());
 
         //verificar si la recepta té els ingredients que li agraden a l'usuari
-        boolean hasDislikedIngredients = lowercaseUserDislikedIngredients.stream().anyMatch(lowercaseRecipeIngredients::contains);
+        boolean hasDislikedIngredients = lowercaseUserDislikedIngredients.stream()
+                .anyMatch(lowercaseRecipeIngredients::contains);
         return hasDislikedIngredients;
     }
 }
