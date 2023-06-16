@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { FlatList, Text, Alert, ImageBackground, StyleSheet, Dimensions } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { FlatList, Text, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Dropdown } from 'react-native-element-dropdown';
 import { useRoute } from '@react-navigation/native';
-
-import { firebase } from '../../firebase'
 
 import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
@@ -20,7 +18,6 @@ import { userData, ageDropdownData, weightDropdownData, heightDropdownData } fro
 
 import { colors } from '../../Colors'
 import { Octicons } from '@expo/vector-icons'
-import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo
 import { StyledImageBackground } from '../styles/StyledImageBackground';
 
 const SCROLL_TOP_OFFSET = 400
@@ -336,7 +333,7 @@ const PersonalDataScreen = () => {
             standard 
             signup 
             onPress={() => handlePersonalData()}>
-            <StyledText button bold >{arrivedFromProfile ? 'Actualitzar' : 'Següent'}</StyledText>
+            <StyledText button bold>{arrivedFromProfile ? 'Actualitzar' : 'Següent'}</StyledText>
           </StyledButton>
 
           </>

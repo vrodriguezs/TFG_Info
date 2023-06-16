@@ -1,15 +1,11 @@
 import React, { useState, useRef } from 'react'
-import { View, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios'
 
 import { firebase } from '../../firebase'
 
-import { Formik, useField } from 'formik'
-import { loginValidationSchema } from '../validationSchemas/loginValidation'
-
-import StyledTextInput from '../styles/StyledTextInput'
 import StyledText from '../styles/StyledText'
 import StyledIcon from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
@@ -65,12 +61,12 @@ const PreferencesScreen = ({ onDataSent }) => {
           console.log('Going to do logIn')
           handleLogin(getEmail(), getPassword())
           console.log('Going to store in db')
-          updateDataToUserDatabase(); // Pass the user UID as an argument
+          updateDataToUserDatabase();
           
         })
         .catch((error) => alert(error.message));
     } else {
-      updateDataToUserDatabase(); // Pass the user UID as an argument
+      updateDataToUserDatabase();
     }
     navigation.navigate('Home');
   };
@@ -119,8 +115,7 @@ const PreferencesScreen = ({ onDataSent }) => {
       dishes: dishesToExport,
       intoAler: intoAlerToExport,
       ingredients: ingredientsToExport,
-      email: getEmail(),
-      weeklyMenu: []
+      email: getEmail()
     }
     const userId = firebase.auth().currentUser.uid;
     const userRef = todoRef.doc(userId);
@@ -147,37 +142,11 @@ const PreferencesScreen = ({ onDataSent }) => {
             console.error('Error saving user data:', error);
           });
       }
-      sendDataToBackEnd(userId)
     })
     .catch((error) => {
       console.error('Error checking user document:', error);
     });
     
-  }
-
-  const sendDataToBackEnd = async (userId) => {
-    const user = {
-      name: nameToExport,
-      age: ageToExport,
-      weight: weightToExport,
-      height: heightToExport,
-      sex: sexToExport,
-      exRoutine: exRoutineToExport,
-      exIntensity: exIntensityToExport,
-      veg: vegToExport,
-      dishes: dishesToExport,
-      intoAler: intoAlerToExport,
-      ingredients: ingredientsToExport
-    }
-
-    try {
-      const response = await axios.post('http://192.168.1.44:8080/api/generate-menu', 
-      { user, userId })
-      console.log(response.data)
-
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   const handleOnPress = (item) => {
@@ -257,7 +226,7 @@ const PreferencesScreen = ({ onDataSent }) => {
               standard
               signup
               onPress={() => handlePreferencesScreen()}>
-              <StyledText button bold >Començar</StyledText>
+              <StyledText button bold>{arrivedFromProfile ? 'Actualitzar' : 'Començar'}</StyledText>
             </StyledButton>
           </>
         }

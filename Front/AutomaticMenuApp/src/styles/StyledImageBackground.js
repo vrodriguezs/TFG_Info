@@ -6,7 +6,7 @@ export const StyledImageBackground = ({ className }) => {
     return(
         <ImageBackground
             style={[styles.background, {opacity, zIndex: -1}]}
-            source={require('../assets/icons/leavesBackground_02.png')}
+            source={require('../assets/icons/leavesBackground.png')}
         />
     )}
 

@@ -16,8 +16,7 @@ const styles = StyleSheet.create({
     screenMenuContainer: {
       flex: 1,
       padding: 25,
-      paddingBottom: 100,
-      //backgroundColor: colors.primary
+      paddingBottom: 100
     },
     innerContainer: {
       flex: 1,
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     center: {
       alignItems: 'center'
     },
-    centerScreen: { /*ara mateix només d'usa x la screen d receptes, s'haurà d borrar*/
+    centerScreen: {
       justifyContent: 'center'
     },
     paddingBott: {

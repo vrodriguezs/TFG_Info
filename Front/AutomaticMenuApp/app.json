@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "FirebaseAuth",
-    "slug": "FirebaseAuth",
+    "name": "WellFood",
+    "slug": "WellFood",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/icons/logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/icons/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#d5d5d5"
     },
@@ -21,12 +21,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/icons/logo.png",
         "backgroundColor": "#d5d5d5"
-      }
+      },
+      "package": "com.vrodriguezs.WellFood"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ff3bda98-1b33-416b-b0b0-570e8ce42030"
+      }
     }
   }
 }

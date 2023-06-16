@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/core'
 
-import StyledTextInput from '../styles/StyledTextInput'
 import StyledText  from '../styles/StyledText'
 import StyledIcon  from '../styles/StyledIcon'
 import StyledContainer from '../styles/StyledContainer'
@@ -8,10 +7,6 @@ import StyledButton from '../styles/StyledButton'
 
 import BackButton from '../specialButtons/BackButton';
 
-import { colors } from '../../Colors'
-
-import { Octicons } from '@expo/vector-icons'
-import { View, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import { StyledImageBackground } from '../styles/StyledImageBackground'
 
 const WelcomeScreen = () => {
@@ -23,7 +18,7 @@ const WelcomeScreen = () => {
       <StyledContainer screenContainer>
       <BackButton screen={'SignUp'}/>
         <StyledContainer innerContainer>
-          <StyledIcon logoWelcome source={require('../assets/icons/logo_02.png')}/>
+          <StyledIcon logoWelcome source={require('../assets/icons/logo.png')}/>
           <StyledContainer welcome>
             <StyledContainer flexRow>
               <StyledText welcome colorlight bold>Benvingut </StyledText>
@@ -40,7 +35,7 @@ const WelcomeScreen = () => {
           <StyledButton 
             standard 
             welcome
-            onPress={() => navigation.navigate(/*'Home'*/'PersonalData')}>
+            onPress={() => navigation.navigate('SignUp')}>
             <StyledText getStarted color bold >Comencem</StyledText>
           </StyledButton>
         </StyledContainer>

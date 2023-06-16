@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/core'
 import { ScrollView } from 'react-native'
 
-import { firebase } from '../../firebase'
-
 import { Formik, useField } from 'formik'
 import { signUpValidationSchema } from '../validationSchemas/loginValidation'
 
@@ -17,7 +15,6 @@ import BackButton from '../specialButtons/BackButton';
 import { Octicons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
-import { AppRegistry } from 'react-native-web'; //cuidao q ns q es aixo, utilitza web, potser x això no anava
 import { StyledImageBackground } from '../styles/StyledImageBackground'
 
 const initialValues = {

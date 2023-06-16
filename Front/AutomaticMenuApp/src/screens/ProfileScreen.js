@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from 'react'
-import { StyleSheet, View, Text, FlatList} from 'react-native'
+import { FlatList} from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import StyledContainer from '../styles/StyledContainer'
@@ -7,8 +7,6 @@ import StyledButton from '../styles/StyledButton'
 import StyledText from '../styles/StyledText'
 
 import { ageDropdownData, heightDropdownData, weightDropdownData } from '../../FormsData'
-
-import { colors } from '../../Colors'
 
 import { firebase } from '../../firebase'
 import { StyledImageBackground } from '../styles/StyledImageBackground'
@@ -35,14 +33,12 @@ const ProfileScreen = () => {
       try {
         const db = firebase.firestore();
         userId = firebase.auth().currentUser.uid
-        console.log(userId)
         const userDocRef = db.collection('users').doc(userId);
         const userDoc = await userDocRef.get();
     
         if (userDoc.exists) {
           const user = userDoc.data();
           const filteredUser = {};
-          // Filter out array values
           Object.entries(user).forEach(([key, value]) => {
             if (!Array.isArray(value)) {
               fieldOrder.forEach(field => {
@@ -105,7 +101,6 @@ const ProfileScreen = () => {
             standard 
             signup 
             onPress={() => navigation.navigate('PersonalData', { arrivedFromProfile: true })}>
-            {/*ergo posar un atribut o algo q identifiqui quan es ve d la screen d profile*/}
             <StyledText button bold >Actualitzar</StyledText>
           </StyledButton>
           </>

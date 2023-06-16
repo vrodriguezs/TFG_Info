@@ -45,7 +45,7 @@ const LoginScreen = () => {
       <>
       <StyledContainer userStatsLogin>
         <StyledContainer leftIcon>
-          <Octicons name={icon} size={30} color={/*meta.error ? colors.error : */colors.textPlaceholder}/>
+          <Octicons name={icon} size={30} color={colors.textPlaceholder}/>
         </StyledContainer>
         <StyledText label bold>{labelTitle}</StyledText>
         
@@ -85,7 +85,7 @@ const LoginScreen = () => {
 
               <StyledContainer screenContainer>
 
-                <StyledIcon logo source={require('../assets/icons/logo_02.png')}/>
+                <StyledIcon logo source={require('../assets/icons/logo.png')}/>
 
                 <FormikInputValue
                   name='email'
@@ -115,7 +115,7 @@ const LoginScreen = () => {
                 </StyledButton>
                 <StyledContainer newAccount>
                   <StyledText small>Encara no tens compte? </StyledText>
-                  <StyledButton link onPress={() => navigation.navigate('Preferences')}>
+                  <StyledButton link onPress={() => navigation.navigate('SignUp')}>
                     <StyledText small color bold>Registra't!</StyledText>
                   </StyledButton>
                 </StyledContainer>

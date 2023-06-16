@@ -1,7 +1,7 @@
 import React from 'react'
-import StyledButton from './src/styles/StyledButton';
+import StyledButton from '../styles/StyledButton';
 
-import { colors } from './Colors';
+import { colors } from '../../Colors';
 
 import { Octicons } from '@expo/vector-icons'
 

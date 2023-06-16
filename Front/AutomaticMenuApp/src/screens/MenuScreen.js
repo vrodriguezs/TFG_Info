@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Text, ScrollView, Dimensions, Modal, Alert } from 'react-native'
+import { Text, ScrollView, Dimensions, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { orderBy } from 'lodash';
-import axios from 'axios'
 
 import StyledContainer from '../styles/StyledContainer'
 import StyledText from '../styles/StyledText'
 import StyledButton from '../styles/StyledButton'
 import StyledIcon from '../styles/StyledIcon'
 
-import { Feather, Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../Colors'
 
 import { firebase } from '../../firebase'
@@ -67,8 +66,7 @@ const MenuScreen = () => {
       try {
         //agafar l'usuari loguejat
         const db = firebase.firestore();
-        userId = firebase.auth().currentUser.uid
-        const userRef = db.collection('users').doc(userId);
+        const userRef = db.collection('users').doc('d7iPs2CqT4h0UCuwm3efiICVBgN2');
   
         const userDoc = await userRef.get();
   
@@ -98,28 +96,10 @@ const MenuScreen = () => {
     fetchMenuData();
   }, []);
 
-
-  let similarDish
-  const getSimilarDish = async (dish) => {
-    let similarDishGot
-    try {
-      let intoAlerUser = ["Ous"]
-      similarDish = (await axios.post('http://192.168.1.44:8080/api/similar-dish', {dish, intoAlerUser}));
-      console.log("SIMILAR DISH",similarDish.data);
-      similarDishGot = true
-      if(similarDishGot) {
-        similarDishesAlert(similarDish.data)
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    
-  };
-
   const similarDishesAlert = (dish) => {
     Alert.alert(
-      '',
       'Alternatives al plat',
+      'Aquí sortiria un plat similar, el que es veu és el mateix que ja hi ha.',
       [
         {
           text: dish.name,
@@ -170,13 +150,11 @@ const MenuScreen = () => {
                     <StyledContainer row spaceBetween userStatsProfile>
                       <StyledText big bold>{meal}</StyledText>
                       <StyledContainer row spaceBetween>
-                        {/* <StyledText small colorPlaceholder>MEAL KCAL...</StyledText> */}
                         <StyledButton padding onPress={() => {
                           setSelectedMeal(meal);
                           setSelectedDishes(menuList[meal]);
                           setModalVisible(true);
                         }}>
-                          {/* <Feather name='edit-2' size={30} color={colors.action} /> */}
                         </StyledButton>
                       </StyledContainer>
                     </StyledContainer>
@@ -191,7 +169,7 @@ const MenuScreen = () => {
                             <StyledContainer row spaceBetween key={`${day}-${meal}-${mealIndex}-${index}-${i}`}>
                               <StyledContainer row>
                                 <StyledContainer row flexStart>
-                                  <StyledButton onPress={() => getSimilarDish(dish)}>
+                                  <StyledButton onPress={() => similarDishesAlert(dish)/*getSimilarDish(dish)*/}>
                                     <MaterialCommunityIcons name={'reload'} size={26} color={colors.action} style={{paddingLeft: 5}}/>
                                   </StyledButton>
                                   <StyledText margin>{values}</StyledText>

@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     widthSmall: {
       width: 88
-    }, //no s'usa
+    },
     rightIcon: {
       right: 15,
       top: 60,

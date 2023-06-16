@@ -26,7 +26,6 @@ public class DishController {
     public void generateMenu(@RequestBody UserAndId userAndId) throws Exception {
         String userId = userAndId.getUserId();
         User user = userAndId.getUser();
-        System.out.println(userId);
         dishService.generateMenu(user, userId);
     }
 

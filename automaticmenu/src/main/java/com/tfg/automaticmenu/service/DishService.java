@@ -90,8 +90,6 @@ public class DishService {
 
         ApiFuture<WriteResult> future = documentRef.update(updates);
         future.get();
-
-        System.out.println("Menu field updated successfully.");
     }
 
     private Boolean vegToBoolean(String veg) {

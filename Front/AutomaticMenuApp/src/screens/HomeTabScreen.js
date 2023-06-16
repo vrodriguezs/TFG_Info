@@ -1,5 +1,4 @@
 import React from 'react'
-import { Image, View, Text } from 'react-native'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -11,7 +10,7 @@ import { colors } from '../../Colors'
 
 import { StyledShadow } from '../styles/StyledShadow';
 
-import { Ionicons, Octicons } from '@expo/vector-icons'
+import { Octicons } from '@expo/vector-icons'
 
 const Tab = createBottomTabNavigator()
 

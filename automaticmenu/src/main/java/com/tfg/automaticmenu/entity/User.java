@@ -15,7 +15,6 @@ public class User {
     int dishes;
     List<String> intoAler;
     List<String> ingredients;
-    ExerciseCombination exerciseCombination;
 
     public String getName() {
         return name;
