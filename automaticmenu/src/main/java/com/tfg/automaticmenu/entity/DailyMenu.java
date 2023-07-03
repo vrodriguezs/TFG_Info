@@ -16,6 +16,22 @@ public class DailyMenu {
         this.weekId = weekId;
         this.weeklyMenu = new HashMap<>();
         generateDailyMenu(user, allMealsAvailable, kcalPerMeal);
+        System.out.println("FINAL MENU");
+        for (Map.Entry<String, List<Dish>> entry : weeklyMenu.entrySet()) {
+            double kcalMeal = 0;
+            System.out.println(weekId);
+            String meal = entry.getKey();
+            List<Dish> dishes = entry.getValue();
+            System.out.println(meal);
+            for(Dish dish : dishes) {
+                System.out.println("\t- "+dish.getName());
+                kcalMeal += dish.getKcal();
+            }
+            double bot = 2550 - KCAL_MARGIN;
+            double top = 2550 + KCAL_MARGIN;
+            System.out.println("TOTAL KCAL MEAL: "+kcalMeal+"\tbot: "+bot+"\ttop: "+top);
+            System.out.println();
+        }
     }
 
     private void generateDailyMenu(User user, List<Dish> allMealsAvailable, Map<String, Integer> kcalPerMeal) {

@@ -66,7 +66,9 @@ const MenuScreen = () => {
       try {
         //agafar l'usuari loguejat
         const db = firebase.firestore();
-        const userRef = db.collection('users').doc('d7iPs2CqT4h0UCuwm3efiICVBgN2');
+        userId = firebase.auth().currentUser.uid
+        console.log('PATATA ',userId)
+        const userRef = db.collection('users').doc(userId);
   
         const userDoc = await userRef.get();
   

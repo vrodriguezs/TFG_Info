@@ -35,7 +35,7 @@ const WelcomeScreen = () => {
           <StyledButton 
             standard 
             welcome
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => navigation.navigate('PersonalData')}>
             <StyledText getStarted color bold >Comencem</StyledText>
           </StyledButton>
         </StyledContainer>

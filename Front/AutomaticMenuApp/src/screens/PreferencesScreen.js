@@ -62,13 +62,11 @@ const PreferencesScreen = ({ onDataSent }) => {
           handleLogin(getEmail(), getPassword())
           console.log('Going to store in db')
           updateDataToUserDatabase();
-          
         })
         .catch((error) => alert(error.message));
     } else {
       updateDataToUserDatabase();
     }
-    navigation.navigate('Home');
   };
 
   const handleLogin = (email, password) => {
@@ -122,7 +120,7 @@ const PreferencesScreen = ({ onDataSent }) => {
     console.log('AddData ',userId)
     userRef
     .get()
-    .then((doc) => {
+    .then(async (doc) => {
       if (doc.exists) {
         userRef
           .update(data)
@@ -142,12 +140,38 @@ const PreferencesScreen = ({ onDataSent }) => {
             console.error('Error saving user data:', error);
           });
       }
+      await sendDataToBackEnd(userId)
     })
     .catch((error) => {
       console.error('Error checking user document:', error);
-    });
-    
+    })
   }
+
+  const sendDataToBackEnd = async (userId) => {
+    const user = {
+      name: nameToExport,
+      age: ageToExport,
+      weight: weightToExport,
+      height: heightToExport,
+      sex: sexToExport,
+      exRoutine: exRoutineToExport,
+      exIntensity: exIntensityToExport,
+      veg: vegToExport,
+      dishes: dishesToExport,
+      intoAler: intoAlerToExport,
+      ingredients: ingredientsToExport
+    }
+    try {
+       const response = await axios.post('https://automaticmenuapp.oa.r.appspot.com/api/generate-menu', 
+      //const response = await axios.post('http://192.168.1.43:8080/api/generate-menu', 
+      { user, userId })
+      console.log(response.data)
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   const handleOnPress = (item) => {
     //faig una còpia d tot l'array

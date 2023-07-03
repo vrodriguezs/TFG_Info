@@ -24,6 +24,7 @@ public class DishController {
 
     @PostMapping("/generate-menu")
     public void generateMenu(@RequestBody UserAndId userAndId) throws Exception {
+        System.out.println("COMENÇA POST");
         String userId = userAndId.getUserId();
         User user = userAndId.getUser();
         dishService.generateMenu(user, userId);
@@ -36,5 +37,9 @@ public class DishController {
         return dishService.getSimilarDish(dish, intoAlerUser);
     }
 
+    @GetMapping("/simple-request")
+    public String simpleRequest() {
+        return "OK";
+    }
 
 }

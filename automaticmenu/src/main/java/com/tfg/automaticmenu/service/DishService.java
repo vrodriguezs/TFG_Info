@@ -36,7 +36,7 @@ public class DishService {
         updates.put("weeklyMenu", Collections.emptyList());
         documentReference.update(updates);
 
-        int kcal = (int) Math.round(calculateTotalKcal(user));
+        int kcal = ((int) Math.round(calculateTotalKcal(user)))-300;
         List<String> intoAler = user.getIntoAler();
         List<String> ingredients = user.getIngredients();
         Boolean veg = vegToBoolean(user.getVeg());
